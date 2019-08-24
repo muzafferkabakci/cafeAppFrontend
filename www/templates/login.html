@@ -1,0 +1,39 @@
+<ion-modal-view class="home_bg1 ">
+  <ion-header-bar class="home_bg1 ">
+    <h1 class="title">Login</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content class="home_bg1 ">
+
+    <div class="row ">
+
+  <div class="col col-100 ortala " >
+
+<img class="unlem" style="width: 200px"src="img/coffee.png">
+
+  </div>
+</div>
+
+
+
+
+    <form ng-submit="doLogin()">
+      <div class="list">
+        <label class=" item-input inputbutton home_bg1" >
+          <span class="input-label beyaz ">Username</span>
+          <input type="text" ng-model="loginData.username">
+        </label>
+        <label class=" item-input inputbutton  home_bg1">
+          <span class="input-label beyaz">Password</span>
+          <input type="password" ng-model="loginData.password">
+        </label>
+        <label class="">
+          <button class="button submitbutton"  type="submit">Giriş Yap</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

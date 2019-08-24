@@ -1,0 +1,256 @@
+.home_bg{
+	    background: white;
+}
+.beyaz{
+  color: white;
+}
+
+.home_bg1{
+        background: #444444 !important;
+}
+.muzik{
+    border: 1px solid white  !important;
+    border-radius: 30px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+
+.subecol {
+    margin-left: -12px;
+    position: absolute;
+    margin-top: -40px;
+    width: 196px;
+}
+
+.subecard{
+  border-radius: 30px;
+  border: 2px solid white;
+}
+
+
+.suberesim{
+  border-radius:10px;
+}
+.subeitem{
+  color:white
+  background:yellow;
+}
+
+.yolcol{
+    position: absolute;
+    margin-left: 183px;
+    margin-top: -20px;
+}
+
+.yolbutton{
+    width: 90px;
+    border-radius: 61px;
+    opacity: 0.8;
+    right: -50px;
+    border: 2px solid #a99494 !important;
+}
+.kampanya{
+        margin-top: -25px;
+        border: 2px solid white !important;
+        border-radius: 30px;
+  }
+
+.sube {
+    position: absolute;
+    top: 65px;
+    padding: 10px;
+    border-radius: 50px;
+}
+.ortala{
+    text-align: center;
+}
+.beyaz{
+    color: #fff !important;
+}
+.yol{
+    opacity: 0.6;
+    top: 65px;
+    left: 50px;
+    border-radius: 50px;
+    padding: 10px;
+    width: 100px;
+    height: 30px;
+}
+
+
+.eq-bar {
+  transform: scale(1, -1) translate(0, -24px);
+}
+
+.eq-bar--1 {
+  animation-name: short-eq;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-delay: 0s;
+}
+
+.eq-bar--1 {
+  animation-name: short-eq;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-delay: 0s;
+}
+
+.eq-bar--2 {
+  animation-name: tall-eq;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.17s;
+}
+
+.eq-bar--3 {
+  animation-name: short-eq;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.34s;
+}
+
+@keyframes short-eq {
+  0% {
+    height: 8px
+  }
+
+  50% {
+    height: 4px
+  }
+
+  100% {
+    height: 8px
+  }
+}
+
+@keyframes tall-eq {
+  0% {
+    height: 16px
+  }
+
+  50% {
+    height: 6px
+  }
+
+  100% {
+    height: 16px
+  }
+}
+
+
+.sayi{
+    position: absolute;
+    margin-top: -16px !important;
+    width: 150px;
+    height: 41px;
+}
+
+.yuvarlak{
+
+    background: yellow;
+    border-radius: 50%;
+    border: 2px solid #fafafa;
+    margin: 2px;
+}
+
+.yuvarlakgri{
+
+    background: #a5a595;
+    border-radius: 50%;
+    border: 2px solid #fafafa;
+    margin: 2px;
+}
+
+
+
+.tikla{
+    position: absolute;
+    right: 19px;
+    top: 316px;
+    width: 90px;
+    border-radius: 35px;
+    border: 2px solid #fafafa;
+    background: #ffc900;
+
+}
+
+.urunresim{
+    height: 203px;
+    border-radius: 33px;
+}
+
+
+.tiklayersekil{
+    width: 84px;
+    height: 21px;
+    border-radius: 20px;
+    border: 2px solid #fff !important;
+}
+
+.tiklayer{
+    position: absolute;
+    margin-top: -25px;
+    margin-left: 245px;
+
+}
+
+
+.fiyatyer{
+    position: absolute;
+    margin-top: -55px;
+    margin-left: 165px;
+}
+
+.fiyatyazi{
+    background: black;
+    color: white;
+    margin-top: -13px;
+
+
+}
+
+.fiyatcard{
+  border-radius: 50px;
+    width: 150px;
+    height: 35px;
+    border: 2px solid white;
+
+}
+
+.unlem{
+    width:75px;
+}
+
+.bardak{
+    width:50px;
+
+}
+
+.bardaksaydam{
+    width:50px;
+    opacity: 0.4;
+}
+
+.submitbutton{
+  border-radius: 50px;
+  border:2px solid white !important;
+  color: #444444 ;
+  width: 300px;
+  position: relative;
+  left: 50%;
+  margin-left: -150px;
+}
+
+.inputbutton{
+ border-radius: 50px;
+ border:2px solid white !important;
+ color: white;
+ margin: 10px;
+ width: 250px;
+ left: 50%;
+ margin-left: -125px;
+}
+
+}
