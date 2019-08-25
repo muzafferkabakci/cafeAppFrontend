@@ -1,6 +1,38 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $rootScope) {
+.controller('AppCtrl', function($parse,$scope, $ionicModal, $timeout, $http, $rootScope) {
+
+
+$scope.dinamikScope= function(name,data){
+  var the_string = name;
+  var modelScope = $parse(the_string);
+  modelScope.assign($rootScope, data);
+
+};
+
+$scope.serviceLink="http://projeapp.site/cafe/services.php";
+
+$scope.postService = function(scopeName,veri){
+     
+      $http.post($scope.serviceLink, veri)
+            .success(function (data, status) {
+              console.log("Gelen Data"+data);
+              $scope.dinamikScope(scopeName,data);
+
+              console.log("Gelen Data User:"+$scope.userbilgi);
+
+
+                //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
+               //-ac-//console.log("Token stored, device is successfully subscribed to receive push notifications.");
+            })
+            .error(function (data, status) {
+               console.log("Hata Data"+data);
+               //-ac-//console.log("Error storing device token." + data + " " + status)
+                  //-ac-//console.log("n-11");
+            });
+
+};
+
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -33,12 +65,20 @@ angular.module('starter.controllers', [])
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
+
+$scope.loginData.service_type="login_user";
+
+$scope.postService('userbilgi',$scope.loginData);
+
+/*
+
     $http.post("http://gokhanbirkin.net/services2.php?service_type=login_user&username="+$scope.loginData.username+"&password_user="+$scope.loginData.password)
     .success(function(data){
       $rootScope.gelenUser = data[0];
       console.log(data);
 
     })
+*/
     console.log("LoginData : "+$scope.loginData.username);
     console.log("PasswordData : "+$scope.loginData.password);
 
