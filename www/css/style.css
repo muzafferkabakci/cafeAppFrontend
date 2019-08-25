@@ -224,8 +224,9 @@
 }
 
 .bardak{
+    position: relative;
     width:50px;
-
+    padding-right : -10px;
 }
 
 .bardaksaydam{
