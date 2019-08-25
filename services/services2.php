@@ -8,6 +8,12 @@
 // header('Access-Control-Max-Age: 86400');
 
 
+$gelen_json = file_get_contents("php://input");
+$gelen_data = json_decode($gelen_json);
+$operation_type = $gelen_data->operation_type;
+$service_type = $gelen_data->service_type;
+
+
 // DB bağlantısı PHP ile kurulacak
 
 
