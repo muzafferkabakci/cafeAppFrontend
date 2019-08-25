@@ -17,6 +17,7 @@
   try {
       $pdo = new PDO('mysql:host='.$host.';dbname='.$data.';charset=utf8', $user, $pass);
      // print '</br> --- </br>'."Sunucuya bağlanıldı..".'</br> --- </br>';
+     print "Bağlandı ".'</br>';
   } catch (PDOException $e) {
       print "Error!: " . $e->getMessage();
   }

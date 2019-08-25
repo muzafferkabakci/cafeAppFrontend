@@ -1,6 +1,7 @@
 <?php
 
-include("databaseCon.php");
+ include("databaseCon.php");
+
 
 $gelen_json = file_get_contents("php://input");
 $gelen_data = json_decode($gelen_json);
@@ -101,8 +102,6 @@ function login_user($pdo, $gelen_data){
       // $jsonArray = json_decode($json_data,true);
       // return $jsonArray;
       print $json_data;
-
-
     }else{
       return false;
     }
