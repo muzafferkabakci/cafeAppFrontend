@@ -10,16 +10,11 @@ angular.module('starter.controllers', [])
   //});
 
   // Form data for the login modal
+  // Form data for the login modal
   $scope.loginData = {};
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-    $ionicModal.fromTemplateUrl('templates/barkod.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
@@ -46,6 +41,7 @@ angular.module('starter.controllers', [])
     }, 1000);
   };
 })
+
 
 .controller('PlaylistsCtrl', function($scope,$rootScope) {
   $scope.playlists = [
