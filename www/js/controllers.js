@@ -12,6 +12,8 @@ $scope.dinamikScope= function(name,data){
 
 $scope.serviceLink="http://projeapp.site/cafe/services.php";
 
+$scope.deneme = "sdafsfd";
+
 $scope.postService = function(scopeName,veri){
      
       $http.post($scope.serviceLink, veri)
