@@ -1,6 +1,6 @@
 <?php
 
-include("services.php");
+include("databaseCon.php");
 $gelen_json = file_get_contents("php://input");
 $gelen_data = json_decode($gelen_json);
 $service_type = $gelen_data->service_type;
