@@ -22,16 +22,20 @@
 
     <form ng-submit="doLogin()">
       <div class="list">
-        <label class=" item-input inputbutton home_bg1" >
-          <span class="input-label beyaz ">Username</span>
-          <input type="text" ng-model="loginData.username">
-        </label>
-        <label class=" item-input inputbutton  home_bg1">
-          <span class="input-label beyaz">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
+ 
+
+    <label class="item item-input inputbutton home_bg1">
+    <input type="text" placeholder="username yaz" ng-model="loginData.username">
+  </label>
+
+
+    <label class="item item-input inputbutton home_bg1">
+    <input type="text" placeholder="Password" ng-model="loginData.password_user">
+  </label>
+
+
         <label class="">
-          <button class="button submitbutton"  type="submit">Giriş Yap</button>
+          <button ng-disabled="!loginData.username || !loginData.password_user" class="button submitbutton"  type="submit">Giriş Yap</button>
         </label>
       </div>
     </form>
