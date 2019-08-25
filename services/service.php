@@ -5,9 +5,11 @@ include("databaseCon.php");
 $gelen_json = file_get_contents("php://input");
 $gelen_data = json_decode($gelen_json);
 $service_type = $gelen_data->service_type;
-$jsonDeneme ->service_type ="login_user";
+//$jsonDeneme ->service_type ="login_user";
 $jsonDeneme ->username ="gkand";
 $jsonDeneme ->password_user ="123";
+$myJson = json_encode($jsonDeneme);
+login_user($pdo,$myJson);
 //-----------------------------------------------------------------
 switch($service_type){
   case register_user:
