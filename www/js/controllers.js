@@ -9,6 +9,7 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
+  //ileri seviye proje
   // Form data for the login modal
   // Form data for the login modal
   $scope.loginData = {};
