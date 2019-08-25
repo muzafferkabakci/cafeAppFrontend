@@ -9,7 +9,7 @@ $service_type = $gelen_data->service_type;
 switch($service_type){
   case register_user:
     echo "registera girdi. DEneme".'</br> --- </br>';
-    register_user($pdo);
+    register_user($pdo, $gelen_data);
     break;
   case login_user:
     //echo "logine girdik.".'</br> --- </br>';
@@ -17,57 +17,57 @@ switch($service_type){
     break;
   case forgot_password:
     echo "forgot_password girdi".'</br> --- </br>';
-    forgat_password($pdo);
+    forgat_password($pdo,$gelen_data);
     break;
   case if_exist:
 	  echo "if_exit girdi".'</br> --- </br>';
-	  if_exist($pdo);
+	  if_exist($pdo,$gelen_data);
     break;
   case load_home:
     echo "load_home girdi".'</br> --- </br>';
-    load_home($pdo);
+    load_home($pdo,$gelen_data);
     break;
   case buton_click:
     echo "buton_click girdi".'</br> --- </br>';
-    buton_click($pdo);
+    buton_click($pdo,$gelen_data);
     break;
   case get_branches:
     //echo "get_branches girdi".'</br> --- </br>';
-    get_branches($pdo);
+    get_branches($pdo,$gelen_data);
     break;
   case get_products:
     //echo "get_products girdi". </br> --- </br>;
-    get_products($pdo);
+    get_products($pdo,$gelen_data);
     break;
   case contact;
     echo "contact girdi";
-    contact($pdo);
+    contact($pdo,$gelen_data);
     break;
 
   //-----KASA İŞLEMLERİ ----//
 
   case update_barcode:
     echo "update_barcode girdi".'</br> --- </br>';
-    update_barcode($pdo);
+    update_barcode($pdo,$gelen_data);
     break;
   case depleted_products:
     echo "depleted_products girdi".'</br> --- </br>';
-    depleted_products($pdo);
+    depleted_products($pdo,$gelen_data);
     break;
   default:
     echo "0";
 }
 
 
-function register_user($pdo){
+function register_user($pdo,$gelen_data){
 
-  $name_user = $_GET['name_user'];
-  $username = $_GET['username'];
-  $password_user =$_GET['password_user'];
-  $school=$_GET['school'];
-  $email_address=$_GET['email_address'];
-  $phone_number=$_GET['phone_number'];
-  $company_id=$_GET['company_id'];
+  $name_user = $gelen_data->name_user;
+  $username = $gelen_data->username;
+  $password_user = $gelen_data->password_user;
+  $school= $gelen_data->school;
+  $email_address= $gelen_data->email_address;
+  $phone_number= $gelen_data->phone_number;
+  $company_id= $gelen_data->company_id;
   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
   //id+1
 
@@ -103,8 +103,8 @@ function login_user($pdo, $gelen_data){
 }
 
 //SMS MAİL <---
-function forgot_password($pdo){
-  $username = $_GET['username'];
+function forgot_password($pdo,$gelen_data){
+  $username = $gelen_data->username;
   $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
   $stmt->bindParam(':username', $username, PDO::PARAM_STR);
   $stmt->execute();
@@ -133,8 +133,8 @@ function forgot_password($pdo){
 // }
 
 //Veritabanından sorgu bekleniyor..
-function load_home($pdo){
-  $user_id = $_GET['user_id'];
+function load_home($pdo,$gelen_data){
+  $user_id = $gelen_data->user_id;
   //$product_id = $_GET['product_id'];
   $stmt = $pdo->prepare('SELECT consumption.product_id, consumption.count FROM consumption WHERE consumption.user_id =:user_id');
   //SELECT(JOIN)(Product Name,Product ID,Product Image,Campaign Code ID, (campaign)Product ID)
@@ -175,8 +175,8 @@ function buton_click($pdo){
   }
 }
 
-function contact($pdo){
-  $branch_id = $_GET['branch_id'];
+function contact($pdo,$gelen_data){
+  $branch_id = $gelen_data->branch_id;
 
   $stmt = $pdo->prepare("SELECT branch.location, branch.phone_number, branch.image,company.name_company
   FROM company, branch
@@ -192,9 +192,9 @@ function contact($pdo){
   }
 }
 
-function get_branches($pdo){
+function get_branches($pdo,$gelen_data){
   //local->company_id
-  $company_id = $_GET['company_id'];
+  $company_id = $gelen_data->company_id;
   $stmt = $pdo->prepare("SELECT branch.branch_id, branch.location, branch.image  FROM branch WHERE branch.company_id =:company_id");
   $stmt->bindParam(':company_id', $company_id, PDO::PARAM_STR);
 	$stmt->execute();
@@ -207,8 +207,8 @@ function get_branches($pdo){
   }
 }
 
-function get_products($pdo){
-  $branch_id = $_GET['branch_id'];
+function get_products($pdo,$gelen_data){
+  $branch_id = $gelen_data->branch_id;
   $stmt = $pdo->prepare("SELECT product.product_id, product.name_product, product.price, product.image, product.stock FROM product WHERE product.branch_id =:branch_id");
   $stmt->bindParam(':branch_id', $branch_id, PDO::PARAM_STR);
 	$stmt->execute();
@@ -250,10 +250,10 @@ function if_exist_func_two($pdo,$value,$fieldName,$tableName,$value2,$fieldName2
   return $return_value;
 }
 
-function update_barcode($pdo){
-  $user_id = $_GET['user_id'];
-  $product_id = $_GET['product_id'];
-  $campaign_id = $_GET['campaign_id'];
+function update_barcode($pdo,$gelen_data){
+  $user_id = $gelen_data->user_id;
+  $product_id = $gelen_data->product_id;
+  $campaign_id = $gelen_data->campaign_id;
   //$campaign_code = $_GET['campaign_code'];
   //qrcode_service->oluşturulan_barcode(user_id,product_id,campaign_id,campaign_code)
   //  $pdo->stmt('UPDATE campaign SET validation=0 WHERE campaign_id=:campaign_id ');
@@ -311,11 +311,11 @@ function update_barcode($pdo){
 
 }
 
-function depleted_products($pdo){
-  $product_id=$_GET['product_id'];
-  $user_id = $_GET['user_id'];
-  $branch_id =$_GET['branch_id'];
-  $company_id=$_GET['company_id'];
+function depleted_products($pdo,$gelen_data){
+  $product_id=$gelen_data->product_id;
+  $user_id = $gelen_data->user_id;
+  $branch_id =$gelen_data->branch_id;
+  $company_id=$gelen_data->company_id;
 
   $stmt = $pdo->prepare('INSERT INTO  depleted_products(product_id,user_id,branch_id,company_id)
   VALUES('.$product_id.','.$user_id.','.$branch_id.','.$company_id.')');
