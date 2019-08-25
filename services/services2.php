@@ -13,7 +13,7 @@ switch($service_type){
     break;
   case login_user:
     //echo "logine girdik.".'</br> --- </br>';
-    login_user($pdo);
+    login_user($pdo,$gelen_data);
     break;
   case forgot_password:
     echo "forgot_password girdi".'</br> --- </br>';
@@ -78,7 +78,7 @@ function register_user($pdo){
 }
 
 //localStorage->
-function login_user($pdo){
+function login_user($pdo, $gelen_data){
 
     $username = $gelen_data->username;
     $password_user =$gelen_data->password_user;
