@@ -1,9 +1,8 @@
 <?php
 
-
+include("services.php");
 $gelen_json = file_get_contents("php://input");
 $gelen_data = json_decode($gelen_json);
-$operation_type = $gelen_data->operation_type;
 $service_type = $gelen_data->service_type;
 
 //-----------------------------------------------------------------
@@ -62,7 +61,7 @@ switch($service_type){
 
 function register_user($pdo){
 
-  $name_user=$_GET['name_user'];
+  $name_user = $_GET['name_user'];
   $username = $_GET['username'];
   $password_user =$_GET['password_user'];
   $school=$_GET['school'];
@@ -81,8 +80,8 @@ function register_user($pdo){
 //localStorage->
 function login_user($pdo){
 
-    $username = $_GET['username'];
-    $password_user =$_GET['password_user'];
+    $username = $gelen_data->username;
+    $password_user =$gelen_data->password_user;
 
     $stmt = $pdo->prepare("SELECT name_user, username,school,email_address,phone_number,company_id
     from user where username=:username and password_user=:password_user");
