@@ -6,24 +6,6 @@ $gelen_data = json_decode($gelen_json);
 $operation_type = $gelen_data->operation_type;
 $service_type = $gelen_data->service_type;
 
-
-// DB bağlantısı PHP ile kurulacak
-
-
-  $host = 'mysql11.turhost.com';
-  $user = 'cafeApp';
-  $pass = 'Gokhan12356.';
-  $data = 'app_db';
-  $service_type = $_GET['service_type'];
-  //echo $service_type;
-
-  try {
-      $pdo = new PDO('mysql:host='.$host.';dbname='.$data.';charset=utf8', $user, $pass);
-     // print '</br> --- </br>'."Sunucuya bağlanıldı..".'</br> --- </br>';
-  } catch (PDOException $e) {
-      print "Error!: " . $e->getMessage();
-  }
-
 //-----------------------------------------------------------------
 switch($service_type){
   case register_user:
