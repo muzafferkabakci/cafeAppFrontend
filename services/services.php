@@ -69,9 +69,9 @@ switch($service_type){
     depleted_products($pdo,$gelen_data);
     break;
   default:
-    echo "Hiç bir yere giremedi";
-    echo "gelen_data : ".$gelen_data;
-    echo "service_type : ".$service_type;
+    echo "Hiç bir yere giremedi".'</br>';
+    echo "gelen_data : ".$gelen_data.'</br>';
+    echo "service_type : ".$service_type.'</br>';
 }
 
 
