@@ -22,7 +22,7 @@ $service_type = $gelen_data->service_type;
 //-----------------------------------------------------------------
 switch($service_type){
   case register_user:
-    echo "registera girdi. DEneme".'</br> --- </br>';
+    // echo "registera girdi. DEneme".'</br> --- </br>';
     register_user($pdo, $gelen_data);
     break;
   case login_user:
@@ -30,19 +30,19 @@ switch($service_type){
     login_user($pdo,$gelen_data);
     break;
   case forgot_password:
-    echo "forgot_password girdi".'</br> --- </br>';
+    // echo "forgot_password girdi".'</br> --- </br>';
     forgat_password($pdo,$gelen_data);
     break;
   case if_exist:
-	  echo "if_exit girdi".'</br> --- </br>';
+	  // echo "if_exit girdi".'</br> --- </br>';
 	  if_exist($pdo,$gelen_data);
     break;
   case load_home:
-    echo "load_home girdi".'</br> --- </br>';
+    // echo "load_home girdi".'</br> --- </br>';
     load_home($pdo,$gelen_data);
     break;
   case buton_click:
-    echo "buton_click girdi".'</br> --- </br>';
+    // echo "buton_click girdi".'</br> --- </br>';
     buton_click($pdo,$gelen_data);
     break;
   case get_branches:
@@ -54,18 +54,18 @@ switch($service_type){
     get_products($pdo,$gelen_data);
     break;
   case contact;
-    echo "contact girdi";
+    // echo "contact girdi";
     contact($pdo,$gelen_data);
     break;
 
   //-----KASA İŞLEMLERİ ----//
 
   case update_barcode:
-    echo "update_barcode girdi".'</br> --- </br>';
+    // echo "update_barcode girdi".'</br> --- </br>';
     update_barcode($pdo,$gelen_data);
     break;
   case depleted_products:
-    echo "depleted_products girdi".'</br> --- </br>';
+    // echo "depleted_products girdi".'</br> --- </br>';
     depleted_products($pdo,$gelen_data);
     break;
   default:
@@ -84,11 +84,19 @@ function register_user($pdo,$gelen_data){
   $company_id= $gelen_data->company_id;
   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
   //id+1
-
-  if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-  VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
-    echo "kayıt eklendi";
+  if($pdo->exec('SELECT username FROM user WHERE username=:username') == null &&
+  $pdo->exec('SELECT email_address FROM user WHERE name_user=:email_address') == null &&
+  $pdo->exec('SELECT phone_number FROM user WHERE name_user=:phone_number') == null){
+    $pdo -> $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+    VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")');
+    echo "EKLENDİ";
+  }else{
+    echo "Eklenemedi";
   }
+  // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+  // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
+  //   echo "kayıt eklendi";
+  // }
 }
 
 //localStorage->
