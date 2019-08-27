@@ -14,13 +14,13 @@ $jsonDeneme ->service_type ="register_user";
 $gelen_json = json_encode($jsonDeneme);
 $gelen_json = file_get_contents("php://input");
 $gelen_data = json_decode($gelen_json);
-//$service_type = $gelen_data->service_type;
+$service_type = $gelen_data->service_type;
 
 
 // echo $myJson;
 //login_user($pdo,$myJson);
 //-----------------------------------------------------------------
-switch($gelen_data->service_type){
+switch($service_type){
   case register_user:
     // echo "registera girdi. DEneme".'</br> --- </br>';
     register_user($pdo, $gelen_data);
@@ -70,6 +70,7 @@ switch($gelen_data->service_type){
     break;
   default:
     echo "Hiç bir yere giremedi";
+    echo $gelen_data;
 }
 
 
