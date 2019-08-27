@@ -70,7 +70,8 @@ switch($service_type){
     break;
   default:
     echo "Hiç bir yere giremedi";
-    echo $gelen_data;
+    echo "gelen_data : ".$gelen_data;
+    echo "service_type : ".$service_type;
 }
 
 
