@@ -12,7 +12,6 @@ $jsonDeneme ->password_user ="123";
 $jsonDeneme ->school ="Deneme";
 $jsonDeneme ->service_type ="register_user";
 $gelen_json = json_encode($jsonDeneme);
-
 $gelen_json = file_get_contents("php://input");
 $gelen_data = json_decode($gelen_json);
 //$service_type = $gelen_data->service_type;
@@ -21,7 +20,7 @@ $gelen_data = json_decode($gelen_json);
 // echo $myJson;
 //login_user($pdo,$myJson);
 //-----------------------------------------------------------------
-switch($service_type){
+switch($gelen_data->service_type){
   case register_user:
     // echo "registera girdi. DEneme".'</br> --- </br>';
     register_user($pdo, $gelen_data);
@@ -70,7 +69,7 @@ switch($service_type){
     depleted_products($pdo,$gelen_data);
     break;
   default:
-    echo "0";
+    echo "Hiç bir yere giremedi";
 }
 
 
