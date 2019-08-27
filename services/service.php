@@ -7,10 +7,12 @@
 // header('Access-Control-Max-Age: 86400');
  include("databaseCon.php");
 
- $jsonDeneme ->username ="gkand";
- $jsonDeneme ->password_user ="123";
+$jsonDeneme ->username ="gkandth";
+$jsonDeneme ->password_user ="123";
+$jsonDeneme ->phone_number ="0537878276012";
+$jsonDeneme ->email_address = "asd";
 $jsonDeneme ->service_type ="register_user";
- $gelen_json = json_encode($jsonDeneme);
+$gelen_json = json_encode($jsonDeneme);
 
  //$gelen_json = file_get_contents("php://input");
 $gelen_data = json_decode($gelen_json);
@@ -84,14 +86,16 @@ function register_user($pdo,$gelen_data){
   $company_id= $gelen_data->company_id;
   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
   //id+1
-  if($pdo->exec('SELECT username FROM user WHERE username=:username') == null &&
-  $pdo->exec('SELECT email_address FROM user WHERE name_user=:email_address') == null &&
-  $pdo->exec('SELECT phone_number FROM user WHERE name_user=:phone_number') == null){
+  if($pdo->query('SELECT username FROM user WHERE username=:username') != FALSE){
+    echo "Aynı kullanıcı isminden mevcut";
+  // }else if($pdo->query('SELECT email_address FROM user WHERE email_address=:email_address') != FALSE){
+  //   echo "Aynı email adresinden mevcut";
+  // }else if($pdo->query('SELECT phone_number FROM user WHERE phone_number=:phone_number') != FALSE){
+  //   echo "Aynı telefon numarasından mevcut";
+   }else{
     $pdo -> $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
     VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")');
     echo "EKLENDİ";
-  }else{
-    echo "Eklenemedi";
   }
   // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
   // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
@@ -111,7 +115,6 @@ function login_user($pdo, $gelen_data){
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->bindParam(':password_user', $password_user, PDO::PARAM_STR);
     $stmt->execute();
-
  		$gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
 		$json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
     if($gelenuser){
