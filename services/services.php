@@ -84,19 +84,23 @@ function register_user($pdo,$gelen_data){
   $company_id= $gelen_data->company_id;
   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
   //id+1
-  if($pdo->exec('SELECT username FROM user WHERE username=:username') == null &&
-  $pdo->exec('SELECT email_address FROM user WHERE name_user=:email_address') == null &&
-  $pdo->exec('SELECT phone_number FROM user WHERE name_user=:phone_number') == null){
-    $pdo -> $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-    VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")');
-    echo "EKLENDİ";
-  }else{
-    echo "Eklenemedi";
+  if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+  VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
+    echo "kayıt eklendi";
   }
-  // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-  // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
-  //   echo "kayıt eklendi";
+  // if($pdo->exec('SELECT username FROM user WHERE username=:username') == null &&
+  // $pdo->exec('SELECT email_address FROM user WHERE name_user=:email_address') == null &&
+  // $pdo->exec('SELECT phone_number FROM user WHERE name_user=:phone_number') == null){
+  //   $pdo -> $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+  //   VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")');
+  //   echo "EKLENDİ";
+  // }else{
+  //   echo "Eklenemedi";
   // }
+  // // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+  // // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
+  // //   echo "kayıt eklendi";
+  // // }
 }
 
 //localStorage->
