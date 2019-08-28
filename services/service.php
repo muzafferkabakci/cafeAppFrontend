@@ -201,15 +201,13 @@ function buton_click($pdo,$gelen_data){
   $buton_id = $gelen_data->buton_id;
 
 
-  $stmt = $pdo->prepare("SELECT campaign_id,campaign_code  FROM campaign WHERE product_id=:buton_id AND validation !=0 LIMIT 1");
+  $stmt = $pdo->prepare("SELECT campaign_id,campaign_code  FROM campaign
+  WHERE product_id=:buton_id AND validation !=0 LIMIT 1");
   $stmt->bindParam(':buton_id', $buton_id, PDO::PARAM_STR);
   $stmt->execute();
 
   $gelendata = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
   $json_data=json_encode($gelendata,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-  // print $gelendata[id];
-  //$jsonArray = json_decode($json_data,true);
-  //$key =  $jsonArray[0]['id'];
 
   if($gelendata){
     print $json_data;
@@ -265,6 +263,7 @@ function get_products($pdo,$gelen_data){
 }
 //KASA İŞLEMLERİ
 //-----------------------------------------------------------------------------------------
+
 function if_exist_func($pdo,$value,$fieldName,$tableName){
 
 	$stmt = $pdo->prepare("SELECT * FROM ".$tableName." WHERE ".$fieldName."=:".$value);
@@ -296,59 +295,35 @@ function if_exist_func_two($pdo,$value,$fieldName,$tableName,$value2,$fieldName2
 function update_barcode($pdo,$gelen_data){
   $user_id = $gelen_data->user_id;
   $product_id = $gelen_data->product_id;
-  $campaign_id = $gelen_data->campaign_id;
-  //$campaign_code = $_GET['campaign_code'];
-  //qrcode_service->oluşturulan_barcode(user_id,product_id,campaign_id,campaign_code)
-  //  $pdo->stmt('UPDATE campaign SET validation=0 WHERE campaign_id=:campaign_id ');
-  // $user_exist = if_exist_func($pdo,$user_id,"user_id","consumption");
-  // if($user_exist==false){
-  //   echo "Kullanıcı yok".'</br> --- </br>';
-  //   $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count)
-  //   VALUES ('.$user_id.','.$product_id.', 1)');
-  //   $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
-  //   $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
-  //   $stmt->execute();
-  //   $stmt2 = $pdo->prepare('UPDATE  campaign SET campaign.validation=0, campaign.user_id =:user_id
-  //   WHERE campaign.campaign_id=:campaign_id ');
-  //   $stmt2->bindParam(':campaign_id',$campaign_id,PDO::PARAM_STR);
-  //   $stmt2->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-  //   $stmt2->execute();
-  // }else{
-  //   $product_exist = if_exist_func_two($pdo,$product_id,"product_id","consumption",$user_id,"user_id");
-
-  //   if($product_exist==false){
-  //     echo "Kullanıcı var ürün yok";
-  //     $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count)
-  //     VALUES ('.$user_id.','.$product_id.', 1) ');
-  //     $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
-  //     $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
-  //     $stmt->execute();
-
-  //   }else{
-    echo "Kullanıcı ve ürün var";
-    $stmt = $pdo->prepare('UPDATE campaign, consumption SET campaign.validation=0, consumption.count=consumption.count+1,
-    campaign.user_id =:user_id
-    WHERE campaign.campaign_id=:campaign_id and consumption.user_id =:user_id and consumption.product_id=:product_id');
+  $user_exist = if_exist_func($pdo,$user_id,"user_id","consumption");
+  if($user_exist==false){
+    echo "Kullanıcı yok".'</br> --- </br>';
+    $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count) VALUES ('.$user_id.','.$product_id.', 1)');
+    $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
     $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-    $stmt->bindParam(':campaign_id', $campaign_id, PDO::PARAM_STR);
-    // $stmt->bindParam(':campaign_code', $campaign_code, PDO::PARAM_STR);
     $stmt->execute();
-    // UPDATE campaign, consumption SET campaign.validation=0, consumption.count=consumption.count+1,
-    // campaign.user_id =1 WHERE campaign.campaign_id=7 and consumption.user_id =1 and consumption.product_id = 3
-    $count = $stmt->rowCount();
+  }else{
+    $product_exist = if_exist_func_two($pdo,$product_id,"product_id","consumption",$user_id,"user_id");
+    if($product_exist==false){
+      echo "Kullanıcı var tüketim yok";
+      $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count) VALUES ('.$user_id.','.$product_id.', 1) ');
+      $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
+      $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+      $stmt->execute();
 
-    if($count =='0'){
-        echo "Failed !";
+    }else{
+      echo "Kullanıcı ve tüketim var";
+      $stmt = $pdo->prepare('UPDATE  consumption SET  consumption.count=consumption.count+1
+      WHERE  consumption.user_id =:user_id and consumption.product_id=:product_id');
+      $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+      $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+      $stmt->execute();
     }
-    else{
-        echo "Success !";
-    }
-    }
-
+  }
 
 
 }
+
 
 function depleted_products($pdo,$gelen_data){
   $product_id=$gelen_data->product_id;
