@@ -196,19 +196,24 @@ function load_home($pdo,$gelen_data){
 }
 
 //front-end'den buton_id gelcek
-function buton_click($pdo,$gelen_data){
-  //$buton_id =$_GET['buton_id'];
-  $buton_id = $gelen_data->buton_id;
+function buton_click($pdo,$gelen_data){ // Bedava ürün kazanılmışsa burası çalışır.
 
+  $product_id = $gelen_data->product_id;
+  $user_id = $gelen_data->user_id;
 
   $stmt = $pdo->prepare("SELECT campaign_id,campaign_code  FROM campaign
-  WHERE product_id=:buton_id AND validation !=0 LIMIT 1");
-  $stmt->bindParam(':buton_id', $buton_id, PDO::PARAM_STR);
+  WHERE campaign.product_id=:product_id AND  AND validation !=0 LIMIT 1");
+  $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
   $stmt->execute();
 
   $gelendata = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
   $json_data=json_encode($gelendata,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
 
+  $stmt2 = $pdo->prepare('UPDATE  consumption SET  consumption.count=consumption.count+1
+  WHERE  consumption.user_id =:user_id and consumption.product_id=:product_id');
+  $stmt2->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+  $stmt2->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+  $stmt2->execute();
   if($gelendata){
     print $json_data;
   }else{
@@ -292,7 +297,9 @@ function if_exist_func_two($pdo,$value,$fieldName,$tableName,$value2,$fieldName2
   return $return_value;
 }
 
-function update_barcode($pdo,$gelen_data){
+function update_barcode($pdo,$gelen_data){ //Yeni ürün tüketiminde burası çalışır.
+  //Oluşturulan kodda user_id ve product_id olacak
+  //Kasa bu servisi çalıştıracak.
   $user_id = $gelen_data->user_id;
   $product_id = $gelen_data->product_id;
   $user_exist = if_exist_func($pdo,$user_id,"user_id","consumption");
@@ -323,7 +330,6 @@ function update_barcode($pdo,$gelen_data){
 
 
 }
-
 
 function depleted_products($pdo,$gelen_data){
   $product_id=$gelen_data->product_id;
