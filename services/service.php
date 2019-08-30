@@ -149,7 +149,7 @@ function register_user($pdo,$gelen_data){
   $de = $pdo->query('SELECT username FROM user WHERE username=:username');
   echo $de->rowCount().'</br>';
   echo $de.'</br>';
-  echo $de->rowCount.'</br>';
+
   // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
   // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
   //   echo "kayıt eklendi";
