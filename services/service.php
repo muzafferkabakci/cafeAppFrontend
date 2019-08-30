@@ -142,31 +142,11 @@ function register_user($pdo,$gelen_data){
   $phone_number= $gelen_data->phone_number;
   $company_id= $gelen_data->company_id;
 
-  $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
-  $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-  $stmt->execute();
-  echo $stmt->rowCount();
+  if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+  VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
+    echo "kayıt eklendi";
+  }
 
-
-
-  //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
-  //id+1
-  // if($pdo->prepare('SELECT username FROM user WHERE username=:username')->rowCount() !=0){
-  //   echo "Aynı kullanıcı isminden mevcut";
-  // // }else if($pdo->query('SELECT email_address FROM user WHERE email_address=:email_address') != FALSE){
-  // //   echo "Aynı email adresinden mevcut";
-  // // }else if($pdo->query('SELECT phone_number FROM user WHERE phone_number=:phone_number') != FALSE){
-  // //   echo "Aynı telefon numarasından mevcut";
-  //  }else{
-  //   if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-  // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
-  //   echo "kayıt eklendi";
-  // }
-  // }
-  // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-  // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
-  //   echo "kayıt eklendi";
-  // }
 }
 
 //SMS MAİL <---
@@ -208,14 +188,6 @@ function tel_varMi($pdo,$gelen_data){
 	$stmt->execute();
 	return $stmt->rowCount()==0;
 }
-// function if_exist($pdo,$gelen_data){
-//   $fieldName =$gelen_data->;
-//   $value =$gelen_data->;
-// 	$stmt = $pdo->prepare("SELECT * FROM user WHERE ".$fieldName."=:".$value);
-// 	$stmt->bindParam(':'.$value, $value, PDO::PARAM_STR);
-// 	$stmt->execute();
-// 	return $stmt->rowCount()==0;
-// }/**  */
 
 //Veritabanından sorgu bekleniyor..
 function load_home($pdo,$gelen_data){
