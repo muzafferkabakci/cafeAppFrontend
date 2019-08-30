@@ -134,7 +134,7 @@ function register_user($pdo,$gelen_data){
   $company_id= $gelen_data->company_id;
   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
   //id+1
-  if($pdo->query('SELECT username FROM user WHERE username=:username') != false){
+  if($pdo->query('SELECT username FROM user WHERE username=:username')->rowCount !=0){
     echo "Aynı kullanıcı isminden mevcut";
   // }else if($pdo->query('SELECT email_address FROM user WHERE email_address=:email_address') != FALSE){
   //   echo "Aynı email adresinden mevcut";
@@ -167,20 +167,20 @@ function forgot_password($pdo,$gelen_data){
   }
 }
 
-// function if_exist($pdo){
-// 	$fieldName = $_GET['fieldName'];
-// 	$value = $_GET['value'];
-// 	$stmt = $pdo->prepare("SELECT user_id FROM user WHERE ".$fieldName."=:".$value);
-// 	$stmt->bindParam(':'.$value, $value, PDO::PARAM_STR);
-// 	$stmt->execute();
-// 	$gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-// 	$json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-// 	if($gelenuser){
-//     print $json_data;
-//   }else{
-//     echo "0";
-//   }
-// }
+function if_exist($pdo){
+	$fieldName = $_GET['fieldName'];
+	$value = $_GET['value'];
+	$stmt = $pdo->prepare("SELECT user_id FROM user WHERE ".$fieldName."=:".$value);
+	$stmt->bindParam(':'.$value, $value, PDO::PARAM_STR);
+	$stmt->execute();
+	$gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+	$json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
+	if($gelenuser){
+    print $json_data;
+  }else{
+    echo "0";
+  }
+}
 
 //Veritabanından sorgu bekleniyor..
 function load_home($pdo,$gelen_data){
