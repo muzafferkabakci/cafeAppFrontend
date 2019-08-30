@@ -132,10 +132,12 @@ function register_user($pdo,$gelen_data){
   $email_address= $gelen_data->email_address;
   $phone_number= $gelen_data->phone_number;
   $company_id= $gelen_data->company_id;
+
   $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
   $stmt->bindParam(':username', $username, PDO::PARAM_STR);
   $stmt->execute();
   echo $stmt->rowCount();
+
 
 
   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
@@ -174,19 +176,11 @@ function forgot_password($pdo,$gelen_data){
   }
 }
 
-function if_exist($pdo){
-	$fieldName = $_GET['fieldName'];
-	$value = $_GET['value'];
-	$stmt = $pdo->prepare("SELECT user_id FROM user WHERE ".$fieldName."=:".$value);
+function if_exist($pdo,$fieldName,$value){
+	$stmt = $pdo->prepare("SELECT * FROM user WHERE ".$fieldName."=:".$value);
 	$stmt->bindParam(':'.$value, $value, PDO::PARAM_STR);
 	$stmt->execute();
-	$gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-	$json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-	if($gelenuser){
-    print $json_data;
-  }else{
-    echo "0";
-  }
+	return $stmt->rowCount();
 }
 
 //Veritabanından sorgu bekleniyor..
