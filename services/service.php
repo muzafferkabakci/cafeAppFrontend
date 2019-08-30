@@ -134,7 +134,7 @@ function register_user($pdo,$gelen_data){
   $company_id= $gelen_data->company_id;
   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
   //id+1
-  if($pdo->query('SELECT username FROM user WHERE username=:username') != FALSE){
+  if($pdo->query('SELECT username FROM user WHERE username=:username') != false){
     echo "Aynı kullanıcı isminden mevcut";
   // }else if($pdo->query('SELECT email_address FROM user WHERE email_address=:email_address') != FALSE){
   //   echo "Aynı email adresinden mevcut";
