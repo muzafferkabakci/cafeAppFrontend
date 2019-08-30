@@ -32,6 +32,15 @@ switch($service_type){
     //echo "deneme";
     register_user($pdo, $gelen_data);
     break;
+  case user_varMi:
+  user_varMi($pdo,$gelen_data);
+  break;
+  case mail_varMi:
+  mail_varMi($pdo,$gelen_data);
+  break;
+  case tel_varMi:
+  tel_varMi($pdo,$gelen_data);
+  break;
   case login_user:
     //echo "logine girdik.".'</br> --- </br>';
     login_user($pdo,$gelen_data);
@@ -175,13 +184,38 @@ function forgot_password($pdo,$gelen_data){
     echo "0";
   }
 }
+function user_varMi($pdo,$gelen_data){
+  $username =$gelen_data->username;
 
-function if_exist($pdo,$fieldName,$value){
-	$stmt = $pdo->prepare("SELECT * FROM user WHERE ".$fieldName."=:".$value);
-	$stmt->bindParam(':'.$value, $value, PDO::PARAM_STR);
+	$stmt = $pdo->prepare("SELECT * FROM user WHERE username=:username");
+	$stmt->bindParam(':username', $username, PDO::PARAM_STR);
 	$stmt->execute();
-	return $stmt->rowCount();
+	return $stmt->rowCount()==0;
 }
+function mail_varMi($pdo,$gelen_data){
+  $email_address =$gelen_data->email_address;
+
+	$stmt = $pdo->prepare("SELECT * FROM user WHERE email_address=:email_address");
+	$stmt->bindParam(':email_address', $email_address, PDO::PARAM_STR);
+	$stmt->execute();
+	return $stmt->rowCount()==0;
+}
+function tel_varMi($pdo,$gelen_data){
+  $phone_number =$gelen_data->phone_number;
+
+	$stmt = $pdo->prepare("SELECT * FROM user WHERE phone_number=:phone_number");
+	$stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
+	$stmt->execute();
+	return $stmt->rowCount()==0;
+}
+// function if_exist($pdo,$gelen_data){
+//   $fieldName =$gelen_data->;
+//   $value =$gelen_data->;
+// 	$stmt = $pdo->prepare("SELECT * FROM user WHERE ".$fieldName."=:".$value);
+// 	$stmt->bindParam(':'.$value, $value, PDO::PARAM_STR);
+// 	$stmt->execute();
+// 	return $stmt->rowCount()==0;
+// }/**  */
 
 //Veritabanından sorgu bekleniyor..
 function load_home($pdo,$gelen_data){
