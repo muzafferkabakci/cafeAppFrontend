@@ -141,9 +141,10 @@ function register_user($pdo,$gelen_data){
   // // }else if($pdo->query('SELECT phone_number FROM user WHERE phone_number=:phone_number') != FALSE){
   // //   echo "Aynı telefon numarasından mevcut";
   //  }else{
-    $pdo -> $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-    VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")');
-    echo "EKLENDİ";
+    if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+  VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
+    echo "kayıt eklendi";
+  }
 
   // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
   // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
