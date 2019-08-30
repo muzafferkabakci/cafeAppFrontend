@@ -12,6 +12,17 @@
  $jsonDeneme ->phone_number ="0537878276012";
  $jsonDeneme ->email_address = "asd";
  $jsonDeneme ->service_type ="register_user";
+ $jsonDeneme ->name_user = "ads";
+ $jsonDeneme ->school="asd";
+ $jsonDeneme ->company_id="12";
+ /*
+ $name_user = $gelen_data->name_user;
+  $username = $gelen_data->username;
+  $password_user = $gelen_data->password_user;
+  $school= $gelen_data->school;
+  $email_address= $gelen_data->email_address;
+  $phone_number= $gelen_data->phone_number;
+  $company_id= $gelen_data->company_id;*/
  $gelen_json = json_encode($jsonDeneme);
 
 //  $gelen_json = file_get_contents("php://input");
