@@ -6,15 +6,16 @@
   header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT'); // http://stackoverflow.com/a/7605119/578667
 // header('Access-Control-Max-Age: 86400');
  include("databaseCon.php");
+ include("class.phpmailer.php");
 
- $jsonDeneme ->username ="gkandth";
- $jsonDeneme ->password_user ="123";
- $jsonDeneme ->phone_number ="0537878276012";
- $jsonDeneme ->email_address = "asd";
- $jsonDeneme ->service_type ="register_user";
- $jsonDeneme ->name_user = "ads";
- $jsonDeneme ->school="asd";
- $jsonDeneme ->company_id="12";
+//  $jsonDeneme ->username ="gkandth";
+//  $jsonDeneme ->password_user ="123";
+//  $jsonDeneme ->phone_number ="0537878276012";
+//  $jsonDeneme ->email_address = "asd";
+ $jsonDeneme ->service_type ="forgot_password";
+//  $jsonDeneme ->name_user = "ads";
+//  $jsonDeneme ->school="asd";
+//  $jsonDeneme ->company_id="12";
 
  $gelen_json = json_encode($jsonDeneme);
 
@@ -156,18 +157,39 @@ function tel_varMi($pdo,$gelen_data){
 }
 //SMS MAİL <---
 function forgot_password($pdo,$gelen_data){
-  $username = $gelen_data->username;
-  $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
-  $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-  $stmt->execute();
+  // $username = $gelen_data->username;
+  // $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
+  // $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+  // $stmt->execute();
 
-  $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-  $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-  if($gelenuser){
-    print $json_data;
-  }else{
-    echo "0";
+  // $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+  // $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
+  // if($gelenuser){
+  //   print $json_data;
+  // }else{
+  //   echo "0";
+  // }
+  $mail = new PHPMailer();
+  $mail->IsSMTP();
+  $mail->SMTPAuth = true;
+  $mail->Host = 'smtp.gmail.com';
+  $mail->Port = 587;
+  $mail->SMTPSecure = 'tls';
+  $mail->Username = 'cafeapp34@gmail.com';
+  $mail->Password = 'Gokhan12356.';
+  $mail->SetFrom($mail->Username, 'Cafe App');
+  $mail->AddAddress('gkandth@gmail.com', 'gönderilen kişinin adı soyadı');
+  $mail->CharSet = 'UTF-8';
+  $mail->Subject = 'E-POSTA KONUSU';
+  $content = '<div style="background: #eee; padding: 10px; font-size: 14px">Bu bir test e-posta\'dır..</div>';
+  $mail->MsgHTML($content);
+  if($mail->Send()) {
+      echo "e-posta başarılı ile gönderildi";
+  } else {
+      echo "bir sorun var, sorunu ekrana bastıralım".'</br>';
+      echo $mail->ErrorInfo;
   }
+
 }
 
 
