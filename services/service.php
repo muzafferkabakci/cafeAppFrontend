@@ -197,13 +197,14 @@ function load_home($pdo,$gelen_data){
 
 //front-end'den buton_id gelcek
 function buton_click($pdo,$gelen_data){ // gelen_data'nın içinde button diye bir değişken alıyoruz.
-
-  if($gelen_data->button == true){ // bu değişken true geliyorsa bedava kullanım yoktur. Tüketim artacak.
+  $user_id = $gelen_data->user_id;
+  $product_id = $gelen_data->product_id;
+  //user_id product_id (free)
+  if($gelen_data->free == false){ // bu değişken true geliyorsa bedava kullanım yoktur. Tüketim artacak.
     //Yeni ürün tüketiminde burası çalışır.
     //Oluşturulan kodda user_id ve product_id olacak
     //Kasa bu servisi çalıştıracak.
-    $user_id = $gelen_data->user_id;
-    $product_id = $gelen_data->product_id;
+
     $user_exist = if_exist_func($pdo,$user_id,"user_id","consumption");
     if($user_exist==false){
       echo "Kullanıcı yok".'</br> --- </br>';
@@ -229,7 +230,8 @@ function buton_click($pdo,$gelen_data){ // gelen_data'nın içinde button diye b
         $stmt->execute();
       }
     }
-  }else{ //false geliyorsa bedava için kod üreteceğiz
+  }
+  else{ //false geliyorsa bedava için kod üreteceğiz
     $product_id = $gelen_data->product_id;
     $user_id = $gelen_data->user_id;
 
