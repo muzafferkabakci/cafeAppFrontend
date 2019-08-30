@@ -7,15 +7,15 @@
 // header('Access-Control-Max-Age: 86400');
  include("databaseCon.php");
 
-//  $jsonDeneme ->username ="gkandth";
-//  $jsonDeneme ->password_user ="123";
-//  $jsonDeneme ->phone_number ="0537878276012";
-//  $jsonDeneme ->email_address = "asd";
-//  $jsonDeneme ->service_type ="register_user";
-//  $gelen_json = json_encode($jsonDeneme);
+ $jsonDeneme ->username ="gkandth";
+ $jsonDeneme ->password_user ="123";
+ $jsonDeneme ->phone_number ="0537878276012";
+ $jsonDeneme ->email_address = "asd";
+ $jsonDeneme ->service_type ="register_user";
+ $gelen_json = json_encode($jsonDeneme);
 
- $gelen_json = file_get_contents("php://input");
-$gelen_data = json_decode($gelen_json);
+//  $gelen_json = file_get_contents("php://input");
+// $gelen_data = json_decode($gelen_json);
 $service_type = $gelen_data->service_type;
 
 
@@ -71,7 +71,7 @@ switch($service_type){
     depleted_products($pdo,$gelen_data);
     break;
   default:
-    echo "0";
+    echo "SwitchCase hata";
 }
 
 
