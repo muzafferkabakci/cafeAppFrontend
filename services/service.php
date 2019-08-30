@@ -7,6 +7,7 @@
 // header('Access-Control-Max-Age: 86400');
  include("databaseCon.php");
  include("class.phpmailer.php");
+ include("class.smtp.php");
 
 //  $jsonDeneme ->username ="gkandth";
 //  $jsonDeneme ->password_user ="123";
