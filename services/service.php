@@ -134,18 +134,19 @@ function register_user($pdo,$gelen_data){
   $company_id= $gelen_data->company_id;
   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
   //id+1
-  if($pdo->query('SELECT username FROM user WHERE username=:username')->rowCount !=0){
-    echo "Aynı kullanıcı isminden mevcut";
-  // }else if($pdo->query('SELECT email_address FROM user WHERE email_address=:email_address') != FALSE){
-  //   echo "Aynı email adresinden mevcut";
-  // }else if($pdo->query('SELECT phone_number FROM user WHERE phone_number=:phone_number') != FALSE){
-  //   echo "Aynı telefon numarasından mevcut";
-   }else{
-    if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-  VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
-    echo "kayıt eklendi";
-  }
-  }
+  // if($pdo->query('SELECT username FROM user WHERE username=:username')->rowCount !=0){
+  //   echo "Aynı kullanıcı isminden mevcut";
+  // // }else if($pdo->query('SELECT email_address FROM user WHERE email_address=:email_address') != FALSE){
+  // //   echo "Aynı email adresinden mevcut";
+  // // }else if($pdo->query('SELECT phone_number FROM user WHERE phone_number=:phone_number') != FALSE){
+  // //   echo "Aynı telefon numarasından mevcut";
+  //  }else{
+  //   if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+  // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
+  //   echo "kayıt eklendi";
+  // }
+  // }
+  echo $pdo->query('SELECT username FROM user WHERE username=:username')->rowCount;
   // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
   // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
   //   echo "kayıt eklendi";
