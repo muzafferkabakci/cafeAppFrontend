@@ -15,14 +15,7 @@
  $jsonDeneme ->name_user = "ads";
  $jsonDeneme ->school="asd";
  $jsonDeneme ->company_id="12";
- /*
- $name_user = $gelen_data->name_user;
-  $username = $gelen_data->username;
-  $password_user = $gelen_data->password_user;
-  $school= $gelen_data->school;
-  $email_address= $gelen_data->email_address;
-  $phone_number= $gelen_data->phone_number;
-  $company_id= $gelen_data->company_id;*/
+
  $gelen_json = json_encode($jsonDeneme);
 
 //  $gelen_json = file_get_contents("php://input");
@@ -36,7 +29,8 @@ $service_type = $gelen_data->service_type;
 switch($service_type){
   case register_user:
     // echo "registera girdi. DEneme".'</br> --- </br>';
-    register_user($pdo, $gelen_data);
+    echo "deneme";
+    //register_user($pdo, $gelen_data);
     break;
   case login_user:
     //echo "logine girdik.".'</br> --- </br>';
