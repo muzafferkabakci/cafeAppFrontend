@@ -48,7 +48,7 @@ switch($service_type){
     break;
   case forgot_password:
     // echo "forgot_password girdi".'</br> --- </br>';
-    forgat_password($pdo,$gelen_data);
+    forgat_password();
     break;
   case if_exist:
 	  // echo "if_exit girdi".'</br> --- </br>';
@@ -156,7 +156,7 @@ function tel_varMi($pdo,$gelen_data){
 	return $stmt->rowCount()==0;
 }
 //SMS MAİL <---
-function forgot_password($pdo,$gelen_data){
+function forgot_password(){
   // $username = $gelen_data->username;
   // $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
   // $stmt->bindParam(':username', $username, PDO::PARAM_STR);
