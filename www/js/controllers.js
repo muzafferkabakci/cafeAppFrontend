@@ -54,6 +54,12 @@ $scope.postService = function(scopeName,veri){
   });
   $scope.sifremiUnuttumAc = function(){
     console.log('deneme');
+    $ionicModal.fromTemplateUrl('templates/forgot.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.modal.show();
   }
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {

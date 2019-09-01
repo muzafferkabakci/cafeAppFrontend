@@ -1,0 +1,29 @@
+<ion-view view-title="ŞUBELERİMİZ">
+  <ion-content>
+
+<div class=" item-body" ng-repeat="sube in subeler">
+
+     <div class="row">
+  <div class="col subecol">
+    <div class="card subecard">
+  <div class="item item-text-wrap item-energized subeitem">
+  {{sube.location}}
+  </div>
+</div>
+  </div>
+
+
+  <div class="col yolcol">
+    <button class="button button-assertive yolbutton">
+ Yol Tarifi
+</button>
+  </div>
+    </div>
+
+  <img class="full-image suberesim" src="{{sube.image}}">
+
+</div>
+
+
+  </ion-content>
+</ion-view>
