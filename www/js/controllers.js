@@ -53,15 +53,17 @@ $scope.postService = function(scopeName,veri){
     $scope.modal = modal;
   });
 
-  $ionicModal.fromTemplateUrl2('templates/forgot.html', {
+  $ionicModal.fromTemplateUrl('templates/forgot.html', { //Sifremi unuttum sayfasını oluştruman gerek
     scope: $scope
-  }).then(function() {
-
+  }).then(function(model) {
+    $scope.model = model; // modal yerine model yazdım istediğini yazabilirsin :D
   });
-  $scope.sifremiUnuttumAc = function(){
+  $scope.sifremiUnuttumAc = function(){ // burda o sayfayı açıyoruz
     console.log('deneme');
+    $scope.model.show(); // Burda ekranda gösteriyoruz fakat kapatma olayını yazmadın aşağıdaki ile aynı
+  }// bir tane kapatma butonu ekleyeceksin oluşturduğun sayfaya sonra sifremiUnuttumKapa diye fonksiyon yazacaksın
+  // $scope.model.hide() çalıştıracaksın eğer o butona tıklanırsa diye
 
-  }
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
