@@ -65,6 +65,11 @@ $scope.postService = function(scopeName,veri){
   // $scope.model.hide() çalıştıracaksın eğer o butona tıklanırsa diye
 
   // Triggered in the login modal to close it
+ $scope.sifremiUnuttumKapa = function() {
+    $scope.modal.hide();
+  }; 
+
+
   $scope.closeLogin = function() {
     $scope.modal.hide();
   };
