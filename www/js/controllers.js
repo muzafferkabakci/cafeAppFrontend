@@ -54,7 +54,7 @@ $scope.postService = function(scopeName,veri){
   });
   $scope.sifremiUnuttumAc = function(){
     console.log('deneme');
-    $ionicModal.fromTemplateUrl('templates/forgot.html', {
+    $ionicModal.fromTemplateUrl('templates/menu.html', {
       scope: $scope
     }).then(function(modal) {
       $scope.modal = modal;
