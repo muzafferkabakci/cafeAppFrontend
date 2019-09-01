@@ -13,7 +13,7 @@ $scope.dinamikScope= function(name,data){
 $scope.serviceLink="http://projeapp.site/cafe/services.php";
 
 $scope.postService = function(scopeName,veri){
-     
+
       $http.post($scope.serviceLink, veri)
             .success(function (data, status) {
               console.log("Gelen Data"+data);
@@ -52,7 +52,9 @@ $scope.postService = function(scopeName,veri){
   }).then(function(modal) {
     $scope.modal = modal;
   });
-
+  $scope.sifremiUnuttumAc = function(){
+    console.log('deneme');
+  }
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
