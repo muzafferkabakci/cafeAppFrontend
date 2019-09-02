@@ -39,38 +39,64 @@ $scope.modalClose = function () {
     $scope.modal.hide();
   };
 
+// $scope.barkodModal= function(){
+//   $scope.barkodModal= function($tusId){
+//     $ionicModal.fromTemplateUrl('templates/barkod.html', {
+//       scope: $scope
+//     }).then(function(model) {
+//       $scope.model = model;
+//     });
+//     $scope.modalOpen = function(barkod){
+//       $scope.bilgi = barkod;
+//       $scope.model.show();
+//       $scope.degisken = "product_id: "+$tusId+"/user_id: ";
+//       console.log($scope.degisken);
+//       $scope.a = new QRCode(document.getElementById("qrcode"), {
+//         text: $scope.degisken,
+//         width: 128,
+//         height: 128,
+//         colorDark : "#000000",
+//         colorLight : "#ffffff",
+//         correctLevel : QRCode.CorrectLevel.H
+//       });
 
+//     }
+//     $scope.modelClose = function () {
+
+//       $scope.model.hide();
+
+
+//     }
+//   }
+// }
   $ionicModal.fromTemplateUrl('templates/barkod.html', {
     scope: $scope
   }).then(function(model) {
     $scope.model = model;
   });
-  $scope.modalOpen = function(barkod){
+  $scope.modelOpen = function(barkod){
     $scope.bilgi = barkod;
     $scope.model.show();
-    new QRcode(document.getElementById("qrcode"), {
-      text: "Text ",
+    $scope.degisken = "product_id: "+$scope.bilgi+"/user_id: ";
+    console.log($scope.degisken);
+    $scope.a = new QRCode(document.getElementById("qrcode"), {
+      text: $scope.degisken,
       width: 128,
       height: 128,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
+      colorDark : "#000000",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
     });
-
   }
-  $scope.model = function show(){
-      new QRcode(document.getElementById("qrcode"), {
-      text: "Text ",
-      width: 128,
-      height: 128,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-
+  $scope.tusId = function(degisken2){
+    $scope.tusunId = degisken2;
+    console.log($scope.tusunId);
   }
-  $scope.modalClose = function () {
+  $scope.modelClose = function () {
+
+    document.getElementById("qrcode").innerHTML = "";
     $scope.model.hide();
+
   }
   $scope.loginData = {};
 
