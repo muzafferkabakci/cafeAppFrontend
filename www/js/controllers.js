@@ -13,7 +13,7 @@ $scope.dinamikScope= function(name,data){
 $scope.serviceLink="http://projeapp.site/cafe/services.php";
 
 $scope.postService = function(scopeName,veri){
-     
+
       $http.post($scope.serviceLink, veri)
             .success(function (data, status) {
               console.log("Gelen Data"+data);
@@ -31,27 +31,10 @@ $scope.postService = function(scopeName,veri){
                   //-ac-//console.log("n-11");
             });
 
-};
+  };
 
-.controller('barkodCtrl', function($scope,$ionicModal) {
-  $ionicModal.fromTemplateUrl('templates/barkod.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-  $scope.modalOpen = function(barkod){
-    $scope.bilgi = barkod;
-    $scope.modal.show();
-  new QRcode(document.getElementById("qrcode"), {
-    text: " ",
-    width: 128,
-    height: 128,
-    colorDark: "#000000",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLEvel.H
-  });
 
-};
+
 $scope.modalClose = function () {
     $scope.modal.hide();
   };
