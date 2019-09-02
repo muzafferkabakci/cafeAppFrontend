@@ -141,17 +141,16 @@ $scope.postService('userbilgi',$scope.loginData);
   $scope.modalOpen = function(barkod){
     $scope.bilgi = barkod;
     $scope.modal.show();
-  new QRcode(document.getElementById("qrcode"), {
-    text: " ",
-    width: 128,
-    height: 128,
-    colorDark: "#000000",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLEvel.H
-  });
-
-};
-$scope.modalClose = function () {
+    new QRcode(document.getElementById("qrcode"), {
+      text: " ",
+      width: 128,
+      height: 128,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLEvel.H
+    });
+  }
+  $scope.modalClose = function () {
     $scope.modal.hide();
   }
-
+});
