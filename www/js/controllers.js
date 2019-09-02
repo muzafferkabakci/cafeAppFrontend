@@ -33,6 +33,29 @@ $scope.postService = function(scopeName,veri){
 
 };
 
+.controller('barkodCtrl', function($scope,$ionicModal) {
+  $ionicModal.fromTemplateUrl('templates/barkod.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.modalOpen = function(barkod){
+    $scope.bilgi = barkod;
+    $scope.modal.show();
+  new QRcode(document.getElementById("qrcode"), {
+    text: " ",
+    width: 128,
+    height: 128,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLEvel.H
+  });
+
+};
+$scope.modalClose = function () {
+    $scope.modal.hide();
+  };
+
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
