@@ -81,8 +81,8 @@ $scope.modalClose = function () {
     console.log($scope.degisken);
     $scope.a = new QRCode(document.getElementById("qrcode"), {
       text: $scope.degisken,
-      width: 128,
-      height: 128,
+      width: 200,
+      height: 200,
       colorDark : "#000000",
       colorLight : "#ffffff",
       correctLevel : QRCode.CorrectLevel.H
