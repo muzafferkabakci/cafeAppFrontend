@@ -234,24 +234,55 @@
     opacity: 0.4;
 }
 
-.submitbutton{
+.btn {
+  margin: 10px 0 0 0;
   border-radius: 50px;
-  border:2px solid white !important;
-  color: #444444 ;
-  width: 300px;
   position: relative;
   left: 50%;
-  margin-left: -150px;
+  transform: translate(-50%, 0);
+  width: 250px;
 }
 
-.inputbutton{
+.submitbutton{
+  display: block;
+  color: #FFF;
+  background-color: #FF9A00;
+}
+
+.input {
  border-radius: 50px;
  border:2px solid white !important;
- color: white;
- margin: 10px;
+ color: #fff !important;
+ margin: 10px 0 0 0;
  width: 250px;
  left: 50%;
- margin-left: -125px;
+ transform: translate(-50%, 0);
 }
 
+.title {
+  color: white;
+}
+
+.close-button {
+  background-color: white;
+  left: 90%;
+  margin-top: 10px;
+  color: white !important;
+}
+
+.close-button ion-icon {
+  font-size: 25px;
+}
+
+
+
+.forgot-pass {
+  position: relative;
+  color: #fff;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.4em;
+  text-decoration: none;
 }
