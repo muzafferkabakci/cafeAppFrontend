@@ -242,12 +242,12 @@
 
 .submitbutton{
   border-radius: 50px;
-  border:2px solid white !important;
-  color: #444444 ;
-  width: 300px;
+  border: 2px solid white !important;
+  color: #444444;
+  width: 250px;
   position: relative;
   left: 50%;
-  margin-left: -150px;
+  transform: translate(-50%);
 }
 
 .inputbutton{
