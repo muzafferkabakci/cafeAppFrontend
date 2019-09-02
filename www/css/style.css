@@ -253,5 +253,24 @@
  left: 50%;
  margin-left: -125px;
 }
+.modal{
+  backgroud-color: rgb(0, 0, 0, 0);
+}
+.squarre {
+  height: 30vw;
+  width: 30vw;
+  background-color: black;
+  border-radius: 10% ;
+}
+.boxx {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+
 
 }
