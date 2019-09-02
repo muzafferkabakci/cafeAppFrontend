@@ -40,16 +40,38 @@ $scope.modalClose = function () {
   };
 
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  $ionicModal.fromTemplateUrl('templates/barkod.html', {
+    scope: $scope
+  }).then(function(model) {
+    $scope.model = model;
+  });
+  $scope.modalOpen = function(barkod){
+    $scope.bilgi = barkod;
+    $scope.model.show();
+    new QRcode(document.getElementById("qrcode"), {
+      text: "Text ",
+      width: 128,
+      height: 128,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
 
-  //ileri seviye proje
-  // Form data for the login modal
-  // Form data for the login modal
+  }
+  $scope.model = function show(){
+      new QRcode(document.getElementById("qrcode"), {
+      text: "Text ",
+      width: 128,
+      height: 128,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+  }
+  $scope.modalClose = function () {
+    $scope.model.hide();
+  }
   $scope.loginData = {};
 
   // Create the login modal that we will use later
@@ -130,27 +152,4 @@ $scope.postService('userbilgi',$scope.loginData);
 .controller('SearchCtrl',function($scope, $http){
 
 
-})
-
-.controller('barkodCtrl', function($scope,$ionicModal) {
-  $ionicModal.fromTemplateUrl('templates/barkod.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-  $scope.modalOpen = function(barkod){
-    $scope.bilgi = barkod;
-    $scope.modal.show();
-    new QRcode(document.getElementById("qrcode"), {
-      text: " ",
-      width: 128,
-      height: 128,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLEvel.H
-    });
-  }
-  $scope.modalClose = function () {
-    $scope.modal.hide();
-  }
 });

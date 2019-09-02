@@ -1,27 +1,19 @@
 <ion-modal-view>
 
 	<ion-content>
+      <ion-icon name="close"></ion-icon>
 		<div class="boxx">
-			<div class="buttons">
-        <button class="button button-clear button-dark"  ng-click="modalClose()">X</button>
-      </div>
-			<div class="squarre">
-				<div id="qrcode">
-					<script type="text/javascript">
-					var qrcode = new QRCode(document.getElementById("qrcode"), {
-						text:" ",
-						width: 128,
-						height: 128,
-						colorDark : "#000000",
-						colorLight: "#ffffff",
-						correctLevel: QRCode.CorrectLevel.H
-					});
 
-				</script>
-				</div>
-				
-			</div>
+			<div class="buttons">
+
+        <button class="button button-clear button-dark"  ng-click="modalClose()">
+            <ion-icon name="close" style="width: 50px"></ion-icon>
+        </button>
+      </div>
+
+
+			<div class="squarre">
+				<div id="qrcode"></div></div>
 		</div>
 	</ion-content>
-</ion-modal-view>		
-					
+</ion-modal-view>

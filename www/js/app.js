@@ -65,16 +65,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
 
-  .state('app.barkod', {
-      url: '/barkod',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/barkod.html',
-          controller: 'barkodCtrl'
-        }
-      }
-    })
-
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {
