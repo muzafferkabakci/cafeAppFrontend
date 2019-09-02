@@ -122,6 +122,58 @@ $scope.postService('userbilgi',$scope.loginData);
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
+.controller('RegisterCtrl', function($scope, $http, $rootScope){
+    // Create the register modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/register.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  // Triggered in the register modal to close it
+  $scope.closeRegister = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the register modal
+  $scope.register = function() {
+    $scope.modal.show();
+  };
+
+  // Perform the register action when the user submits the login form
+  $scope.doRegister = function() {
+
+$scope.registerData.service_type = "register_user";
+$scope.registerData.company_id = "1";
+$scope.postService('userbilgi', $scope.registerData);
+
+/*
+$name_user = $gelen_data->name_user;
+  $username = $gelen_data->username;
+  $password_user = $gelen_data->password_user;
+  $school= $gelen_data->school;
+  $email_address= $gelen_data->email_address;
+  $phone_number= $gelen_data->phone_number;
+  $company_id= $gelen_data->company_id;
+*/
+
+    console.log("LoginData : "+$scope.registerData.name_user);
+    console.log("LoginData : "+$scope.registerData.username);
+    console.log("PasswordData : "+$scope.registerData.password_user);
+    console.log("LoginData : "+$scope.registerData.school);
+    console.log("LoginData : "+$scope.registerData.email_address);
+    console.log("LoginData : "+$scope.registerData.phone_number);
+    console.log("LoginData : "+$scope.registerData.company_id);
+
+
+    // Simulate a register delay. Remove this and replace with your register
+    // code if using a register system
+    $timeout(function() {
+      $scope.closeLogin();
+    }, 1000);
+  };
+})
+
 .controller('SearchCtrl',function($scope, $http){
 
 
