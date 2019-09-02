@@ -33,8 +33,8 @@
   border-radius:10px;
 }
 .subeitem{
-  color:white
-  background:yellow;
+  color:white;
+  background-color:yellow;
 }
 
 .yolcol{
@@ -254,7 +254,7 @@
  margin-left: -125px;
 }
 .modal{
-  backgroud-color: rgb(0, 0, 0, 0);
+  background-color: rgb(0, 0, 0, 0);
 }
 .squarre {
   height: 30vw;
@@ -273,4 +273,4 @@
 
 
 
-}
+
