@@ -158,6 +158,7 @@ function tel_varMi($pdo,$gelen_data){
 }
 //SMS MAİL <---
 function forgot_password(){
+  echo "Fonksiyona girdi";
   // $username = $gelen_data->username;
   // $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
   // $stmt->bindParam(':username', $username, PDO::PARAM_STR);
