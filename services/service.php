@@ -49,7 +49,7 @@ switch($service_type){
     break;
   case forgot_password:
     // echo "forgot_password girdi".'</br> --- </br>';
-    forgat_password();
+    forgot_password();
     break;
   case if_exist:
 	  // echo "if_exit girdi".'</br> --- </br>';
