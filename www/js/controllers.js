@@ -14,36 +14,30 @@ $scope.serviceLink="http://projeapp.site/cafe/services.php";
 
 
 $scope.postService = function(scopeName,veri){
-     
-      $http.post($scope.serviceLink, veri)
-            .success(function (data, status) {
-              console.log("Gelen Data"+data);
-              $scope.dinamikScope(scopeName,data);
 
-              console.log("Gelen Data User:"+$scope.userbilgi);
+  $http.post($scope.serviceLink, veri)
+  .success(function (data, status) {
+    console.log("Gelen Data"+data);
+    $scope.dinamikScope(scopeName,data);
+
+    console.log("Gelen Data User:"+$scope.userbilgi);
 
 
-                //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
-               //-ac-//console.log("Token stored, device is successfully subscribed to receive push notifications.");
-            })
-            .error(function (data, status) {
-               console.log("Hata Data"+data);
-               //-ac-//console.log("Error storing device token." + data + " " + status)
-                  //-ac-//console.log("n-11");
-            });
+      //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
+      //-ac-//console.log("Token stored, device is successfully subscribed to receive push notifications.");
+  })
+  .error(function (data, status) {
+      console.log("Hata Data"+data);
+      //-ac-//console.log("Error storing device token." + data + " " + status)
+        //-ac-//console.log("n-11");
+  });
 
 };
 
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+
 
   //ileri seviye proje
-  // Form data for the login modal
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -81,7 +75,7 @@ $scope.postService('userbilgi',$scope.loginData);
     })
 */
     console.log("LoginData : "+$scope.loginData.username);
-    console.log("PasswordData : "+$scope.loginData.password);
+    console.log("PasswordData : "+$scope.loginData.password_user);
 
 
     // Simulate a login delay. Remove this and replace with your login
@@ -179,7 +173,7 @@ $name_user = $gelen_data->name_user;
 })
 
 .controller('RegisterCtrl', function($scope, $http, $rootScope){
-    
+
 })
 
 .controller('SearchCtrl',function($scope, $http){
