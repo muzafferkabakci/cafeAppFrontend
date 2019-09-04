@@ -61,21 +61,12 @@ $scope.postService = function(scopeName,veri){
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
 
-$scope.loginData.service_type="login_user";
+    $scope.loginData.service_type="login_user";
 
-$scope.postService('userbilgi',$scope.loginData);
+    $scope.postService('userbilgi',$scope.loginData);
 
-/*
-
-    $http.post("http://gokhanbirkin.net/services2.php?service_type=login_user&username="+$scope.loginData.username+"&password_user="+$scope.loginData.password)
-    .success(function(data){
-      $rootScope.gelenUser = data[0];
-      console.log(data);
-
-    })
-*/
     console.log("LoginData : "+$scope.loginData.username);
-    console.log("PasswordData : "+$scope.loginData.password_user);
+    console.log("PasswordData : "+$scope.loginData.password);
 
 
     // Simulate a login delay. Remove this and replace with your login
@@ -108,34 +99,34 @@ $scope.postService('userbilgi',$scope.loginData);
   // Perform the register action when the user submits the register form
   $scope.doRegister = function() {
 
-$scope.registerData.service_type = "register_user";
-$scope.registerData.company_id = "1";
-$scope.postService('userbilgi', $scope.registerData);
+    $scope.registerData.service_type = "register_user";
+    $scope.registerData.company_id = "1";
+    $scope.postService('userbilgi', $scope.registerData);
 
-/*
-$name_user = $gelen_data->name_user;
-  $username = $gelen_data->username;
-  $password_user = $gelen_data->password_user;
-  $school= $gelen_data->school;
-  $email_address= $gelen_data->email_address;
-  $phone_number= $gelen_data->phone_number;
-  $company_id= $gelen_data->company_id;
-*/
+    /*
+    $name_user = $gelen_data->name_user;
+      $username = $gelen_data->username;
+      $password_user = $gelen_data->password_user;
+      $school= $gelen_data->school;
+      $email_address= $gelen_data->email_address;
+      $phone_number= $gelen_data->phone_number;
+      $company_id= $gelen_data->company_id;
+    */
 
-    console.log("RegisterData.name_user : "+$scope.registerData.name_user);
-    console.log("RegisterData.username : "+$scope.registerData.username);
-    console.log("RegisterData.password_user : "+$scope.registerData.password_user);
-    console.log("RegisterData.school : "+$scope.registerData.school);
-    console.log("RegisterData.address : "+$scope.registerData.email_address);
-    console.log("RegisterData.phone_number : "+$scope.registerData.phone_number);
-    console.log("RegisterData.company_id : "+$scope.registerData.company_id);
+      console.log("RegisterData.name_user : "+$scope.registerData.name_user);
+      console.log("RegisterData.username : "+$scope.registerData.username);
+      console.log("RegisterData.password_user : "+$scope.registerData.password_user);
+      console.log("RegisterData.school : "+$scope.registerData.school);
+      console.log("RegisterData.address : "+$scope.registerData.email_address);
+      console.log("RegisterData.phone_number : "+$scope.registerData.phone_number);
+      console.log("RegisterData.company_id : "+$scope.registerData.company_id);
 
 
-    // Simulate a register delay. Remove this and replace with your register
-    // code if using a register system
-    $timeout(function() {
-      $scope.closeRegister();
-    }, 1000);
+      // Simulate a register delay. Remove this and replace with your register
+      // code if using a register system
+      $timeout(function() {
+        $scope.closeRegister();
+      }, 1000);
   };
 
 //////////////////////////////////////// Register End ////////////////////////////////////////////////////////////
