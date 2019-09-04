@@ -21,6 +21,9 @@ $scope.postService = function(scopeName,veri){
               $scope.dinamikScope(scopeName,data);
 
               console.log("Gelen Data User:" + $rootScope.data);
+              if(scopeName == 'ifuserexist'){
+                return data;
+              }
 
 
                 //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
@@ -111,7 +114,7 @@ $scope.postService('userbilgi',$scope.loginData);
   // Open the register modal
   $scope.register = function() {
     $scope.loginModal.hide();
-     $scope.registerData = {};
+    $scope.registerData = {};
     $scope.registerModal.show();
   };
 
@@ -122,7 +125,8 @@ $scope.postService('userbilgi',$scope.loginData);
     $scope.user = {};
     $scope.user.service_type = "user_varMi";
     $scope.user.username = $scope.registerData.username;
-    $scope.postService('ifuserexist', $scope.user);
+    $deneme = $scope.postService('ifuserexist', $scope.user);
+    console.log("Deneme : ",$deneme);
     console.log("check user" + $scope.ifuserexist);
   }
 
