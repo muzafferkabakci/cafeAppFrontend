@@ -12,6 +12,7 @@ $scope.dinamikScope= function(name,data){
 
 $scope.serviceLink="http://projeapp.site/cafe/services.php";
 
+
 $scope.postService = function(scopeName,veri){
      
       $http.post($scope.serviceLink, veri)
@@ -50,17 +51,17 @@ $scope.postService = function(scopeName,veri){
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.loginModal = modal;
   });
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
-    $scope.modal.hide();
+    $scope.loginModal.hide();
   };
 
   // Open the login modal
   $scope.login = function() {
-    $scope.modal.show();
+    $scope.loginModal.show();
   };
 
   // Perform the login action when the user submits the login form
@@ -89,6 +90,62 @@ $scope.postService('userbilgi',$scope.loginData);
       $scope.closeLogin();
     }, 1000);
   };
+
+//////////////////////////////////////////  Register Start       ///////////////////////////////////////////////////////////////////////
+
+// Create the register modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/register.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.registerModal = modal;
+  });
+
+  // Triggered in the register modal to close it
+  $scope.closeRegister = function() {
+    $scope.registerModal.hide();
+  };
+
+  // Open the register modal
+  $scope.register = function() {
+    $scope.loginModal.hide();
+    $scope.registerModal.show();
+  };
+
+  // Perform the register action when the user submits the register form
+  $scope.doRegister = function() {
+
+$scope.registerData.service_type = "register_user";
+$scope.registerData.company_id = "1";
+$scope.postService('userbilgi', $scope.registerData);
+
+/*
+$name_user = $gelen_data->name_user;
+  $username = $gelen_data->username;
+  $password_user = $gelen_data->password_user;
+  $school= $gelen_data->school;
+  $email_address= $gelen_data->email_address;
+  $phone_number= $gelen_data->phone_number;
+  $company_id= $gelen_data->company_id;
+*/
+
+    console.log("RegisterData.name_user : "+$scope.registerData.name_user);
+    console.log("RegisterData.username : "+$scope.registerData.username);
+    console.log("RegisterData.password_user : "+$scope.registerData.password_user);
+    console.log("RegisterData.school : "+$scope.registerData.school);
+    console.log("RegisterData.address : "+$scope.registerData.email_address);
+    console.log("RegisterData.phone_number : "+$scope.registerData.phone_number);
+    console.log("RegisterData.company_id : "+$scope.registerData.company_id);
+
+
+    // Simulate a register delay. Remove this and replace with your register
+    // code if using a register system
+    $timeout(function() {
+      $scope.closeRegister();
+    }, 1000);
+  };
+
+//////////////////////////////////////// Register End ////////////////////////////////////////////////////////////
+
 })
 
 .controller('PlaylistsCtrl', function($scope,$rootScope, $http) {
@@ -119,6 +176,10 @@ $scope.postService('userbilgi',$scope.loginData);
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+})
+
+.controller('RegisterCtrl', function($scope, $http, $rootScope){
+    
 })
 
 .controller('SearchCtrl',function($scope, $http){
