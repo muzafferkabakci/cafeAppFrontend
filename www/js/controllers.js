@@ -14,13 +14,13 @@ $scope.serviceLink="http://projeapp.site/cafe/service.php";
 
 
 $scope.postService = function(scopeName,veri){
-     
+
       $http.post($scope.serviceLink, veri)
             .success(function (data, status) {
               console.log("Gelen Data"+data);
               $scope.dinamikScope(scopeName,data);
 
-              console.log("Gelen Data User:" + $rootScope.ifuserexist);
+              console.log("Gelen Data User:" + $rootScope.data);
 
 
                 //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
@@ -81,7 +81,7 @@ $scope.postService('userbilgi',$scope.loginData);
     })
 */
     console.log("LoginData : "+$scope.loginData.username);
-    console.log("PasswordData : "+$scope.loginData.password);
+    console.log("PasswordData : "+$scope.loginData.password_user);
 
 
     // Simulate a login delay. Remove this and replace with your login
@@ -118,7 +118,7 @@ $scope.postService('userbilgi',$scope.loginData);
   // Check if user exists
 
 
-  $scope.checkUser = function(){    
+  $scope.checkUser = function(){
     $scope.user = {};
     $scope.user.service_type = "user_varMi";
     $scope.user.username = $scope.registerData.username;
@@ -194,7 +194,7 @@ $name_user = $gelen_data->name_user;
 })
 
 .controller('RegisterCtrl', function($scope, $http, $rootScope){
-    
+
 })
 
 .controller('SearchCtrl',function($scope, $http){
