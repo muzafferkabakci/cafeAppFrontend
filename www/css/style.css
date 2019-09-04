@@ -287,3 +287,7 @@
   font-size: 1.4em;
   text-decoration: none;
 }
+
+.red-border {
+  border-color: red;
+}

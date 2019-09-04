@@ -10,7 +10,7 @@ $scope.dinamikScope= function(name,data){
 
 };
 
-$scope.serviceLink="http://projeapp.site/cafe/services.php";
+$scope.serviceLink="http://projeapp.site/cafe/service.php";
 
 
 $scope.postService = function(scopeName,veri){
@@ -20,7 +20,7 @@ $scope.postService = function(scopeName,veri){
               console.log("Gelen Data"+data);
               $scope.dinamikScope(scopeName,data);
 
-              console.log("Gelen Data User:"+$scope.userbilgi);
+              console.log("Gelen Data User:" + $rootScope.ifuserexist);
 
 
                 //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
@@ -93,6 +93,8 @@ $scope.postService('userbilgi',$scope.loginData);
 
 //////////////////////////////////////////  Register Start       ///////////////////////////////////////////////////////////////////////
 
+
+
 // Create the register modal that we will use later
   $ionicModal.fromTemplateUrl('templates/register.html', {
     scope: $scope
@@ -103,20 +105,33 @@ $scope.postService('userbilgi',$scope.loginData);
   // Triggered in the register modal to close it
   $scope.closeRegister = function() {
     $scope.registerModal.hide();
+
   };
 
   // Open the register modal
   $scope.register = function() {
     $scope.loginModal.hide();
+     $scope.registerData = {};
     $scope.registerModal.show();
   };
+
+  // Check if user exists
+
+
+  $scope.checkUser = function(){    
+    $scope.user = {};
+    $scope.user.service_type = "user_varMi";
+    $scope.user.username = $scope.registerData.username;
+    $scope.postService('ifuserexist', $scope.user);
+    console.log("check user" + $scope.ifuserexist);
+  }
 
   // Perform the register action when the user submits the register form
   $scope.doRegister = function() {
 
-$scope.registerData.service_type = "register_user";
-$scope.registerData.company_id = "1";
-$scope.postService('userbilgi', $scope.registerData);
+    $scope.registerData.service_type = "register_user";
+    $scope.registerData.company_id = "1";
+    $scope.postService('newUserData', $scope.registerData);
 
 /*
 $name_user = $gelen_data->name_user;
@@ -128,13 +143,13 @@ $name_user = $gelen_data->name_user;
   $company_id= $gelen_data->company_id;
 */
 
-    console.log("RegisterData.name_user : "+$scope.registerData.name_user);
-    console.log("RegisterData.username : "+$scope.registerData.username);
-    console.log("RegisterData.password_user : "+$scope.registerData.password_user);
-    console.log("RegisterData.school : "+$scope.registerData.school);
-    console.log("RegisterData.address : "+$scope.registerData.email_address);
-    console.log("RegisterData.phone_number : "+$scope.registerData.phone_number);
-    console.log("RegisterData.company_id : "+$scope.registerData.company_id);
+    console.log("RegisterData.name_user : "+$scope.newUserData.name_user);
+    console.log("RegisterData.username : "+$scope.newUserData.username);
+    console.log("RegisterData.password_user : "+$scope.newUserData.password_user);
+    console.log("RegisterData.school : "+$scope.newUserData.school);
+    console.log("RegisterData.address : "+$scope.newUserData.email_address);
+    console.log("RegisterData.phone_number : "+$scope.newUserData.phone_number);
+    console.log("RegisterData.company_id : "+$scope.newUserData.company_id);
 
 
     // Simulate a register delay. Remove this and replace with your register
