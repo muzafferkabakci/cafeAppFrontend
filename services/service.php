@@ -13,14 +13,14 @@
 //  $jsonDeneme ->password_user ="123";
 //  $jsonDeneme ->phone_number ="0537878276012";
 //  $jsonDeneme ->email_address = "asd";
- $jsonDeneme ->service_type ="forgot_password";
+ //$jsonDeneme ->service_type ="forgot_password";
 //  $jsonDeneme ->name_user = "ads";
 //  $jsonDeneme ->school="asd";
 //  $jsonDeneme ->company_id="12";
 
- $gelen_json = json_encode($jsonDeneme);
+ //$gelen_json = json_encode($jsonDeneme);
 
-//  $gelen_json = file_get_contents("php://input");
+$gelen_json = file_get_contents("php://input");
  $gelen_data = json_decode($gelen_json);
 $service_type = $gelen_data->service_type;
 echo $service_type;
@@ -138,7 +138,7 @@ function user_varMi($pdo,$gelen_data){
 	$stmt = $pdo->prepare("SELECT * FROM user WHERE username=:username");
 	$stmt->bindParam(':username', $username, PDO::PARAM_STR);
 	$stmt->execute();
-	return $stmt->rowCount()==0;
+	echo $stmt->rowCount();
 }
 function mail_varMi($pdo,$gelen_data){
   $email_address =$gelen_data->email_address;
