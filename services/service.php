@@ -13,17 +13,17 @@
 //  $jsonDeneme ->password_user ="123";
 //  $jsonDeneme ->phone_number ="0537878276012";
 //  $jsonDeneme ->email_address = "asd";
- //$jsonDeneme ->service_type ="forgot_password";
+ $jsonDeneme ->service_type ="forgot_password";
 //  $jsonDeneme ->name_user = "ads";
 //  $jsonDeneme ->school="asd";
 //  $jsonDeneme ->company_id="12";
+$jsonDeneme ->phone_number = "05378782760";
+ $gelen_json = json_encode($jsonDeneme);
 
- //$gelen_json = json_encode($jsonDeneme);
-
-$gelen_json = file_get_contents("php://input");
- $gelen_data = json_decode($gelen_json);
+//$gelen_json = file_get_contents("php://input");
+$gelen_data = json_decode($gelen_json);
 $service_type = $gelen_data->service_type;
-echo $service_type;
+//echo $service_type;
 
 // echo $myJson;
 //login_user($pdo,$myJson);
@@ -49,7 +49,7 @@ switch($service_type){
     break;
   case forgot_password:
     // echo "forgot_password girdi".'</br> --- </br>';
-    forgot_password();
+    forgot_password($pdo,$gelen_data);
     break;
   case if_exist:
 	  // echo "if_exit girdi".'</br> --- </br>';
@@ -157,20 +157,21 @@ function tel_varMi($pdo,$gelen_data){
 	return $stmt->rowCount()==0;
 }
 //SMS MAİL <---
-function forgot_password(){
-  echo "Fonksiyona girdi";
-  // $username = $gelen_data->username;
-  // $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
-  // $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-  // $stmt->execute();
+function forgot_password($pdo,$gelen_data){
+  $phone_number = $gelen_data->phone_number;
+  $stmt = $pdo->prepare("SELECT email_address, username, name_user,password_user FROM user WHERE phone_number=:phone_number");
+  $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
+  $stmt->execute();
+  //Merhaba name_user kullanıcı adınız : username Şifreniz password_user
+  $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+  $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor (string şeklinde...)
+  if($gelenuser){
+    echo $json_data.'</br>';
+    echo $json_data->email_address;
 
-  // $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-  // $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-  // if($gelenuser){
-  //   print $json_data;
-  // }else{
-  //   echo "0";
-  // }
+  }else{
+    echo "0";
+  }
   $mail = new PHPMailer();
   $mail->IsSMTP();
   $mail->SMTPAuth = true;
@@ -180,10 +181,10 @@ function forgot_password(){
   $mail->Username = 'cafeapp34@gmail.com';
   $mail->Password = 'Gokhan12356.';
   $mail->SetFrom($mail->Username, 'Cafe App');
-  $mail->AddAddress('gkandth@gmail.com', 'gönderilen kişinin adı soyadı');
+  $mail->AddAddress('gkandth@gmail.com', 'gönderilen kişinin adı soyadı'); // Düzenlenecek
   $mail->CharSet = 'UTF-8';
   $mail->Subject = 'E-POSTA KONUSU';
-  $content = '<div style="background: #eee; padding: 10px; font-size: 14px">Bu bir test e-posta\'dır..</div>';
+  $content = '<div style="background: #eee; padding: 10px; font-size: 14px">Bu bir test e-posta\'dır..</div>';//Düzenlenecek
   $mail->MsgHTML($content);
   if($mail->Send()) {
       echo "e-posta başarılı ile gönderildi";
