@@ -17,20 +17,16 @@ $scope.postService = function(scopeName,veri){
 
       $http.post($scope.serviceLink, veri)
             .success(function (data, status) {
-              console.log("Gelen Data"+data);
+              console.log("Gelen Data : "+data);
               $scope.dinamikScope(scopeName,data);
 
-              console.log("Gelen Data User:" + $rootScope.data);
-              if(scopeName == 'ifuserexist'){
-                return data;
-              }
-
+              //console.log("Gelen Data User : " + data);
 
                 //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
                //-ac-//console.log("Token stored, device is successfully subscribed to receive push notifications.");
             })
             .error(function (data, status) {
-               console.log("Hata Data"+data);
+               console.log("Hata Data : "+data);
                //-ac-//console.log("Error storing device token." + data + " " + status)
                   //-ac-//console.log("n-11");
             });
@@ -125,8 +121,8 @@ $scope.postService('userbilgi',$scope.loginData);
     $scope.user = {};
     $scope.user.service_type = "user_varMi";
     $scope.user.username = $scope.registerData.username;
-    $deneme = $scope.postService('ifuserexist', $scope.user);
-    console.log("Deneme : ",$deneme);
+    $scope.postService('ifuserexist', $scope.user);
+    console.log("Deneme : ",$rootScope.deneme);
     console.log("check user" + $scope.ifuserexist);
   }
 
