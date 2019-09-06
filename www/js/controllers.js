@@ -149,7 +149,36 @@ $scope.doForgot = function(){
   };
 
 //////////////////////////////////////// Register End ////////////////////////////////////////////////////////////
+//////////////////////////////////////// Karekod  /////////////////////////////////
+$ionicModal.fromTemplateUrl('templates/barkod.html', {
+  scope: $scope
+}).then(function(modal) {
+  $scope.barkodModal = modal;
+});
+$scope.barkodModalOpen = function(barkod){
+  $scope.bilgi = barkod;
+  $scope.barkodModal.show();
+  $scope.degisken = "product_id: "+$scope.bilgi+"/user_id: ";
+  console.log($scope.degisken);
+  $scope.a = new QRCode(document.getElementById("qrcode"), {
+    text: $scope.degisken,
+    width: 200,
+    height: 200,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+  });
+}
+$scope.tusId = function(degisken2){
+  $scope.tusunId = degisken2;
+  console.log($scope.tusunId);
+}
+$scope.barkodModalClose = function () {
 
+  document.getElementById("qrcode").innerHTML = "";
+  $scope.barkodModal.hide();
+
+}
 })
 
 .controller('PlaylistsCtrl', function($scope,$rootScope, $http) {

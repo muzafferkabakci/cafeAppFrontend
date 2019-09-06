@@ -73,7 +73,7 @@ LOGO
 
 <div class="home_bg ortala">
 
-<button class="button button-energized kampanya">
+<button class="button button-energized kampanya" ng-click="barkodModalOpen('1')">
  Kampanya Kodu
 </button>
 
@@ -128,12 +128,12 @@ LOGO
 
 
 
-<div class="item-body" ng-repeat="playlist in playlists">
+<div class="item-body" ng-repeat="playlist in playlists" >
 <div class=" item-text-wrap">
 
 
 <div class="row tiklayer">
-<button class="button button-energized tiklayersekil">
+<button class="button button-energized tiklayersekil"  ng-click="barkodModalOpen({{playlist.id}}+1)">
 Tıkla
 </button>
 </div>
