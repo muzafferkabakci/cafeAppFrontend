@@ -75,7 +75,26 @@ $scope.postService = function(scopeName,veri){
       $scope.closeLogin();
     }, 1000);
   };
+////////////////////////////////////////// forgot password ////////////////////////////
+$ionicModal.fromTemplateUrl('templates/forgot.html', { //Sifremi unuttum sayfasını oluştruman gerek
+  scope: $scope
+}).then(function(modal) {
+  $scope.forgotModal = modal; // moda
+});
+$scope.sifremiUnuttumAc = function(){ // burda o sayfayı açıyoruz
+  console.log('deneme');
+  $scope.forgotModal.show(); // Burda ekranda gösteriyoruz fakat kapatma olayını yazmadın aşağıdaki ile aynı
+}// bir tane kapatma butonu ekleyeceksin oluşturduğun sayfaya sonra sifremiUnuttumKapa diye fonksiyon yazacaksın
+// $scope.forgotModal.hide() çalıştıracaksın eğer o butona tıklanırsa diye
 
+// Triggered in the login modal to close it
+$scope.sifremiUnuttumKapa = function() {
+  $scope.forgotModal.hide();
+};
+$scope.doForgot = function(){
+  console.log($scope.loginData.phoneNumber);
+  $scope.sifremiUnuttumKapa();
+}
 //////////////////////////////////////////  Register Start       ///////////////////////////////////////////////////////////////////////
 
 // Create the register modal that we will use later
