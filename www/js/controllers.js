@@ -71,12 +71,12 @@ $scope.modalClose = function () {
 // }
   $ionicModal.fromTemplateUrl('templates/barkod.html', {
     scope: $scope
-  }).then(function(model) {
-    $scope.model = model;
+  }).then(function(modal) {
+    $scope.barkodModal = modal;
   });
-  $scope.modelOpen = function(barkod){
+  $scope.barkodModalOpen = function(barkod){
     $scope.bilgi = barkod;
-    $scope.model.show();
+    $scope.barkodModal.show();
     $scope.degisken = "product_id: "+$scope.bilgi+"/user_id: ";
     console.log($scope.degisken);
     $scope.a = new QRCode(document.getElementById("qrcode"), {
@@ -92,10 +92,10 @@ $scope.modalClose = function () {
     $scope.tusunId = degisken2;
     console.log($scope.tusunId);
   }
-  $scope.modelClose = function () {
+  $scope.barkodModalClose = function () {
 
     document.getElementById("qrcode").innerHTML = "";
-    $scope.model.hide();
+    $scope.barkodModal.hide();
 
   }
   $scope.loginData = {};
