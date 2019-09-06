@@ -33,7 +33,7 @@
   border-radius:10px;
 }
 .subeitem{
-  color:white
+  color:white;
   background:yellow;
 }
 
@@ -287,3 +287,21 @@
   font-size: 1.4em;
   text-decoration: none;
 }
+.modal{
+  background-color: rgb(0, 0, 0, 0);
+}
+.squarre {
+  height: 30vw;
+  width: 30vw;
+  background-color: black;
+  border-radius: 10% ;
+}
+.boxx {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+
