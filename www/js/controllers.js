@@ -97,57 +97,48 @@ $scope.doForgot = function(){
 }
 //////////////////////////////////////////  Register Start       ///////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////  Register Start       ///////////////////////////////////////////////////////////////////////
+
+
+
 // Create the register modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/register.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.registerModal = modal;
-  });
+$ionicModal.fromTemplateUrl('templates/register.html', {
+  scope: $scope
+}).then(function(modal) {
+  $scope.registerModal = modal;
+});
 
-  // Triggered in the register modal to close it
-  $scope.closeRegister = function() {
-    $scope.registerModal.hide();
-  };
+// Triggered in the register modal to close it
+$scope.closeRegister = function() {
+  $scope.registerModal.hide();
 
-  // Open the register modal
-  $scope.register = function() {
-    $scope.loginModal.hide();
-    $scope.registerModal.show();
-  };
+};
 
-  // Perform the register action when the user submits the register form
-  $scope.doRegister = function() {
-
-    $scope.registerData.service_type = "register_user";
-    $scope.registerData.company_id = "1";
-    $scope.postService('userbilgi', $scope.registerData);
-
-    /*
-    $name_user = $gelen_data->name_user;
-      $username = $gelen_data->username;
-      $password_user = $gelen_data->password_user;
-      $school= $gelen_data->school;
-      $email_address= $gelen_data->email_address;
-      $phone_number= $gelen_data->phone_number;
-      $company_id= $gelen_data->company_id;
-    */
-
-      console.log("RegisterData.name_user : "+$scope.registerData.name_user);
-      console.log("RegisterData.username : "+$scope.registerData.username);
-      console.log("RegisterData.password_user : "+$scope.registerData.password_user);
-      console.log("RegisterData.school : "+$scope.registerData.school);
-      console.log("RegisterData.address : "+$scope.registerData.email_address);
-      console.log("RegisterData.phone_number : "+$scope.registerData.phone_number);
-      console.log("RegisterData.company_id : "+$scope.registerData.company_id);
+// Open the register modal
+$scope.register = function() {
+  $scope.loginModal.hide();
+  $scope.registerData = {};
+  $scope.registerModal.show();
+};
 
 
-      // Simulate a register delay. Remove this and replace with your register
-      // code if using a register system
-      $timeout(function() {
-        $scope.closeRegister();
-      }, 1000);
-  };
 
+$scope.checkUser = function(){
+
+    $scope.user = {};
+    $scope.user.service_type = "user_varMi";
+    $scope.user.username = $scope.registerData.username;
+    $scope.postService('ifuserexist', $scope.user);
+
+    $timeout(function(){
+      console.log($scope.ifuserexist);
+      $scope.$apply();
+    },100);
+
+
+
+
+}
 //////////////////////////////////////// Register End ////////////////////////////////////////////////////////////
 //////////////////////////////////////// Karekod  /////////////////////////////////
 $ionicModal.fromTemplateUrl('templates/barkod.html', {
