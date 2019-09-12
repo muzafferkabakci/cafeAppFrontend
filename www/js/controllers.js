@@ -128,12 +128,13 @@ $scope.checkUser = function(){
     $scope.user = {};
     $scope.user.service_type = "user_varMi";
     $scope.user.username = $scope.registerData.username;
+    var x=100;
     $scope.postService('ifuserexist', $scope.user);
 
     $timeout(function(){
       console.log($scope.ifuserexist);
       $scope.$apply();
-    },100);
+    },x);
 
 
 
