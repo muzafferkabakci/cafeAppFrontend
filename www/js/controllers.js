@@ -61,12 +61,18 @@ $scope.postService = function(scopeName,veri){
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
 
-    $scope.loginData.service_type="login_user";
+    $scope.loginDataJson = [{
+      "service_type" : "login_user",
+      "username" : $scope.loginData.username,
+      "password_user" : $scope.loginData.password
+    }]
 
-    $scope.postService('userbilgi',$scope.loginData);
+    $scope.postService('userbilgi',$scope.loginDataJson);
 
+    console.log($rootScope.userbilgi);
     console.log("LoginData : "+$scope.loginData.username);
     console.log("PasswordData : "+$scope.loginData.password);
+    console.log("Tipi"+typeof($scope.loginDataJson));
 
 
     // Simulate a login delay. Remove this and replace with your login
@@ -186,7 +192,7 @@ $scope.barkodModalClose = function () {
   ];
 
   $scope.kahveler = [
-  { kahve:'3', id: 1 }
+  { kahve:'2', id: 1 }
   ];
 
   $http.get("http://gokhanbirkin.net/services2.php?service_type=get_branches&company_id=1").

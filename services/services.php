@@ -7,12 +7,12 @@
 // header('Access-Control-Max-Age: 86400');
  include("databaseCon.php");
 
-//  $jsonDeneme ->username ="gkand";
-//  $jsonDeneme ->password_user ="123";
-// $jsonDeneme ->service_type ="login_user";
-//  $gelen_json = json_encode($jsonDeneme);
+//   $jsonDeneme ->username ="gkand";
+//   $jsonDeneme ->password_user ="123";
+//  $jsonDeneme ->service_type ="login_user";
+//$gelen_json = json_encode($jsonDeneme);
 
- $gelen_json = file_get_contents("php://input");
+$gelen_json = file_get_contents("php://input");
 $gelen_data = json_decode($gelen_json);
 $service_type = $gelen_data->service_type;
 
@@ -69,7 +69,7 @@ switch($service_type){
     depleted_products($pdo,$gelen_data);
     break;
   default:
-    echo "0";
+    echo $service_type."Switch 0";
 }
 
 
@@ -119,9 +119,9 @@ function login_user($pdo, $gelen_data){
  		$gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
 		$json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
     if($gelenuser){
-      // $jsonArray = json_decode($json_data,true);
-      // return $jsonArray;
-      print $json_data;
+       $jsonArray = json_decode($json_data,true);
+       print $jsonArray;
+      //print $json_data;
     }else{
       echo $gelenuser;
       return false;
