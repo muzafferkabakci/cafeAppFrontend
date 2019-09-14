@@ -130,16 +130,43 @@ function login_user($pdo, $gelen_data){
 
 //SMS MAİL <---
 function forgot_password($pdo,$gelen_data){
-  $username = $gelen_data->username;
-  $stmt = $pdo->prepare("SELECT phone_number,email_address FROM user WHERE username=:username");
-  $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+  $phone_number = $gelen_data->phone_number;
+  $stmt = $pdo->prepare("SELECT name_user,password_user,email_address, username FROM user WHERE phone_number=:phone_number");
+  $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
   $stmt->execute();
-  $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-  $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-  if($gelenuser){
-    print $json_data;
-  }else{
-    echo "0";
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  $pass = $row['password_user'];
+  $email_address = $row['email_address'];
+  $username = $row['username'];
+  $name_user = $row['name_user'];
+  //echo $pass." / ".$email_address." / ".$username;
+  // $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+  // $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
+  // if($gelenuser){
+  //   print $json_data;
+  // }else{
+  //   echo "0";
+  // }
+  $mail = new PHPMailer();
+  $mail->IsSMTP();
+  $mail->SMTPAuth = true;
+  $mail->Host = 'smtp.gmail.com';
+  $mail->Port = 587;
+  $mail->SMTPSecure = 'tls';
+  $mail->Username = 'cafeapp34@gmail.com';
+  $mail->Password = 'Gokhan12356.';
+  $mail->SetFrom($mail->Username, 'Cafe App');
+  $mail->AddAddress($email_address, $name_user);
+  $mail->CharSet = 'UTF-8';
+  $mail->Subject = 'E-POSTA KONUSU';
+  $content = '<div style="background: #f1445f; padding: 10px; font-size: 20px">Kullanıcı Adınız : '.$username.'<br/>
+  Şifreniz : '.$pass.'</div>';
+  $mail->MsgHTML($content);
+  if($mail->Send()) {
+      echo "e-posta başarılı ile gönderildi";
+  } else {
+      echo "bir sorun var, sorunu ekrana bastıralım".'</br>';
+      echo $mail->ErrorInfo;
   }
 }
 
