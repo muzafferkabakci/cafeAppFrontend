@@ -19,15 +19,12 @@ $scope.postService = function(scopeName,veri){
   .success(function (data, status) {
     console.log("Gelen Data"+data);
     $scope.dinamikScope(scopeName,data);
+
     // if(scopeName == 'userbilgi'){
     //   localStorage.setItem("userInfo",data[0]);
     // }
 
-    console.log("Gelen Data User:"+$scope.userbilgi[0].name_user);
-    // $timeout(
-    //   function ()
-    //   {console.log("Gelen Data User:"+$scope.userbilgi)}
-    //   ,100);
+    //console.log("Gelen Data User:"+$scope.userbilgi[0].name_user);
 
       //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
       //-ac-//console.log("Token stored, device is successfully subscribed to receive push notifications.");
