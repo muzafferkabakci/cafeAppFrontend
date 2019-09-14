@@ -19,17 +19,25 @@ $scope.postService = function(scopeName,veri){
   .success(function (data, status) {
     console.log("Gelen Data"+data);
     $scope.dinamikScope(scopeName,data);
+    // if(scopeName == 'userbilgi'){
+    //   localStorage.setItem("userInfo",data[0]);
+    // }
 
-    console.log("Gelen Data User:"+$scope.userbilgi);
-
+    console.log("Gelen Data User:"+$scope.userbilgi[0].name_user);
+    // $timeout(
+    //   function ()
+    //   {console.log("Gelen Data User:"+$scope.userbilgi)}
+    //   ,100);
 
       //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
       //-ac-//console.log("Token stored, device is successfully subscribed to receive push notifications.");
+
   })
   .error(function (data, status) {
       console.log("Hata Data"+data);
       //-ac-//console.log("Error storing device token." + data + " " + status)
         //-ac-//console.log("n-11");
+
   });
 
 };
@@ -61,22 +69,15 @@ $scope.postService = function(scopeName,veri){
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
 
-    $scope.loginDataJson = [{
-      "service_type" : "login_user",
-      "username" : $scope.loginData.username,
-      "password_user" : $scope.loginData.password
-    }]
+    $scope.loginDataJson = {
+      service_type : 'login_user',
+      username : $scope.loginData.username,
+      password_user : $scope.loginData.password
+    };
 
-    $scope.postService('userbilgi',$scope.loginDataJson);
-
-    console.log($rootScope.userbilgi);
-    console.log("LoginData : "+$scope.loginData.username);
-    console.log("PasswordData : "+$scope.loginData.password);
-    console.log("Tipi"+typeof($scope.loginDataJson));
-
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
+    $scope.postService('userbilgi',$scope.loginDataJson)
+    // var de = localStorage.getItem("userInfo");
+    // console.log(de[0]);
     $timeout(function() {
       $scope.closeLogin();
     }, 1000);

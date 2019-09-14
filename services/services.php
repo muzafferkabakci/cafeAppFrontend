@@ -119,9 +119,9 @@ function login_user($pdo, $gelen_data){
  		$gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
 		$json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
     if($gelenuser){
-       $jsonArray = json_decode($json_data,true);
-       print $jsonArray;
-      //print $json_data;
+      //  $jsonArray = json_decode($json_data,true);
+      //  print $jsonArray;
+      print $json_data;
     }else{
       echo $gelenuser;
       return false;
