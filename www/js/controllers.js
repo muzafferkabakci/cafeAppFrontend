@@ -98,12 +98,8 @@ $scope.sifremiUnuttumKapa = function() {
 $scope.doForgot = function(){
   console.log($scope.loginData.phoneNumber);
   $scope.sifremiUnuttumKapa();
-}
+}//Uygulamada çalışmıyor
 //////////////////////////////////////////  Register Start       ///////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////  Register Start       ///////////////////////////////////////////////////////////////////////
-
-
 
 // Create the register modal that we will use later
 $ionicModal.fromTemplateUrl('templates/register.html', {
@@ -124,8 +120,6 @@ $scope.register = function() {
   $scope.registerData = {};
   $scope.registerModal.show();
 };
-
-
 
 $scope.checkUser = function(){
 
