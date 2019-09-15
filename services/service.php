@@ -146,7 +146,7 @@ function mail_varMi($pdo,$gelen_data){
 	$stmt = $pdo->prepare("SELECT * FROM user WHERE email_address=:email_address");
 	$stmt->bindParam(':email_address', $email_address, PDO::PARAM_STR);
 	$stmt->execute();
-	return $stmt->rowCount()==0;
+	echo $stmt->rowCount();
 }
 function tel_varMi($pdo,$gelen_data){
   $phone_number =$gelen_data->phone_number;
@@ -154,7 +154,7 @@ function tel_varMi($pdo,$gelen_data){
 	$stmt = $pdo->prepare("SELECT * FROM user WHERE phone_number=:phone_number");
 	$stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
 	$stmt->execute();
-	return $stmt->rowCount()==0;
+	echo $stmt->rowCount();
 }
 //SMS MAİL <---
 function forgot_password($pdo, $gelen_data){

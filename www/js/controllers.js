@@ -132,17 +132,75 @@ $scope.checkUser = function(){
     $scope.user = {};
     $scope.user.service_type = "user_varMi";
     $scope.user.username = $scope.registerData.username;
-    var x=100;
-    $scope.postService('ifuserexist', $scope.user);
+    var x=100;//timeout için değişken ataması. DB'deki user sayısına göre değişebilir.
+    $scope.postService('usernameKontrol', $scope.user);
 
     $timeout(function(){
-      console.log($scope.ifuserexist);
+      console.log($scope.usernameKontrol);
+      if($scope.usernameKontrol==1){
+        document.getElementById("username").style.color ="red";
+      }else{
+        document.getElementById("username").style.color ="white";
+      }
       $scope.$apply();
     },x);
 
+}
+$scope.checkMail = function(){
 
+  $scope.user = {};
+  $scope.user.service_type = "mail_varMi";
+  $scope.user.email_address = $scope.registerData.email_address;
+  var x=100;//timeout için değişken ataması. DB'deki user sayısına göre değişebilir.
+  $scope.postService('mailKontrol', $scope.user);
 
+  $timeout(function(){
+    console.log($scope.mailKontrol);
+    if($scope.mailKontrol==1){
+      document.getElementById("mail").style.color ="red";
+    }else{
+      document.getElementById("mail").style.color ="white";
+    }
+    $scope.$apply();
+  },x);
 
+}
+$scope.checkPhone = function(){
+
+  $scope.user = {};
+  $scope.user.service_type = "tel_varMi";
+  $scope.user.phone_number = $scope.registerData.phone_number;
+  var x=100;//timeout için değişken ataması. DB'deki user sayısına göre değişebilir.
+  $scope.postService('telKontrol', $scope.user);
+
+  $timeout(function(){
+    console.log($scope.telKontrol);
+    if($scope.telKontrol==1){
+      document.getElementById("tel").style.color ="red";
+    }else{
+      document.getElementById("tel").style.color ="white";
+    }
+    $scope.$apply();
+  },x);
+
+}
+$scope.doRegister = function(){
+  $scope.registerDataJson = {
+    service_type : 'register_user',
+    username : $scope.registerData.username,
+    password_user : $scope.registerData.password_user,
+    name_user : $scope.registerData.name_user,
+    school : $scope.registerData.school,
+    email_address : $scope.registerData.email_address,
+    phone_number :  $scope.registerData.phone_number,
+    company_id : $scope.registerData.company_id
+  };
+  $scope.postService('registerBilgi',$scope.registerDataJson)
+    // var de = localStorage.getItem("userInfo");
+    // console.log(de[0]);
+    $timeout(function() {
+      $scope.closeRegister();
+    }, 1000);
 }
 //////////////////////////////////////// Register End ////////////////////////////////////////////////////////////
 //////////////////////////////////////// Karekod  /////////////////////////////////

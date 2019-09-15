@@ -25,6 +25,15 @@ switch($service_type){
     // echo "registera girdi. DEneme".'</br> --- </br>';
     register_user($pdo, $gelen_data);
     break;
+  case user_varMi:
+    user_varMi($pdo,$gelen_data);
+    break;
+  case mail_varMi:
+    mail_varMi($pdo,$gelen_data);
+    break;
+  case tel_varMi:
+    tel_varMi($pdo,$gelen_data);
+    break;
   case login_user:
     //echo "logine girdik.".'</br> --- </br>';
     login_user($pdo,$gelen_data);
@@ -73,6 +82,35 @@ switch($service_type){
 }
 
 
+// function register_user($pdo,$gelen_data){
+
+//   $name_user = $gelen_data->name_user;
+//   $username = $gelen_data->username;
+//   $password_user = $gelen_data->password_user;
+//   $school= $gelen_data->school;
+//   $email_address= $gelen_data->email_address;
+//   $phone_number= $gelen_data->phone_number;
+//   $company_id= $gelen_data->company_id;
+//   //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
+//   //id+1
+//   if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+//   VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
+//     echo "kayıt eklendi";
+//   }
+//   // if($pdo->exec('SELECT username FROM user WHERE username=:username') == null &&
+//   // $pdo->exec('SELECT email_address FROM user WHERE name_user=:email_address') == null &&
+//   // $pdo->exec('SELECT phone_number FROM user WHERE name_user=:phone_number') == null){
+//   //   $pdo -> $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+//   //   VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")');
+//   //   echo "EKLENDİ";
+//   // }else{
+//   //   echo "Eklenemedi";
+//   // }
+//   // // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
+//   // // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
+//   // //   echo "kayıt eklendi";
+//   // // }
+// }
 function register_user($pdo,$gelen_data){
 
   $name_user = $gelen_data->name_user;
@@ -82,25 +120,36 @@ function register_user($pdo,$gelen_data){
   $email_address= $gelen_data->email_address;
   $phone_number= $gelen_data->phone_number;
   $company_id= $gelen_data->company_id;
-  //gokhanbirkin.net/services.php?service_type=register&name_user=batuhan&username=batuerdemir&password_user=1234&school=sabancı üniversitesi&email_address=batuerdemir@gmail.com&phone_number=564123651&company_id=1
-  //id+1
+
   if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
   VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
     echo "kayıt eklendi";
   }
-  // if($pdo->exec('SELECT username FROM user WHERE username=:username') == null &&
-  // $pdo->exec('SELECT email_address FROM user WHERE name_user=:email_address') == null &&
-  // $pdo->exec('SELECT phone_number FROM user WHERE name_user=:phone_number') == null){
-  //   $pdo -> $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-  //   VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")');
-  //   echo "EKLENDİ";
-  // }else{
-  //   echo "Eklenemedi";
-  // }
-  // // if( $pdo->exec('INSERT INTO user ( name_user, username,password_user,school,email_address,phone_number,company_id)
-  // // VALUES ("'.$name_user.'","'.$username.'","'.$password_user.'","'.$school.'","'.$email_address.'","'.$phone_number.'","'.$company_id.'")')){
-  // //   echo "kayıt eklendi";
-  // // }
+
+}
+function user_varMi($pdo,$gelen_data){
+  $username =$gelen_data->username;
+
+	$stmt = $pdo->prepare("SELECT * FROM user WHERE username=:username");
+	$stmt->bindParam(':username', $username, PDO::PARAM_STR);
+	$stmt->execute();
+	echo $stmt->rowCount();
+}
+function mail_varMi($pdo,$gelen_data){
+  $email_address =$gelen_data->email_address;
+
+	$stmt = $pdo->prepare("SELECT * FROM user WHERE email_address=:email_address");
+	$stmt->bindParam(':email_address', $email_address, PDO::PARAM_STR);
+	$stmt->execute();
+	echo $stmt->rowCount();
+}
+function tel_varMi($pdo,$gelen_data){
+  $phone_number =$gelen_data->phone_number;
+
+	$stmt = $pdo->prepare("SELECT * FROM user WHERE phone_number=:phone_number");
+	$stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
+	$stmt->execute();
+	echo $stmt->rowCount();
 }
 
 //localStorage->
