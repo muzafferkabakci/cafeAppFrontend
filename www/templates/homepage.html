@@ -2,69 +2,54 @@
   <ion-content class="home_bg1">
 
 
-   <div class="home_bg1">
+<div class="home_bg1">
 
-<div class="row">
+  <div class="row">
+    <div class="col col-100 ortala">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <rect class="eq-bar eq-bar--1" x="4" y="4" width="3.7" height="8"/>
+        <rect class="eq-bar eq-bar--2" x="10.2" y="4" width="3.7" height="16"/>
+        <rect class="eq-bar eq-bar--3" x="16.3" y="4" width="3.7" height="11"/>
+      </svg>
+    </div>
+  </div>
 
-  <div class="col col-100 ortala">
-
-
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <rect class="eq-bar eq-bar--1" x="4" y="4" width="3.7" height="8"/>
-  <rect class="eq-bar eq-bar--2" x="10.2" y="4" width="3.7" height="16"/>
-  <rect class="eq-bar eq-bar--3" x="16.3" y="4" width="3.7" height="11"/>
-
-</svg>
-
-
+<div class="row ">
+  <div class="col col-100 ortala"  >
+    <button class="button button-dark muzik">
+      Tarkan - Hüp diye icine cek beni
+    </button>
   </div>
 </div>
 
-
+<div class="row ">
+  <div class="col col-100 ortala beyaz" >
+    LOGO
+  </div>
+</div>
 
 <div class="row ">
+  <div class="col col-100 ortala " >
+    <h3 class="beyaz">{{userbilgi[0].name_user}}</h3>
+  </div>
+</div>
 
-  <div class="col col-100 ortala"  >
+<div class="row " style="padding-bottom: 86px;">
+  <div class="col col-100 ortala beyaz">
+    {{userbilgi[0].school}}
+  </div>
+</div>
+ </div>
 
-
-
-<button class="button button-dark muzik">
-  Tarkan - Hüp diye icine cek beni <!--Spotify'dan alınacak-->
+<div class="home_bg ortala">
+  <button class="button button-energized kampanya" ng-click="login()" style="margin-right: 55px">
+    Giriş Yap
+  </button>
+<button class="button button-energized kampanya" ng-click="register()">
+ Üye ol
 </button>
 
 
-  </div>
-</div>
-
-<div class="row ">
-
-  <div class="col col-100 ortala beyaz" >
-
-LOGO <!--Eklenecek-->
-
-
-  </div>
-</div>
-
-
-
-
-
-
-<div class="home_bg ortala">
-
-
-
-<!--
-   <ion-list>
-
-   <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
-        {{playlist.title}}
-      </ion-item>
-    </ion-list>
-
-
--->
 
 <div class="row ">
 
@@ -76,11 +61,14 @@ LOGO <!--Eklenecek-->
 </div>
 
 
-<div class="row ">
+<div class="row " id="bilgilendirme">
 
   <div class="col col-100 ortala " >
 
-<p> Kayıt olarak kampanyalardan yararlanabilirsiniz...
+<p> {{quotes[randomQuote].value}}
+  <!--
+    controllers.js de bir dizi oluşturulacak. Benzer cümleler rasgele gelecek.
+  -->
 </p>
 
 
@@ -98,6 +86,7 @@ LOGO <!--Eklenecek-->
 <div class="col {{ playlist.kahve >=4 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png">
 </div>
 </div>
+<!-- Kahve sayısı db'den çekilecek.-->
 
 
 
@@ -110,19 +99,7 @@ LOGO <!--Eklenecek-->
 <div class=" item-text-wrap">
 
 
-<div class="row tiklayer">
-<button class="button button-energized tiklayersekil"  ng-click="barkodModalOpen({{playlist.id}}+1)">
-Tıkla
-</button>
-</div>
 
-
- <div class="row sayi"  >
-  <div class="col {{ playlist.sayi >=1 ? 'yuvarlak':'yuvarlakgri'}}"></div>
-  <div class="col {{ playlist.sayi >=2 ? 'yuvarlak':'yuvarlakgri'}}"></div>
-  <div class="col {{ playlist.sayi >=3 ? 'yuvarlak':'yuvarlakgri'}}"></div>
-  <div class="col {{ playlist.sayi >=4 ? 'yuvarlak':'yuvarlakgri'}}"></div>
-</div>
 
 <img class="full-image urunresim" src="{{playlist.resim}}">
 
