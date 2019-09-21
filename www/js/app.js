@@ -14,9 +14,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     // The reason we default this to hidden is that native apps don't usually show an accessory bar, at
     // least on iOS. It's a dead giveaway that an app is using a Web View. However, it's sometimes
     // useful especially with forms, though we would prefer giving the user a little more room
-    // to interact with the app. Merhaba  muzaffer
-
-
+    // to interact with the app.
     if (window.cordova && window.Keyboard) {
       window.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -26,19 +24,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       // remove the status bar on iOS or change it to use white instead of dark colors.
       StatusBar.styleDefault();
     }
-
-
-var notificationOpenedCallback = function(jsonData) {
-    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-  };
-
-  window.plugins.OneSignal
-    .startInit("81517ab4-2386-4782-a418-d387025b2f7f")
-    .handleNotificationOpened(notificationOpenedCallback)
-    .endInit();
-
-
-
   });
 })
 .config(function($stateProvider, $urlRouterProvider) {
