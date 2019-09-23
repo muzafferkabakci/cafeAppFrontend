@@ -99,26 +99,27 @@ $scope.doForgot = function(){
   console.log($scope.loginData.phoneNumber);
   $scope.sifremiUnuttumKapa();
 }//Uygulamada çalışmıyor
-//////////////////////////////////////////  Register Start       ///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////  Register Başlangıç       ///////////////////////////////////////////////////////////////////////
 
-// Create the register modal that we will use later
+// Register modali oluşturuyoruz
 $ionicModal.fromTemplateUrl('templates/register.html', {
   scope: $scope
 }).then(function(modal) {
   $scope.registerModal = modal;
 });
 
-// Triggered in the register modal to close it
+//Tetiklendiğinde register modalini kapıyor
 $scope.closeRegister = function() {
   $scope.registerModal.hide();
 
 };
 
-// Open the register modal
+// Tetiklendiğinde register modalini açıyor
 $scope.register = function() {
   $scope.loginModal.hide();
   $scope.registerData = {};
   $scope.registerModal.show();
+  $scope.dogrula = 0;
 };
 
 $scope.checkUser = function(){
@@ -128,13 +129,14 @@ $scope.checkUser = function(){
     $scope.user.username = $scope.registerData.username;
     var x=100;//timeout için değişken ataması. DB'deki user sayısına göre değişebilir.
     $scope.postService('usernameKontrol', $scope.user);
-
     $timeout(function(){
       console.log($scope.usernameKontrol);
       if($scope.usernameKontrol==1){
         document.getElementById("username").style.color ="red";
       }else{
         document.getElementById("username").style.color ="white";
+        $scope.dogrula=$scope.dogrula+1;
+        console.log("Check user : "+$scope.dogrula);
       }
       $scope.$apply();
     },x);
@@ -154,6 +156,9 @@ $scope.checkMail = function(){
       document.getElementById("mail").style.color ="red";
     }else{
       document.getElementById("mail").style.color ="white";
+
+      $scope.dogrula=$scope.dogrula+1;
+      console.log("checkMail : "+$scope.dogrula);
     }
     $scope.$apply();
   },x);
@@ -173,6 +178,8 @@ $scope.checkPhone = function(){
       document.getElementById("tel").style.color ="red";
     }else{
       document.getElementById("tel").style.color ="white";
+      $scope.dogrula=$scope.dogrula+1;
+      console.log("checkPhone: "+$scope.dogrula);
     }
     $scope.$apply();
   },x);
@@ -189,14 +196,34 @@ $scope.doRegister = function(){
     phone_number :  $scope.registerData.phone_number,
     company_id : $scope.registerData.company_id
   };
-  $scope.postService('registerBilgi',$scope.registerDataJson)
-    // var de = localStorage.getItem("userInfo");
-    // console.log(de[0]);
+  console.log("Do registerdayız : ",$scope.dogrula)
+  if($scope.dogrula==3){
+    $scope.postService('registerBilgi',$scope.registerDataJson);
+    $timeout(function(){
+      $scope.bildiriModalOpen("Kayıt başarılı",4000)
+    },2000);
     $timeout(function() {
       $scope.closeRegister();
     }, 1000);
+  }else{
+    $timeout(function(){
+      $scope.bildiriModalOpen("Kayıt Başarısız",1000)
+    },2000);
+  }
+    // var de = localStorage.getItem("userInfo");
+    // console.log(de[0]);
+
 }
 //////////////////////////////////////// Register End ////////////////////////////////////////////////////////////
+/**
+ * Kayıt olunduktan sonra ekrana bir modal açılacak.
+ * Eğer kayıt başarılıysa modalin fonksiyonuna ekrana yazılacak yazı , timeout süresi gönderilecek
+ * Kayıt başarılı değil ise ekrana yazılacak yazı, timeout süresi=10000, butona basılınca çalışacak fonksiyonun adı gönderilecek
+ *
+ */
+
+
+
 //////////////////////////////////////// Karekod  /////////////////////////////////
 $ionicModal.fromTemplateUrl('templates/barkod.html', {
   scope: $scope
@@ -227,7 +254,34 @@ $scope.barkodModalClose = function () {
   $scope.barkodModal.hide();
 
 }
+
+$ionicModal.fromTemplateUrl('templates/bildiri.html',{
+  scope:$scope
+}).then(function(modal){
+  $scope.bildiriModal = modal;
+});
+$scope.bildiriModalOpen = function(yazi,sure,fonk){
+  console.log("GİRDİ Mİ ?");
+  $scope.yazi = yazi;//modal sayfasında kullanılacak yazı
+  console.log($scope.yazi);
+  $scope.bildiriModal.show();
+  if(fonk!=null){
+    $scope.gelenFonk = fonk; //fonksiyonun ismini alıyoruz
+
+    $scope.gelenFonk();
+  }
+
+
+  $timeout(function(){
+    $scope.bildiriModalClose();
+  },sure);
+}
+$scope.bildiriModalClose =function(){
+  $scope.bildiriModal.hide();
+
+}
 })
+
 
 .controller('PlaylistsCtrl', function($scope,$rootScope, $http) {
   $scope.playlists = [

@@ -1,8 +1,8 @@
 <ion-modal-view class="home_bg1 ">
   <ion-header-bar class="home_bg1 ">
-
-        <button class="button button-clear button-positive close-button" ng-click="closeRegister()"><ion-icon name="close-circle"></ion-icon></button>
-
+    <button class="button button-clear button-positive close-button" ng-click="closeRegister()">
+      <ion-icon name="close-circle"></ion-icon>
+    </button>
   </ion-header-bar>
 
   <ion-content class="home_bg1 ">
@@ -15,7 +15,7 @@
 
   </div>
 </div>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title></title>
@@ -23,9 +23,9 @@
 <body>
 
 </body>
-</html>
+</html> -->
 
-<form ng-submit="doRegister()">
+<form >
   <div class="list">
 
     <label class="item item-input input home_bg1">
@@ -55,7 +55,7 @@
     <label>
       <button ng-disabled="!registerData.name_user || !registerData.username || !registerData.password_user
       || !registerData.school || !registerData.email_address || !registerData.phone_number
-      " class="button btn submitbutton"  type="submit">Kayıt Ol</button>
+      " class="button btn submitbutton"  type="button" ng-click="doRegister()">Kayıt Ol</button>
     </label>
 
       </div>
