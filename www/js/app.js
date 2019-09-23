@@ -82,6 +82,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
       }
     }
+  })
+  .state('app.profil', {
+    url: '/profil',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/profil.html',
+        controller: 'profilCtrl'
+      }
+    }
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/homepage');

@@ -12,36 +12,21 @@ $scope.dinamikScope= function(name,data){
 
 $scope.serviceLink="http://projeapp.site/cafe/services.php";
 
+$scope.postService = function(scopeName, sentData){
 
-$scope.postService = function(scopeName,veri){
-
-  $http.post($scope.serviceLink, veri)
-  .success(function (data, status) {
-    console.log("Gelen Data"+data);
-    $scope.dinamikScope(scopeName,data);
-
-    // if(scopeName == 'userbilgi'){
-    //   localStorage.setItem("userInfo",data[0]);
-    // }
-
-    //console.log("Gelen Data User:"+$scope.userbilgi[0].name_user);
-
-      //-ac-//console.log("n-10 gonderiliyor ..: " +  JSON.stringify(user));
-      //-ac-//console.log("Token stored, device is successfully subscribed to receive push notifications.");
-
-  })
-  .error(function (data, status) {
-      console.log("Hata Data"+data);
-      //-ac-//console.log("Error storing device token." + data + " " + status)
-        //-ac-//console.log("n-11");
-
-  });
-
+  return $http.post($scope.serviceLink, sentData)
+          .then(function (response) {
+            var data = response.data;
+            console.log("Fetched data: " + data);
+            $scope.dinamikScope(scopeName, data);
+            return response.data;
+          })
+          .catch(function (response) {
+             var errData = response.data;
+             console.log("Error: "+errData);
+             throw response;
+          });
 };
-
-
-
-
   //ileri seviye proje
   // Form data for the login modal
   $scope.loginData = {};
@@ -72,9 +57,16 @@ $scope.postService = function(scopeName,veri){
       password_user : $scope.loginData.password
     };
 
-    $scope.postService('userbilgi',$scope.loginDataJson)
-    // var de = localStorage.getItem("userInfo");
-    // console.log(de[0]);
+    var promise = $scope.postService("userInfo", $scope.loginDataJson);
+
+    promise.then(function(data) {
+        console.log(data);
+        console.log($scope.userInfo[0].name_user);
+        //console.log($scope.userInfo[0]);
+
+        localStorage.setItem('kullaniciBilgi',JSON.stringify($scope.userInfo[0])); //Localden çekilcek diğer sayfalardan
+    });
+
     $timeout(function() {
       $scope.closeLogin();
     }, 1000);
@@ -121,47 +113,38 @@ $scope.register = function() {
   $scope.registerModal.show();
   $scope.dogrula = 0;
 };
+/**var promise = $scope.postService("userInfo", $scope.loginDataJson);
 
+    promise.then(function(data) {
+        console.log(data);
+        console.log($scope.userInfo[0].name_user);
+        //console.log($scope.userInfo[0]);
+
+        localStorage.setItem('kullaniciBilgi',JSON.stringify($scope.userInfo[0])); //Localden çekilcek diğer sayfalardan
+    }); */
 $scope.checkUser = function(){
 
     $scope.user = {};
     $scope.user.service_type = "user_varMi";
     $scope.user.username = $scope.registerData.username;
-    var x=100;//timeout için değişken ataması. DB'deki user sayısına göre değişebilir.
-    $scope.postService('usernameKontrol', $scope.user);
-    $timeout(function(){
-      console.log($scope.usernameKontrol);
-      if($scope.usernameKontrol==1){
-        document.getElementById("username").style.color ="red";
-      }else{
-        document.getElementById("username").style.color ="white";
-        $scope.dogrula=$scope.dogrula+1;
-        console.log("Check user : "+$scope.dogrula);
-      }
-      $scope.$apply();
-    },x);
 
+    var promise = $scope.postService('usernameKontrol', $scope.user);
+    promise.then(function(data){
+      console.log("data : ",data);
+      console.log($scope.usernameKontrol[0]);
+    })
 }
 $scope.checkMail = function(){
 
   $scope.user = {};
   $scope.user.service_type = "mail_varMi";
   $scope.user.email_address = $scope.registerData.email_address;
-  var x=100;//timeout için değişken ataması. DB'deki user sayısına göre değişebilir.
-  $scope.postService('mailKontrol', $scope.user);
 
-  $timeout(function(){
-    console.log($scope.mailKontrol);
-    if($scope.mailKontrol==1){
-      document.getElementById("mail").style.color ="red";
-    }else{
-      document.getElementById("mail").style.color ="white";
-
-      $scope.dogrula=$scope.dogrula+1;
-      console.log("checkMail : "+$scope.dogrula);
-    }
-    $scope.$apply();
-  },x);
+  var promise =$scope.postService('mailKontrol', $scope.user);
+  promise.then(function(data){
+    console.log("data : ",data);
+    console.log($scope.usernameKontrol[0]);
+  })
 
 }
 $scope.checkPhone = function(){
@@ -169,21 +152,16 @@ $scope.checkPhone = function(){
   $scope.user = {};
   $scope.user.service_type = "tel_varMi";
   $scope.user.phone_number = $scope.registerData.phone_number;
-  var x=100;//timeout için değişken ataması. DB'deki user sayısına göre değişebilir.
-  $scope.postService('telKontrol', $scope.user);
 
-  $timeout(function(){
-    console.log($scope.telKontrol);
-    if($scope.telKontrol==1){
-      document.getElementById("tel").style.color ="red";
-    }else{
-      document.getElementById("tel").style.color ="white";
-      $scope.dogrula=$scope.dogrula+1;
-      console.log("checkPhone: "+$scope.dogrula);
+  var promise = $scope.postService('telKontrol', $scope.user);
+
+  promise.then(function(data){
+    //console.log("data : ",data);
+    //console.log($scope.usernameKontrol[0]);
+    if($scope.usernameKontrol[0]==1){
+      console.log("Telefon no var");
     }
-    $scope.$apply();
-  },x);
-
+  })
 }
 $scope.doRegister = function(){
   $scope.registerDataJson = {
@@ -196,24 +174,12 @@ $scope.doRegister = function(){
     phone_number :  $scope.registerData.phone_number,
     company_id : $scope.registerData.company_id
   };
-  console.log("Do registerdayız : ",$scope.dogrula)
-  if($scope.dogrula==3){
     $scope.postService('registerBilgi',$scope.registerDataJson);
-    $timeout(function(){
-      $scope.bildiriModalOpen("Kayıt başarılı",4000)
-    },2000);
-    $timeout(function() {
-      $scope.closeRegister();
-    }, 1000);
-  }else{
-    $timeout(function(){
-      $scope.bildiriModalOpen("Kayıt Başarısız",1000)
-    },2000);
   }
-    // var de = localStorage.getItem("userInfo");
-    // console.log(de[0]);
 
-}
+
+
+
 //////////////////////////////////////// Register End ////////////////////////////////////////////////////////////
 /**
  * Kayıt olunduktan sonra ekrana bir modal açılacak.
@@ -254,6 +220,20 @@ $scope.barkodModalClose = function () {
   $scope.barkodModal.hide();
 
 }
+/**
+ * / Uyarı ekran
+    $rootScope.loadData = function(bilgi,icon) {
+    //console.log('uyarı alanına geldi');
+    $scope.loadingIndicator = $ionicLoading.show({
+            template: ' <p><i class="icon '+icon +' uyari_icon"></i></p> '+bilgi
+        });
+
+    $timeout(function() {
+
+      $ionicLoading.hide();
+    }, 3000);
+  }; //Uyarı
+ */
 
 $ionicModal.fromTemplateUrl('templates/bildiri.html',{
   scope:$scope
@@ -263,7 +243,7 @@ $ionicModal.fromTemplateUrl('templates/bildiri.html',{
 $scope.bildiriModalOpen = function(yazi,sure,fonk){
   console.log("GİRDİ Mİ ?");
   $scope.yazi = yazi;//modal sayfasında kullanılacak yazı
-  console.log($scope.yazi);
+  //console.log($scope.yazi);
   $scope.bildiriModal.show();
   if(fonk!=null){
     $scope.gelenFonk = fonk; //fonksiyonun ismini alıyoruz
@@ -355,6 +335,9 @@ $scope.bildiriModalClose =function(){
   .success(function(data){
     $rootScope.products = data;
   });
+
+})
+.controller ('profilCtrl', function($scope){
 
 })
 ;
