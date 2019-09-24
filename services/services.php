@@ -308,6 +308,21 @@ function get_branches($pdo,$gelen_data){
     echo "0";
   }
 }
+function get_productsKampanyali($pdo,$gelen_data){
+  $branch_id = $gelen_data->branch_id;
+  $stmt = $pdo->prepare("SELECT product.product_id, product.name_product, product.price, product.image, product.stock FROM product WHERE product.branch_id =:branch_id
+  and product.kampanyali=1");
+  $stmt->bindParam(':branch_id', $branch_id, PDO::PARAM_STR);
+	$stmt->execute();
+	$gelenProducts = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+	$json_data=json_encode($gelenProducts,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
+	if($gelenProducts){
+    print $json_data;
+  }else{
+    echo "0";
+  }
+}
+
 
 function get_products($pdo,$gelen_data){
   $branch_id = $gelen_data->branch_id;
