@@ -308,7 +308,7 @@ function get_branches($pdo,$gelen_data){
     echo "0";
   }
 }
-function get_productsKampanyali($pdo,$gelen_data){
+function get_productsKampanyali($pdo,$gelen_data){ //Kampanyali olanları getirecek.
   $branch_id = $gelen_data->branch_id;
   $stmt = $pdo->prepare("SELECT product.product_id, product.name_product, product.price, product.image, product.stock FROM product WHERE product.branch_id =:branch_id
   and product.kampanyali=1");
