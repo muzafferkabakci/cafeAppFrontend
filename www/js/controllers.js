@@ -61,10 +61,9 @@ $scope.postService = function(scopeName, sentData){
 
     promise.then(function(data) {
         console.log(data);
-        console.log($scope.userInfo[0].name_user);
-        //console.log($scope.userInfo[0]);
+        console.log("ROOT SCOPE"+$rootScope.userInfo[0].name_user);
 
-        localStorage.setItem('kullaniciBilgi',JSON.stringify($scope.userInfo[0])); //Localden çekilcek diğer sayfalardan
+        localStorage.setItem('kullaniciBilgi',JSON.stringify($rootScope.userInfo[0])); //Localden çekilcek diğer sayfalardan
     });
 
     $timeout(function() {
@@ -197,12 +196,15 @@ $ionicModal.fromTemplateUrl('templates/barkod.html', {
   $scope.barkodModal = modal;
 });
 $scope.barkodModalOpen = function(barkod){
+  $scope.gelenler = localStorage.getItem('kullaniciBilgi'); //LocalStorage'a attığımız bilgileri String olarak aldık
+  $scope.tmp = angular.fromJson($scope.gelenler);
+
   $scope.bilgi = barkod;
   $scope.barkodModal.show();
-  $scope.degisken = "product_id: "+$scope.bilgi+"/user_id: ";
+  $scope.degisken = "product_id: "+$scope.bilgi+"/user_id: "+$scope.tmp.user_id;
   console.log($scope.degisken);
   $scope.a = new QRCode(document.getElementById("qrcode"), {
-    text: $scope.degisken,
+    text: $scope.degisken+$scope.tmp.user_id,
     width: 200,
     height: 200,
     colorDark : "#000000",
@@ -264,8 +266,23 @@ $scope.bildiriModalClose =function(){
 
 
 .controller('PlaylistsCtrl', function($scope,$rootScope, $http) {
+  $scope.gelenler = localStorage.getItem('kullaniciBilgi'); //LocalStorage'a attığımız bilgileri String olarak aldık
+  $scope.tmp = angular.fromJson($scope.gelenler);//String olan bilgileri JSON objesine dönüştürdük
+  console.log($scope.tmp);
+  $scope.veriAl = {
+    service_type : 'load_home',
+    user_id : $scope.tmp.user_id
+  };
+  var promise =$scope.postService('tuketilenSayilar', $scope.veriAl);
+  promise.then(function(data){
+    console.log("data : ",data);
+    console.log($scope.tuketilenSayilar[0].product_id +" : "+$scope.tuketilenSayilar[0].count%4);
+  })
+
+
+
   $scope.playlists = [
-    { title: 'Elmalı Turta 14tl', resim:'https://i.pinimg.com/originals/e0/da/6e/e0da6e2493abf2817b524a8c1ec423e5.jpg',sayi:'2', id: 1 },
+    { title: 'Elmalı Turta 14tl', resim:'https://i.pinimg.com/originals/e0/da/6e/e0da6e2493abf2817b524a8c1ec423e5.jpg',sayi:'10', id: 1 },
     { title: 'Çikolatalı Pasta',resim:'https://cdn03.ciceksepeti.com/cicek/kc522590-1/XL/cikolatali-cilekli-rulokat-pasta-kc522590-1-1.jpg',sayi:'1', id: 2 },
     { title
       :'Orman Meyveli Pasta',resim:'https://www.livashop.com/Uploads/UrunResimleri/buyuk/orman-meyveli-pasta-b18b.jpg',sayi:'3', id: 3 },
