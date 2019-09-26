@@ -1,39 +1,38 @@
 <ion-modal-view class="home_bg1 ">
   <ion-header-bar class="home_bg1 ">
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
+    <button class="button button-clear button-positive close-button" ng-click="closeLogin()">
+      <ion-icon name="close-circle"></ion-icon>
+    </button>
   </ion-header-bar>
 
   <ion-content class="home_bg1 ">
 
     <div class="row ">
-
-  <div class="col col-100 ortala " >
-
-<img class="unlem" style="width: 200px"src="img/coffee.png">
-
-  </div>
-</div>
-
-<!--Muzaffer Kabakci -->
-
+      <div class="col col-100 ortala " >
+        <img class="unlem" style="width: 200px"src="img/coffee.png">
+      </div>
+    </div>
 
     <form ng-submit="doLogin()">
       <div class="list">
-        <label class=" item-input inputbutton home_bg1" >
-          <span class="input-label beyaz ">Username</span>
-          <input type="text" ng-model="loginData.username">
+        <label class="item item-input input home_bg1">
+          <input style="color: #fff;" type="text" placeholder="Kullanıcı adı" ng-model="loginData.username">
         </label>
-        <label class=" item-input inputbutton  home_bg1">
-          <span class="input-label beyaz">Password</span>
-          <input type="password" ng-model="loginData.password">
+        <label class="item item-input input home_bg1">
+          <input style="color: #fff;" type="text" placeholder="Şifre" ng-model="loginData.password">
         </label>
         <label class="">
-          <button class="button submitbutton"  type="submit">Giriş Yap</button>
+          <button ng-disabled="!loginData.username || !loginData.password" class="button btn submitbutton"  type="submit">Giriş Yap</button>
         </label>
+        <label>
+          <button class="button btn submitbutton" ng-click="register()">Üye Ol!</button>
+        </label>
+
+      </div>
+      <div class="forgot-pass">
+        <a style="color: #fff;" ng-click="sifremiUnuttumAc()">Şifremi Unuttum</a>
       </div>
     </form>
+
   </ion-content>
 </ion-modal-view>

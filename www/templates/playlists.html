@@ -50,7 +50,7 @@ LOGO
 
   <div class="col col-100 ortala " >
 
-<h3 class="beyaz">{{gelenUser.name_user}}</h3>
+<h3 class="beyaz">{{userbilgi[0].name_user}}</h3>
 
 
   </div>
@@ -63,7 +63,7 @@ LOGO
 
   <div class="col col-100 ortala beyaz">
 
-    {{gelenUser.school}}
+    {{userbilgi[0].school}}
 
 
   </div>
@@ -73,20 +73,11 @@ LOGO
 
 <div class="home_bg ortala">
 
-<button class="button button-energized kampanya">
+<button class="button button-energized kampanya" ng-click="barkodModalOpen('1')">
  Kampanya Kodu
 </button>
 
-<!--
-   <ion-list>
 
-   <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
-        {{playlist.title}}
-      </ion-item>
-    </ion-list>
-
-
--->
 
 <div class="row ">
 
@@ -102,7 +93,10 @@ LOGO
 
   <div class="col col-100 ortala " >
 
-<p>Hüseyin merhab,hediye kahven için son bir kahve daha içmen gerekiyor.
+<p> {{userbilgi[0].name_user}} merhaba,hediye kahven için son bir kahve daha içmen gerekiyor.
+  <!--
+    controllers.js de bir dizi oluşturulacak. Benzer cümleler rasgele gelecek.
+  -->
 </p>
 
 
@@ -110,16 +104,14 @@ LOGO
 </div>
 
 
- <div class="row" ng-repeat="playlist in kahveler" >
-<div class="col {{ playlist.kahve >=1 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png">
+
+<div class="row" ng-repeat="playlist in kahveler" >
+    <div class="col {{ playlist.kahve >=1 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
+    <div class="col {{ playlist.kahve >=2 ? 'bardak':'bardaksaydam'}}"><img  src="img/coffeeCup.png"></div>
+    <div class="col {{ playlist.kahve >=3 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
+    <div class="col {{ playlist.kahve >=4 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
 </div>
-<div class="col {{ playlist.kahve >=2 ? 'bardak':'bardaksaydam'}}"><img  src="img/coffeeCup.png">
-</div>
-<div class="col {{ playlist.kahve >=3 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png">
-</div>
-<div class="col {{ playlist.kahve >=4 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png">
-</div>
-</div>
+<!-- Kahve sayısı db'den çekilecek.-->
 
 
 
@@ -128,12 +120,12 @@ LOGO
 
 
 
-<div class="item-body" ng-repeat="playlist in playlists">
+<div class="item-body" ng-repeat="playlist in playlists" >
 <div class=" item-text-wrap">
 
 
 <div class="row tiklayer">
-<button class="button button-energized tiklayersekil">
+<button class="button button-energized tiklayersekil"  ng-click="barkodModalOpen({{playlist.product_id}})">
 Tıkla
 </button>
 </div>
@@ -146,7 +138,7 @@ Tıkla
   <div class="col {{ playlist.sayi >=4 ? 'yuvarlak':'yuvarlakgri'}}"></div>
 </div>
 
-<img class="full-image urunresim" src="{{playlist.resim}}">
+<img class="full-image urunresim" src="{{playlist.image}}">
 
 
 <div class="row fiyatyer">

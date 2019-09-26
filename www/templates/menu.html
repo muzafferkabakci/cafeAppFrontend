@@ -27,20 +27,24 @@
 
     <ion-content class="home_bg1">
       <ion-list >
-        <ion-item menu-close ng-click="login()">
+
+        <ion-item menu-close  ng-click="login()"  > <!--ng-if="false"-->
           Login
         </ion-item>
-        <ion-item menu-close href="#/app/search" >
-         Hakkımızda
+        <ion-item menu-close href="#/app/playlists">
+          Ana Sayfa
         </ion-item>
-        <ion-item menu-close href="#/app/browse">
-          Şubeler
+        <ion-item menu-close  href="#/app/profil" >
+          Profil
         </ion-item>
         <ion-item menu-close href="#/app/search">
           Menü
         </ion-item>
-        <ion-item menu-close href="#/app/playlists">
-          İletişim
+        <ion-item menu-close href="#/app/playlist" >
+         Hakkımızda
+        </ion-item>
+        <ion-item menu-close href="#/app/browse">
+          Şubeler
         </ion-item>
       </ion-list>
 
