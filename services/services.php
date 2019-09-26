@@ -66,6 +66,9 @@ switch($service_type){
     // echo "contact girdi";
     contact($pdo,$gelen_data);
     break;
+  case get_productsKampanyali:
+    get_productsKampanyali($pdo, $gelen_data);
+    break;
 
   //-----KASA İŞLEMLERİ ----//
 
@@ -223,7 +226,8 @@ function forgot_password($pdo,$gelen_data){
 function load_home($pdo,$gelen_data){
   $user_id = $gelen_data->user_id;
   //$product_id = $_GET['product_id'];
-  $stmt = $pdo->prepare('SELECT consumption.product_id, consumption.count FROM consumption WHERE consumption.user_id =:user_id');
+  $stmt = $pdo->prepare('SELECT consumption.product_id, consumption.count FROM consumption, product WHERE
+  product.product_id=consumption.product_id    and consumption.user_id =:user_id');
   //SELECT(JOIN)(Product Name,Product ID,Product Image,Campaign Code ID, (campaign)Product ID)
   //Localstorage -> name_user, school
   $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);

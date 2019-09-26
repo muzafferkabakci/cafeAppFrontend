@@ -104,15 +104,12 @@ LOGO
 </div>
 
 
- <div class="row" ng-repeat="playlist in kahveler" >
-<div class="col {{ playlist.kahve >=1 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png">
-</div>
-<div class="col {{ playlist.kahve >=2 ? 'bardak':'bardaksaydam'}}"><img  src="img/coffeeCup.png">
-</div>
-<div class="col {{ playlist.kahve >=3 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png">
-</div>
-<div class="col {{ playlist.kahve >=4 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png">
-</div>
+
+<div class="row" ng-repeat="playlist in kahveler" >
+    <div class="col {{ playlist.kahve >=1 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
+    <div class="col {{ playlist.kahve >=2 ? 'bardak':'bardaksaydam'}}"><img  src="img/coffeeCup.png"></div>
+    <div class="col {{ playlist.kahve >=3 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
+    <div class="col {{ playlist.kahve >=4 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
 </div>
 <!-- Kahve sayısı db'den çekilecek.-->
 
@@ -128,7 +125,7 @@ LOGO
 
 
 <div class="row tiklayer">
-<button class="button button-energized tiklayersekil"  ng-click="barkodModalOpen({{playlist.id}}+1)">
+<button class="button button-energized tiklayersekil"  ng-click="barkodModalOpen({{playlist.product_id}})">
 Tıkla
 </button>
 </div>
@@ -141,7 +138,7 @@ Tıkla
   <div class="col {{ playlist.sayi >=4 ? 'yuvarlak':'yuvarlakgri'}}"></div>
 </div>
 
-<img class="full-image urunresim" src="{{playlist.resim}}">
+<img class="full-image urunresim" src="{{playlist.image}}">
 
 
 <div class="row fiyatyer">
