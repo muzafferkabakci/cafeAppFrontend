@@ -292,6 +292,7 @@ function buton_click($pdo,$gelen_data){ // gelen_data'nın içinde button diye b
       echo "0";
     }
   }
+}
 
 function contact($pdo,$gelen_data){
   $branch_id = $gelen_data->branch_id;
