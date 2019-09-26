@@ -287,11 +287,12 @@ $scope.bildiriModalClose =function(){
   };
   var promise =$scope.postService('playlists', $scope.playlistD);
   promise.then(function(data){
-    console.log("data : ",data);
+    //console.log("data : ",data);
     localStorage.setItem('kampanyaliUrunler',JSON.stringify($rootScope.playlists));
-    $rootScope.playlists[0].sayi = "2";
-  })
+    console.log($rootScope.playlists[0]);
+    $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler')
 
+  })
 
 
   // $scope.playlists = [
