@@ -330,6 +330,17 @@ $scope.bildiriModalClose =function(){
 
 .controller('SearchCtrl',function($scope, $http){
 
+     $scope.kategoris= [
+  { kategori:'Espresso', id:1  },
+  { kategori:'Demleme', id: 2  },
+  { kategori:'Nitelikli Çekirdekler', id: 3 },
+  { kategori:'Pastane', id: 4 },
+  { kategori:'Tatlılar', id: 5 },
+  { kategori:'Sıcak İçecekler', id: 6 },
+  { kategori:'Soğuk İçecekler', id: 7 }
+  ];
+
+
 
 })
 .controller('homepageCtrl', function($scope, $http, $rootScope){
@@ -356,6 +367,18 @@ $scope.bildiriModalClose =function(){
   $scope.kahveler = [
   { kahve:'2', id: 1 }
   ];
+
+   $scope.kategori = [
+  { kategori:'Espresso', id:1  },
+  { kategori:'Demleme', id: 2  },
+  { kategori:'Nitelikli Çekirdekler', id: 3 },
+  { kategori:'Pastane', id: 4 },
+  { kategori:'Tatlılar', id: 5 },
+  { kategori:'Sıcak İçecekler', id: 6 },
+  { kategori:'Soğuk İçecekler', id: 7 },
+  ];
+
+
 
   $http.get("http://gokhanbirkin.net/services2.php?service_type=get_branches&company_id=1").
   success(function(data){
