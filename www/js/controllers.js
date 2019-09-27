@@ -241,7 +241,7 @@ $scope.barkodModalClose = function () {
           colorLight : "#ffffff",
           correctLevel : QRCode.CorrectLevel.H
         });
-        },100);
+        },50);
  
     }; //$rootScope.showBarcode = function(productId) {
 
