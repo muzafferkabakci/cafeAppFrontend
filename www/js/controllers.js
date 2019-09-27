@@ -288,12 +288,15 @@ $scope.bildiriModalClose =function(){
     // $rootScope.yeniArray = urunler.find(s=> s.product_id==2);
     // $rootScope.yeniArray.sayi = 5;
     // console.log($rootScope.yeniArray);
-    console.log("Ürünlerin miktari", urunler.length);
+    //console.log("Ürünlerin miktari", urunler.length);
     console.log("Uzunluk = ",tuketilmeler.length);
     for(var i = 0; i<tuketilmeler.length; i++){
 
       if(urunler.find(s=> s.product_id == tuketilmeler[i].product_id)){
-          console.log("Ürün adı : ",tuketilmeler[i].product_id,"\nTüketilme sayisi : ",tuketilmeler[i].count);
+        $rootScope.yeniArray = urunler.find(s=> s.product_id ==tuketilmeler[i].product_id);
+        $rootScope.yeniArray.sayi = tuketilmeler[i].count%4;
+
+        console.log("Deneme : ",$rootScope.yeniArray);
       }else{
             console.log("Eşit değil devam");
         }
