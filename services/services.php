@@ -66,6 +66,9 @@ switch($service_type){
     // echo "contact girdi";
     contact($pdo,$gelen_data);
     break;
+  case get_productsKampanyali:
+    get_productsKampanyali($pdo, $gelen_data);
+    break;
 
   //-----KASA İŞLEMLERİ ----//
 
@@ -158,7 +161,7 @@ function login_user($pdo, $gelen_data){
     $username = $gelen_data->username;
     $password_user =$gelen_data->password_user;
 
-    $stmt = $pdo->prepare("SELECT name_user, username,school,email_address,phone_number,company_id
+    $stmt = $pdo->prepare("SELECT name_user, username,school,email_address,phone_number,user_id
     from user where username=:username and password_user=:password_user");
     //Localstorage -> name_user, username,school,email_address,phone_number,company_id
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -219,26 +222,12 @@ function forgot_password($pdo,$gelen_data){
   }
 }
 
-// function if_exist($pdo){
-// 	$fieldName = $_GET['fieldName'];
-// 	$value = $_GET['value'];
-// 	$stmt = $pdo->prepare("SELECT user_id FROM user WHERE ".$fieldName."=:".$value);
-// 	$stmt->bindParam(':'.$value, $value, PDO::PARAM_STR);
-// 	$stmt->execute();
-// 	$gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-// 	$json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-// 	if($gelenuser){
-//     print $json_data;
-//   }else{
-//     echo "0";
-//   }
-// }
-
 //Veritabanından sorgu bekleniyor..
 function load_home($pdo,$gelen_data){
   $user_id = $gelen_data->user_id;
   //$product_id = $_GET['product_id'];
-  $stmt = $pdo->prepare('SELECT consumption.product_id, consumption.count FROM consumption WHERE consumption.user_id =:user_id');
+  $stmt = $pdo->prepare('SELECT consumption.product_id, consumption.count FROM consumption, product WHERE
+  product.product_id=consumption.product_id    and consumption.user_id =:user_id');
   //SELECT(JOIN)(Product Name,Product ID,Product Image,Campaign Code ID, (campaign)Product ID)
   //Localstorage -> name_user, school
   $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
@@ -248,32 +237,64 @@ function load_home($pdo,$gelen_data){
   $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
   $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
   if($gelenuser){
-    return $json_data;
+    echo $json_data;
   }else{
     echo "0";
   }
 }
 
 //front-end'den buton_id gelcek
-function buton_click($pdo){
-  //$buton_id =$_GET['buton_id'];
+function buton_click($pdo,$gelen_data){ // gelen_data'nın içinde button diye bir değişken alıyoruz.
+  $user_id = $gelen_data->user_id;
+  $product_id = $gelen_data->product_id;
+  $free = $gelen_data->free;
 
-  $stmt = $pdo->prepare("SELECT campaign_id,campaign_code  FROM campaign WHERE product_id=1 AND validation !=0 LIMIT 1");
-  // $stmt->bindParam(':buton_id', $buton_id, PDO::PARAM_STR);
-  $stmt->execute();
+  if($free == false){ // bu değişken true geliyorsa bedava kullanım vardır. Tüketim artacak.
+    //Yeni ürün tüketiminde burası çalışır.
+    //Oluşturulan kodda user_id ve product_id olacak
+    //Kasa bu servisi çalıştıracak.
+    $product_exist = if_exist_func_two($pdo,$product_id,"product_id","consumption",$user_id,"user_id");
+    if($product_exist==false){
+        echo "tüketim yok";
+        $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count,totalCount) VALUES ('.$user_id.','.$product_id.', 1,1) ');
+        $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+        $stmt->execute();
 
-  $gelendata = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-  $json_data=json_encode($gelendata,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-  print $gelendata[id];
+    }else{
+        echo "tüketim var";
+        $stmt = $pdo->prepare('UPDATE  consumption SET  consumption.count=consumption.count+1, consumption.totalCount = consumption.totalCount+1
+        WHERE  consumption.user_id =:user_id and consumption.product_id=:product_id');
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+        $stmt->execute();
 
-  //$jsonArray = json_decode($json_data,true);
-  //$key =  $jsonArray[0]['id'];
+      }
+    }
+  // }
+  else{ //true geliyorsa bedava için kod üreteceğiz
+    $product_id = $gelen_data->product_id;
+    $user_id = $gelen_data->user_id;
+    //düzenlenecek (update)
+    $stmt = $pdo->prepare("SELECT campaign_id,campaign_code  FROM campaign
+    WHERE campaign.product_id=:product_id AND  validation !=0 LIMIT 1");
+    $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+    $stmt->execute();
 
+    $gelendata = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+    $json_data=json_encode($gelendata,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
+    //total count ve count düzenlenecek
+    $stmt2 = $pdo->prepare('UPDATE  consumption SET  consumption.count=0 , consumption.totalCount = consumption.totalCount+1
+    WHERE  consumption.user_id =:user_id and consumption.product_id=:product_id');
+    $stmt2->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+    $stmt2->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+    $stmt2->execute();
 
-  if($gelendata){
-    print $json_data;
-  }else{
-    echo "0";
+    if($gelendata){
+      print $json_data;
+    }else{
+      echo "0";
+    }
   }
 }
 
@@ -308,6 +329,21 @@ function get_branches($pdo,$gelen_data){
     echo "0";
   }
 }
+function get_productsKampanyali($pdo,$gelen_data){ //Kampanyali olanları getirecek.
+  $branch_id = $gelen_data->branch_id;
+  $stmt = $pdo->prepare("SELECT product.product_id, product.name_product, product.price, product.image, product.stock FROM product WHERE product.branch_id =:branch_id
+  and product.kampanyali=1");
+  $stmt->bindParam(':branch_id', $branch_id, PDO::PARAM_STR);
+	$stmt->execute();
+	$gelenProducts = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+	$json_data=json_encode($gelenProducts,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
+	if($gelenProducts){
+    print $json_data;
+  }else{
+    echo "0";
+  }
+}
+
 
 function get_products($pdo,$gelen_data){
   $branch_id = $gelen_data->branch_id;
@@ -352,66 +388,66 @@ function if_exist_func_two($pdo,$value,$fieldName,$tableName,$value2,$fieldName2
   return $return_value;
 }
 
-function update_barcode($pdo,$gelen_data){
-  $user_id = $gelen_data->user_id;
-  $product_id = $gelen_data->product_id;
-  $campaign_id = $gelen_data->campaign_id;
-  //$campaign_code = $_GET['campaign_code'];
-  //qrcode_service->oluşturulan_barcode(user_id,product_id,campaign_id,campaign_code)
-  //  $pdo->stmt('UPDATE campaign SET validation=0 WHERE campaign_id=:campaign_id ');
-  $user_exist = if_exist_func($pdo,$user_id,"user_id","consumption");
-  if($user_exist==false){
-    echo "Kullanıcı yok".'</br> --- </br>';
-    $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count) VALUES ('.$user_id.','.$product_id.', 1)');
-    $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
-    $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
-    $stmt->execute();
-    $stmt2 = $pdo->prepare('UPDATE  campaign SET campaign.validation=0, campaign.user_id =:user_id WHERE campaign.campaign_id=:campaign_id ');
-    $stmt2->bindParam(':campaign_id',$campaign_id,PDO::PARAM_STR);
-    $stmt2->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-    $stmt2->execute();
-  }else{
-    $product_exist = if_exist_func_two($pdo,$product_id,"product_id","consumption",$user_id,"user_id");
-    // $stmt3 = $pdo-> prepare('SELECT campaign.validation FROM campaign WHERE  campaign_id =: campaign_id ');
-    // $stmt3->bindParam(':campaign_id',$campaign_id,PDO::PARAM_STR);
-    // $stmt3->execute();
+// function update_barcode($pdo,$gelen_data){
+//   $user_id = $gelen_data->user_id;
+//   $product_id = $gelen_data->product_id;
+//   $campaign_id = $gelen_data->campaign_id;
+//   //$campaign_code = $_GET['campaign_code'];
+//   //qrcode_service->oluşturulan_barcode(user_id,product_id,campaign_id,campaign_code)
+//   //  $pdo->stmt('UPDATE campaign SET validation=0 WHERE campaign_id=:campaign_id ');
+//   $user_exist = if_exist_func($pdo,$user_id,"user_id","consumption");
+//   if($user_exist==false){
+//     //echo "Kullanıcı yok".'</br> --- </br>';
+//     $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count) VALUES ('.$user_id.','.$product_id.', 1)');
+//     $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
+//     $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+//     $stmt->execute();
+//     $stmt2 = $pdo->prepare('UPDATE  campaign SET campaign.validation=0, campaign.user_id =:user_id WHERE campaign.campaign_id=:campaign_id ');
+//     $stmt2->bindParam(':campaign_id',$campaign_id,PDO::PARAM_STR);
+//     $stmt2->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+//     $stmt2->execute();
+//   }else{
+//     $product_exist = if_exist_func_two($pdo,$product_id,"product_id","consumption",$user_id,"user_id");
+//     // $stmt3 = $pdo-> prepare('SELECT campaign.validation FROM campaign WHERE  campaign_id =: campaign_id ');
+//     // $stmt3->bindParam(':campaign_id',$campaign_id,PDO::PARAM_STR);
+//     // $stmt3->execute();
 
-    // $gelendata = $stmt3->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-    // echo $gelendata;
-    // json_encode($gelendata,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-    // print $gelendata[id];
-    // echo '</br> --- </br>';
-    if($product_exist==false){
-      echo "Kullanıcı var ürün yok";
-      $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count) VALUES ('.$user_id.','.$product_id.', 1) ');
-      $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
-      $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
-      $stmt->execute();
+//     // $gelendata = $stmt3->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+//     // echo $gelendata;
+//     // json_encode($gelendata,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
+//     // print $gelendata[id];
+//     // echo '</br> --- </br>';
+//     if($product_exist==false){
+//       echo "Kullanıcı var ürün yok";
+//       $stmt = $pdo->prepare('INSERT INTO consumption (user_id,product_id,count) VALUES ('.$user_id.','.$product_id.', 1) ');
+//       $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
+//       $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+//       $stmt->execute();
 
-    }else{
-        echo "Kullanıcı ve ürün var";
-        $stmt = $pdo->prepare('UPDATE campaign, consumption SET campaign.validation=0, consumption.count=consumption.count+1,
-        campaign.user_id =:user_id WHERE campaign.campaign_id=:campaign_id and consumption.user_id =:user_id and consumption.product_id=:product_id');
-        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-        $stmt->bindParam(':campaign_id', $campaign_id, PDO::PARAM_STR);
-        // $stmt->bindParam(':campaign_code', $campaign_code, PDO::PARAM_STR);
-        $stmt->execute();
-        // UPDATE campaign, consumption SET campaign.validation=0, consumption.count=consumption.count+1,
-        // campaign.user_id =1 WHERE campaign.campaign_id=7 and consumption.user_id =1 and consumption.product_id = 3
-        $count = $stmt->rowCount();
+//     }else{
+//         echo "Kullanıcı ve ürün var";
+//         $stmt = $pdo->prepare('UPDATE campaign, consumption SET campaign.validation=0, consumption.count=consumption.count+1,
+//         campaign.user_id =:user_id WHERE campaign.campaign_id=:campaign_id and consumption.user_id =:user_id and consumption.product_id=:product_id');
+//         $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+//         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+//         $stmt->bindParam(':campaign_id', $campaign_id, PDO::PARAM_STR);
+//         // $stmt->bindParam(':campaign_code', $campaign_code, PDO::PARAM_STR);
+//         $stmt->execute();
+//         // UPDATE campaign, consumption SET campaign.validation=0, consumption.count=consumption.count+1,
+//         // campaign.user_id =1 WHERE campaign.campaign_id=7 and consumption.user_id =1 and consumption.product_id = 3
+//         $count = $stmt->rowCount();
 
-        if($count =='0'){
-            echo "Failed !";
-        }
-        else{
-            echo "Success !";
-        }
-    }
-  }
+//         if($count =='0'){
+//             echo "Failed !";
+//         }
+//         else{
+//             echo "Success !";
+//         }
+//     }
+//   }
 
 
-}
+// }
 
 function depleted_products($pdo,$gelen_data){
   $product_id=$gelen_data->product_id;
