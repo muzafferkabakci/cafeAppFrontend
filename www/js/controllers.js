@@ -268,7 +268,7 @@ $scope.bildiriModalClose =function(){
 .controller('PlaylistsCtrl', function($scope,$rootScope, $http) {
   $scope.gelenler = localStorage.getItem('kullaniciBilgi'); //LocalStorage'a attığımız bilgileri String olarak aldık
   $scope.tmp = angular.fromJson($scope.gelenler);//String olan bilgileri JSON objesine dönüştürdük
-  console.log($scope.tmp);
+  //console.log($scope.tmp);
   $scope.veriAl = {
     service_type : 'load_home',
     user_id : $scope.tmp.user_id
@@ -276,35 +276,49 @@ $scope.bildiriModalClose =function(){
   var promise =$scope.postService('tuketilenSayilar', $scope.veriAl);
   promise.then(function(data){
     console.log("data : ",data);
-    console.log($scope.tuketilenSayilar[0].product_id +" : "+$scope.tuketilenSayilar[0].count%4);
+    //console.log($scope.tuketilenSayilar[0].product_id +" : "+$scope.tuketilenSayilar[0].count%4);
   })
-
-
 
   $scope.playlistD = {
     service_type : 'get_productsKampanyali',
     branch_id : '1'
   };
+
+  function harmanla(urunler, tuketilmeler){
+    // $rootScope.yeniArray = urunler.find(s=> s.product_id==2);
+    // $rootScope.yeniArray.sayi = 5;
+    // console.log($rootScope.yeniArray);
+    console.log("Ürünlerin miktari", urunler.length);
+    console.log("Uzunluk = ",tuketilmeler.length);
+    for(var i = 0; i<tuketilmeler.length; i++){
+
+      if(urunler.find(s=> s.product_id == tuketilmeler[i].product_id)){
+          console.log("Ürün adı : ",tuketilmeler[i].product_id,"\nTüketilme sayisi : ",tuketilmeler[i].count);
+      }else{
+            console.log("Eşit değil devam");
+        }
+
+    }
+  }
+
   var promise =$scope.postService('playlists', $scope.playlistD);
   promise.then(function(data){
-    //console.log("data : ",data);
+    //console.log("2.data : ",data);
+    //Bir fonksiyon tanımlanacak ve fonksiyon playlists'i ve tuketilenSayilar'ı alacak. Bunları product id'leri eşit olanlarla eşitleyip yeni JSON objesi oluşturacak.
+    // $scope.yeniArray = $rootScope.playlists.find(s=> s.product_id==2);
+    // $scope.yeniArray.sayi = 5;
+    // //$rootScope.playlists.find(s=> s.product_id==2) = $scope.yeniArray;
+    // console.log($scope.yeniArray);
+    harmanla($rootScope.playlists, $rootScope.tuketilenSayilar);
+
+
+
     localStorage.setItem('kampanyaliUrunler',JSON.stringify($rootScope.playlists));
-    console.log($rootScope.playlists[0]);
-    $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler')
+    //console.log("JSON'ın ilk elamanı ",$rootScope.playlists[0]);
+    $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler');
+    //console.log($rootScope.playlists.product_id);
 
   })
-
-
-  // $scope.playlists = [
-  //   { title: 'Elmalı Turta 14tl', resim:'https://i.pinimg.com/originals/e0/da/6e/e0da6e2493abf2817b524a8c1ec423e5.jpg',sayi:'10', id: 1 },
-  //   { title: 'Çikolatalı Pasta',resim:'https://cdn03.ciceksepeti.com/cicek/kc522590-1/XL/cikolatali-cilekli-rulokat-pasta-kc522590-1-1.jpg',sayi:'1', id: 2 },
-  //   { title
-  //     :'Orman Meyveli Pasta',resim:'https://www.livashop.com/Uploads/UrunResimleri/buyuk/orman-meyveli-pasta-b18b.jpg',sayi:'3', id: 3 },
-  //   { title:'Köstebek Pasta',resim:'http://i2.hurimg.com/i/hurriyet/75/1500x844/5c05137f0f25441c904134c7.jpg',sayi:'3', id: 4 },
-  //   { title:'Meyveli Pasta',resim:'https://cdn.yemek.com/mnresize/940/940/uploads/2017/02/meyveli-pasta.jpg',sayi:'2', id: 5 },
-  //   {  title:'Elmas Kurabiye',resim:'https://cdn.yemek.com/mncrop/313/280/uploads/2018/12/elmas-kurabiye-yemekcom.jpg',sayi:'1', id: 6 }
-  // ];
-
 
   $scope.kahveler = [
   { kahve:'2', id: 1 }
@@ -325,12 +339,7 @@ $scope.bildiriModalClose =function(){
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('RegisterCtrl', function($scope, $http, $rootScope){
-
-})
-
 .controller('SearchCtrl',function($scope, $http){
-
 
 })
 .controller('homepageCtrl', function($scope, $http, $rootScope){
