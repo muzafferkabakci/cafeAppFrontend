@@ -295,7 +295,6 @@ $scope.bildiriModalClose =function(){
       if(urunler.find(s=> s.product_id == tuketilmeler[i].product_id)){
         $rootScope.yeniArray = urunler.find(s=> s.product_id ==tuketilmeler[i].product_id);
         $rootScope.yeniArray.sayi = tuketilmeler[i].count%4;
-
         console.log("Deneme : ",$rootScope.yeniArray);
       }else{
             console.log("Eşit değil devam");
