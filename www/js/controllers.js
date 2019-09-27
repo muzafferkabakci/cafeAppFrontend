@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($parse,$scope, $ionicModal, $timeout, $http, $rootScope) {
+.controller('AppCtrl', function($parse,$scope, $ionicModal, $timeout, $http, $rootScope, $ionicLoading) {
 
 
 $scope.dinamikScope= function(name,data){
@@ -191,7 +191,7 @@ $scope.doRegister = function(){
 
 
 //////////////////////////////////////// Karekod  /////////////////////////////////
-$ionicModal.fromTemplateUrl('templates/barkod.html', {
+/*$ionicModal.fromTemplateUrl('templates/barkod.html', {
   scope: $scope
 }).then(function(modal) {
   $scope.barkodModal = modal;
@@ -219,21 +219,33 @@ $scope.barkodModalClose = function () {
   document.getElementById("qrcode").innerHTML = "";
   $scope.barkodModal.hide();
 
-}
-/**
- * / Uyarı ekran
-    $rootScope.loadData = function(bilgi,icon) {
+}*/
+
+    $rootScope.showBarcode = function(productId) {
     //console.log('uyarı alanına geldi');
-    $scope.loadingIndicator = $ionicLoading.show({
-            template: ' <p><i class="icon '+icon +' uyari_icon"></i></p> '+bilgi
+      $scope.productId = productId;
+      
+        $ionicLoading.show({
+              templateUrl: 'templates/barkod.html'
         });
+        
+      $timeout(function(){
+        $scope.barcodeText = "product_id: "+$scope.productId+"/user_id: ";
+          $scope.a = new QRCode(document.getElementById("qrcode"), {
+          text: $scope.barcodeText,
+          width: 200,
+          height: 200,
+          colorDark : "#000000",
+          colorLight : "#ffffff",
+          correctLevel : QRCode.CorrectLevel.H
+        });
+        },100);
+ 
+    }; //$rootScope.showBarcode = function(productId) {
 
-    $timeout(function() {
-
-      $ionicLoading.hide();
-    }, 3000);
-  }; //Uyarı
- */
+ $rootScope.hideBarcode = function(){
+   $ionicLoading.hide();
+ }
 
 $ionicModal.fromTemplateUrl('templates/bildiri.html',{
   scope:$scope
