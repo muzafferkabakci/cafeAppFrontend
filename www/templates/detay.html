@@ -1,0 +1,19 @@
+<ion-view view-title="Detay">
+  <ion-content>
+
+   <div class="item-body" ng-repeat="kategori in bilgi.kahveler">
+        <div class=" item-text-wrap">
+          <img class="full-image urunresim" src="{{kategori.image}}">
+          <div class="row fiyatyer">
+            <div class="card fiyatcard">
+              <div class="item item-text-wrap fiyatyazi">
+              {{kategori.adi}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </ion-content>
+</ion-view>

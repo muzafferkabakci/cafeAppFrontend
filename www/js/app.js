@@ -56,6 +56,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
+  .state('app.single', {
+    url: '/detay/:kategoriId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/detay.html',
+        controller: 'SearchCtrl'
+      }
+    }
+  })
+
 
   .state('app.browse', {
       url: '/browse',
