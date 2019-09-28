@@ -323,15 +323,6 @@ $scope.bildiriModalClose =function(){
   { kahve:'2', id: 1 }
   ];
 
-  $http.get("http://gokhanbirkin.net/services2.php?service_type=get_branches&company_id=1").
-  success(function(data){
-    $rootScope.subeler = data;
-  });
-
-  $http.get("http://gokhanbirkin.net/services2.php?service_type=get_products&branch_id=1")
-  .success(function(data){
-    $rootScope.products = data;
-  });
 
 })
 
