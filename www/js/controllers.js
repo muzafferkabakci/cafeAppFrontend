@@ -306,13 +306,8 @@ $scope.bildiriModalClose =function(){
     // //$rootScope.playlists.find(s=> s.product_id==2) = $scope.yeniArray;
     // console.log($scope.yeniArray);
     var playlistUzunluk = $rootScope.playlists.length;
-
     localStorage.setItem('kampanyaliUrunler',JSON.stringify($rootScope.playlists));
     harmanla($rootScope.playlists, $rootScope.tuketilenSayilar, playlistUzunluk, $rootScope.tutketilmeUzunluk);
-
-
-
-
     //console.log("JSON'ın ilk elamanı ",$rootScope.playlists[0]);
     $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler');
     //console.log($rootScope.playlists.product_id);
@@ -320,7 +315,7 @@ $scope.bildiriModalClose =function(){
   })
 
   $scope.kahveler = [
-  { kahve:'2', id: 1 }
+  { kahve:'3', id: 1 }
   ];
 
 
