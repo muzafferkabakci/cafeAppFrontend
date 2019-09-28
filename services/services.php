@@ -207,11 +207,12 @@ function forgot_password($pdo, $gelen_data){
   $content = '<div style="background: #f1445f; padding: 10px; font-size: 20px">Kullanıcı Adınız : '.$username.'<br/>
   Şifreniz : '.$pass.'</div>';
   $mail->MsgHTML($content);
+
   if($mail->Send()) {
-      echo "e-posta başarılı ile gönderildi";
+      echo "1";
   } else {
-      echo "bir sorun var, sorunu ekrana bastıralım".'</br>';
-      echo $mail->ErrorInfo;
+      echo "0";
+      // echo $mail->ErrorInfo;
   }
 
 }

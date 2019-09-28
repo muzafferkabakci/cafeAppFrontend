@@ -97,11 +97,13 @@ $scope.sifremiUnuttumKapa = function() {
 };
 $scope.doForgot = function(){
   console.log($scope.loginData.phoneNumber);
-  $scope.girdilerrr = {
+  $scope.girdilerForgot = {
     service_type : 'forgot_password',
     phone_number : $scope.loginData.phoneNumber
   }
-  var promise =$scope.postService('forgotTel', $scope.girdilerrr);
+  console.log("Promise oncesi");
+  var promise =$scope.postService('forgotTel', $scope.girdilerForgot);
+  console.log("Promise sonrası");
   promise.then(function(data){
     console.log("data : ",data);
 
