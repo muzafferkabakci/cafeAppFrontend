@@ -121,14 +121,14 @@ LOGO
 
 
 <div class="item-body" ng-repeat="playlist in playlists" >
-<div class=" item-text-wrap">
+  <div class=" item-text-wrap">
 
 
-<div class="row tiklayer">
-<button class="button button-energized tiklayersekil"  ng-click="barkodModalOpen({{playlist.product_id}})">
-Tıkla
-</button>
-</div>
+    <div class="row tiklayer">
+      <button class="button button-energized tiklayersekil"  ng-click="barkodModalOpen({{playlist.product_id}})">
+        Tıkla
+      </button>
+    </div>
 
 
  <div class="row sayi"  >
@@ -136,22 +136,18 @@ Tıkla
   <div class="col {{ playlist.sayi >=2 ? 'yuvarlak':'yuvarlakgri'}}"></div>
   <div class="col {{ playlist.sayi >=3 ? 'yuvarlak':'yuvarlakgri'}}"></div>
   <div class="col {{ playlist.sayi >=4 ? 'yuvarlak':'yuvarlakgri'}}"></div>
-</div>
-
-<img class="full-image urunresim" src="{{playlist.image}}">
-
-
-<div class="row fiyatyer">
-  <div class="card fiyatcard">
-  <div class="item item-text-wrap fiyatyazi">
-    {{playlist.title}}
   </div>
-</div>
-</div>
+
+  <img class="full-image urunresim" src="{{playlist.image}}">
 
 
-
-
+  <div class="row fiyatyer">
+    <div class="card fiyatcard">
+      <div class="item item-text-wrap fiyatyazi">
+      {{playlist.name_product}}
+      </div>
+    </div>
+  </div>
   </div>
 </div>
 

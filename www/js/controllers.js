@@ -187,50 +187,14 @@ $scope.doRegister = function(){
  *
  */
 
-
-
-//////////////////////////////////////// Karekod  /////////////////////////////////
-/*$ionicModal.fromTemplateUrl('templates/barkod.html', {
-  scope: $scope
-}).then(function(modal) {
-  $scope.barkodModal = modal;
-});
-$scope.barkodModalOpen = function(barkod){
-  $scope.gelenler = localStorage.getItem('kullaniciBilgi'); //LocalStorage'a attığımız bilgileri String olarak aldık
-  $scope.tmp = angular.fromJson($scope.gelenler);
-
-  $scope.bilgi = barkod;
-  $scope.barkodModal.show();
-  $scope.degisken = "product_id: "+$scope.bilgi+"/user_id: "+$scope.tmp.user_id;
-  console.log($scope.degisken);
-  $scope.a = new QRCode(document.getElementById("qrcode"), {
-    text: $scope.degisken+$scope.tmp.user_id,
-    width: 200,
-    height: 200,
-    colorDark : "#000000",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
-  });
-}
-$scope.tusId = function(degisken2){
-  $scope.tusunId = degisken2;
-  console.log($scope.tusunId);
-}
-$scope.barkodModalClose = function () {
-
-  document.getElementById("qrcode").innerHTML = "";
-  $scope.barkodModal.hide();
-
-}*/
-
     $rootScope.showBarcode = function(productId) {
     //console.log('uyarı alanına geldi');
       $scope.productId = productId;
-      
+
         $ionicLoading.show({
               templateUrl: 'templates/barkod.html'
         });
-        
+
       $timeout(function(){
         $scope.barcodeText = "product_id: "+$scope.productId+"/user_id: ";
           $scope.a = new QRCode(document.getElementById("qrcode"), {
@@ -242,7 +206,7 @@ $scope.barkodModalClose = function () {
           correctLevel : QRCode.CorrectLevel.H
         });
         },50);
- 
+
     }; //$rootScope.showBarcode = function(productId) {
 
  $rootScope.hideBarcode = function(){
@@ -300,17 +264,25 @@ $scope.bildiriModalClose =function(){
     // $rootScope.yeniArray = urunler.find(s=> s.product_id==2);
     // $rootScope.yeniArray.sayi = 5;
     // console.log($rootScope.yeniArray);
-    //console.log("Ürünlerin miktari", urunler.length);
+    console.log("Ürünlerin miktari", urunler.length);
     console.log("Uzunluk = ",tuketilmeler.length);
-    for(var i = 0; i<tuketilmeler.length; i++){
 
-      if(urunler.find(s=> s.product_id == tuketilmeler[i].product_id)){
-        $rootScope.yeniArray = urunler.find(s=> s.product_id ==tuketilmeler[i].product_id);
-        $rootScope.yeniArray.sayi = tuketilmeler[i].count%4;
-        console.log("Deneme : ",$rootScope.yeniArray);
-      }else{
-            console.log("Eşit değil devam");
-        }
+    for(var j=0; j<urunler.length; j++){
+      for(var i = 0; i<tuketilmeler.length; i++){
+        if(urunler.find(s=> s.product_id == tuketilmeler[i].product_id)){
+          $rootScope.yeniArray = urunler.find(s=> s.product_id ==tuketilmeler[i].product_id);
+          if(tuketilmeler[i].count%4 == 0 && tuketilmeler[i].count != 0){
+            $rootScope.yeniArray.sayi = 4;
+          }else{
+            $rootScope.yeniArray.sayi = tuketilmeler[i].count%4;
+          }
+
+          console.log("Deneme : ",i,"\n ",$rootScope.yeniArray);
+        }else{
+              console.log("Eşit değil devam");
+          }
+      }
+
 
     }
   }
