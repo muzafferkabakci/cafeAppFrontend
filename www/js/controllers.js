@@ -214,7 +214,7 @@ $scope.doRegister = function(){
           colorLight : "#ffffff",
           correctLevel : QRCode.CorrectLevel.H
         });
-        },50);
+        },100);
 
     }; //$rootScope.showBarcode = function(productId) {
 
