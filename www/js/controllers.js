@@ -97,6 +97,16 @@ $scope.sifremiUnuttumKapa = function() {
 };
 $scope.doForgot = function(){
   console.log($scope.loginData.phoneNumber);
+  $scope.girdilerrr = {
+    service_type : 'forgot_password',
+    phone_number : $scope.loginData.phoneNumber
+  }
+  var promise =$scope.postService('forgotTel', $scope.girdilerrr);
+  promise.then(function(data){
+    console.log("data : ",data);
+
+  })
+
   $scope.sifremiUnuttumKapa();
 }//Uygulamada çalışmıyor
 //////////////////////////////////////////  Register Başlangıç       ///////////////////////////////////////////////////////////////////////
