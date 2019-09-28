@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($parse,$scope, $ionicModal, $timeout, $http, $rootScope, $ionicLoading) {
+.controller('AppCtrl', function($parse,$scope, $ionicModal, $timeout, $http, $rootScope, $ionicLoading,$state) {
 
 
 $scope.dinamikScope= function(name,data){
@@ -60,10 +60,19 @@ $scope.postService = function(scopeName, sentData){
     var promise = $scope.postService("userInfo", $scope.loginDataJson);
 
     promise.then(function(data) {
-        console.log(data);
-        console.log("ROOT SCOPE"+$rootScope.userInfo[0].name_user);
 
-        localStorage.setItem('kullaniciBilgi',JSON.stringify($rootScope.userInfo[0])); //Localden çekilcek diğer sayfalardan
+        console.log("Ne geliyor ?",data);
+        if($rootScope.userInfo[0].name_user != undefined){
+          console.log("ROOT SCOPE"+$rootScope.userInfo[0].name_user);
+          localStorage.setItem('kullaniciBilgi',JSON.stringify($rootScope.userInfo[0])); //Localden çekilcek diğer sayfalardan
+          //yönlendireceğiz.
+          $state.go('app.playlists');
+
+        }
+        else{
+          console.log("NUll GELDİ")
+        }
+
     });
 
     $timeout(function() {
@@ -252,6 +261,7 @@ $scope.bildiriModalClose =function(){
   var promise =$scope.postService('tuketilenSayilar', $scope.veriAl);
   promise.then(function(data){
     console.log("data : ",data);
+    $rootScope.tutketilmeUzunluk = $rootScope.tuketilenSayilar.length;
     //console.log($scope.tuketilenSayilar[0].product_id +" : "+$scope.tuketilenSayilar[0].count%4);
   })
 
@@ -260,15 +270,15 @@ $scope.bildiriModalClose =function(){
     branch_id : '1'
   };
 
-  function harmanla(urunler, tuketilmeler){
+  function harmanla(urunler, tuketilmeler,playlistUzunluk ,tutketilmeUzunluk){
     // $rootScope.yeniArray = urunler.find(s=> s.product_id==2);
     // $rootScope.yeniArray.sayi = 5;
     // console.log($rootScope.yeniArray);
-    console.log("Ürünlerin miktari", urunler.length);
-    console.log("Uzunluk = ",tuketilmeler.length);
+    console.log("Ürünlerin miktari", playlistUzunluk);
+    console.log("Uzunluk = ",tutketilmeUzunluk);
 
-    for(var j=0; j<urunler.length; j++){
-      for(var i = 0; i<tuketilmeler.length; i++){
+    for(var j=0; j<playlistUzunluk; j++){
+      for(var i = 0; i<tutketilmeUzunluk; i++){
         if(urunler.find(s=> s.product_id == tuketilmeler[i].product_id)){
           $rootScope.yeniArray = urunler.find(s=> s.product_id ==tuketilmeler[i].product_id);
           if(tuketilmeler[i].count%4 == 0 && tuketilmeler[i].count != 0){
@@ -295,11 +305,14 @@ $scope.bildiriModalClose =function(){
     // $scope.yeniArray.sayi = 5;
     // //$rootScope.playlists.find(s=> s.product_id==2) = $scope.yeniArray;
     // console.log($scope.yeniArray);
-    harmanla($rootScope.playlists, $rootScope.tuketilenSayilar);
-
-
+    var playlistUzunluk = $rootScope.playlists.length;
 
     localStorage.setItem('kampanyaliUrunler',JSON.stringify($rootScope.playlists));
+    harmanla($rootScope.playlists, $rootScope.tuketilenSayilar, playlistUzunluk, $rootScope.tutketilmeUzunluk);
+
+
+
+
     //console.log("JSON'ın ilk elamanı ",$rootScope.playlists[0]);
     $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler');
     //console.log($rootScope.playlists.product_id);
@@ -339,29 +352,18 @@ $scope.bildiriModalClose =function(){
   ];
   $scope.randomQuote = Math.floor(Math.random() * $scope.quotes.length);
   console.log($scope.randomQuote);
-  $scope.playlists = [
-    { title: 'Elmalı Turta 14tl', resim:'https://i.pinimg.com/originals/e0/da/6e/e0da6e2493abf2817b524a8c1ec423e5.jpg',sayi:'2', id: 1 },
-    { title: 'Çikolatalı Pasta',resim:'https://cdn03.ciceksepeti.com/cicek/kc522590-1/XL/cikolatali-cilekli-rulokat-pasta-kc522590-1-1.jpg',sayi:'1', id: 2 },
-    { title
-      :'Orman Meyveli Pasta',resim:'https://www.livashop.com/Uploads/UrunResimleri/buyuk/orman-meyveli-pasta-b18b.jpg',sayi:'3', id: 3 },
-    { title:'Köstebek Pasta',resim:'http://i2.hurimg.com/i/hurriyet/75/1500x844/5c05137f0f25441c904134c7.jpg',sayi:'3', id: 4 },
-    { title:'Meyveli Pasta',resim:'https://cdn.yemek.com/mnresize/940/940/uploads/2017/02/meyveli-pasta.jpg',sayi:'2', id: 5 },
-    {  title:'Elmas Kurabiye',resim:'https://cdn.yemek.com/mncrop/313/280/uploads/2018/12/elmas-kurabiye-yemekcom.jpg',sayi:'1', id: 6 }
-  ];
 
-  $scope.kahveler = [
-  { kahve:'2', id: 1 }
-  ];
+  $scope.playlistProduct = {
+    service_type : 'get_products',
+    branch_id : '1'
+  };
 
-  $http.get("http://gokhanbirkin.net/services2.php?service_type=get_branches&company_id=1").
-  success(function(data){
-    $rootScope.subeler = data;
-  });
+  var promise = $scope.postService('urunler', $scope.playlistProduct);
 
-  $http.get("http://gokhanbirkin.net/services2.php?service_type=get_products&branch_id=1")
-  .success(function(data){
-    $rootScope.products = data;
-  });
+  promise.then(function(data) {
+    console.log(data);
+    console.log($rootScope.urunler[0]);
+});
 
 })
 .controller ('profilCtrl', function($scope){
