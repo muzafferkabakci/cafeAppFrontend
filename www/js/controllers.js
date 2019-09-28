@@ -199,6 +199,9 @@ $scope.doRegister = function(){
     company_id : $scope.registerData.company_id
   };
     $scope.postService('registerBilgi',$scope.registerDataJson);
+    $timeout(function(){
+      $scope.closeRegister();
+    },2000)
   }
 
 

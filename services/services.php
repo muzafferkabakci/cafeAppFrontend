@@ -207,7 +207,7 @@ function forgot_password($pdo, $gelen_data){
 
   $mail->Username = 'cafeapp34@gmail.com';
   $mail->Password = 'Gokhan12356.';
-  $mail->SetFrom($mail->Username, 'Cafe App');
+  $mail->SetFrom('asd@asd.asd', 'Cafe App');
   $mail->AddAddress($email_address, $name_user);
   $mail->CharSet = 'UTF-8';
   $mail->Subject = 'E-POSTA KONUSU';
