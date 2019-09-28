@@ -96,11 +96,15 @@ $scope.sifremiUnuttumKapa = function() {
   $scope.forgotModal.hide();
 };
 $scope.doForgot = function(){
-  console.log($scope.loginData.phoneNumber);
-  $scope.girdilerForgot = {
-    service_type : 'forgot_password',
-    phone_number : $scope.loginData.phoneNumber
-  }
+  //console.log($scope.loginData.phoneNumber);
+  // $scope.girdilerForgot = {
+  //   service_type : 'forgot_password',
+  //   phone_number : $scope.loginData.phoneNumber
+  // }
+  $scope.girdilerForgot = {};
+  $scope.girdilerForgot.service_type = "forgot_password";
+  $scope.girdilerForgot.phone_number = $scope.loginData.phoneNumber;
+  console.log($scope.girdilerForgot);
   console.log("Promise oncesi");
   var promise =$scope.postService('forgotTel', $scope.girdilerForgot);
   console.log("Promise sonrası");

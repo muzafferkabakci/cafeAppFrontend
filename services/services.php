@@ -6,6 +6,8 @@
   header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT'); // http://stackoverflow.com/a/7605119/578667
 // header('Access-Control-Max-Age: 86400');
  include("databaseCon.php");
+ include("class.phpmailer.php");
+ include("class.smtp.php");
 
 //   $jsonDeneme ->username ="gkand";
 //   $jsonDeneme ->password_user ="123";
@@ -40,7 +42,7 @@ switch($service_type){
     break;
   case forgot_password:
     // echo "forgot_password girdi".'</br> --- </br>';
-    forgat_password($pdo,$gelen_data);
+    forgot_password($pdo,$gelen_data);
     break;
   case if_exist:
 	  // echo "if_exit girdi".'</br> --- </br>';
@@ -184,6 +186,7 @@ function login_user($pdo, $gelen_data){
 function forgot_password($pdo, $gelen_data){
   //echo "Fonksiyona girdi";
   $phone_number = $gelen_data->phone_number;
+
   $stmt = $pdo->prepare("SELECT name_user,password_user,email_address, username FROM user WHERE phone_number=:phone_number");
   $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
   $stmt->execute();
@@ -192,12 +195,16 @@ function forgot_password($pdo, $gelen_data){
   $email_address = $row['email_address'];
   $username = $row['username'];
   $name_user = $row['name_user'];
+
+
   $mail = new PHPMailer();
   $mail->IsSMTP();
   $mail->SMTPAuth = true;
   $mail->Host = 'smtp.gmail.com';
+
   $mail->Port = 587;
   $mail->SMTPSecure = 'tls';
+
   $mail->Username = 'cafeapp34@gmail.com';
   $mail->Password = 'Gokhan12356.';
   $mail->SetFrom($mail->Username, 'Cafe App');
@@ -207,12 +214,12 @@ function forgot_password($pdo, $gelen_data){
   $content = '<div style="background: #f1445f; padding: 10px; font-size: 20px">Kullanıcı Adınız : '.$username.'<br/>
   Şifreniz : '.$pass.'</div>';
   $mail->MsgHTML($content);
-
+  $mail->Send();
+  echo $gelen_data->phone_number;
   if($mail->Send()) {
-      echo "1";
+     return true;
   } else {
-      echo "0";
-      // echo $mail->ErrorInfo;
+      return false;
   }
 
 }

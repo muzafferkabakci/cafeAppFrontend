@@ -163,19 +163,12 @@ function forgot_password($pdo, $gelen_data){
   $stmt = $pdo->prepare("SELECT name_user,password_user,email_address, username FROM user WHERE phone_number=:phone_number");
   $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
   $stmt->execute();
+
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   $pass = $row['password_user'];
   $email_address = $row['email_address'];
   $username = $row['username'];
   $name_user = $row['name_user'];
-  //echo $pass." / ".$email_address." / ".$username;
-  // $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
-  // $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
-  // if($gelenuser){
-  //   print $json_data;
-  // }else{
-  //   echo "0";
-  // }
   $mail = new PHPMailer();
   $mail->IsSMTP();
   $mail->SMTPAuth = true;
