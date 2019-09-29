@@ -66,7 +66,10 @@ $scope.postService = function(scopeName, sentData){
           console.log("ROOT SCOPE"+$rootScope.userInfo[0].name_user);
           localStorage.setItem('kullaniciBilgi',JSON.stringify($rootScope.userInfo[0])); //Localden çekilcek diğer sayfalardan
           //yönlendireceğiz.
-          $state.go('app.playlists');
+          $timeout(function(){
+            $state.go('app.playlists');
+          },1000);
+
 
         }
         else{
