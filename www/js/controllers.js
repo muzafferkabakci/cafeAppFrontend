@@ -351,7 +351,38 @@ $scope.bildiriModalClose =function(){
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('SearchCtrl',function($scope, $http){
+.controller('SearchCtrl',function($scope,$stateParams){
+
+  $scope.kategoris= [
+
+{ kategori:'Kahveler',kahveler:[
+                       {adi:"Türk Kahvesi",image:"https://iasbh.tmgrup.com.tr/8a416c/752/395/0/163/800/583?u=https://isbh.tmgrup.com.tr/sbh/2018/05/01/turk-kahvesinin-faydalari-nelerdir-turk-kahvesi-nasil-yapilir-1525160577297.jpg",kahveId:'1'},
+                       {adi:"Filtre Kahve",image:"http://www.damakdiyari.com.tr/content/images/thumbs/0000839_filtre-kahve.jpeg",kahveId:'2'}
+],
+id:0},
+
+{ kategori:'Espresso',kahveler:[
+                      {adi:"Türk Kahvesi",kahveId:'1'},
+                      {adi:"Filtre Kahve",kahveId:'2'}
+], id:1},
+{ kategori:'Demleme', id: 2  },
+{ kategori:'Nitelikli Çekirdekler', id: 3 },
+{ kategori:'Pastane', id: 4 },
+{ kategori:'Tatlılar', id: 5 },
+{ kategori:'Sıcak İçecekler', id: 6 },
+{ kategori:'Soğuk İçecekler', id: 7 }
+
+
+];
+
+console.log("Merhaba gelen ID: "+ $stateParams.kategoriId);
+  if($stateParams.kategoriId){
+ console.log("Kategori bilgileri :" + $scope.kategoris[$stateParams.kategoriId].adi);
+
+$scope.bilgi = $scope.kategoris[$stateParams.kategoriId];
+}
+
+
 
 })
 .controller('homepageCtrl', function($scope, $http, $rootScope){

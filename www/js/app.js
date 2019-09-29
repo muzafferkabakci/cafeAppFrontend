@@ -45,6 +45,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+  .state('app.kategori', {
+    url: '/kategori',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/kategori.html',
+        controller: 'SearchCtrl'
+      }
+    }
+  })
 
   .state('app.browse', {
       url: '/browse',
