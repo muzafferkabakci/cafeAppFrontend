@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($parse,$scope, $ionicModal, $timeout, $http, $rootScope, $ionicLoading,$state) {
+.controller('AppCtrl', function($parse,$scope, $ionicModal, $timeout, $http, $rootScope, $ionicLoading,$state,$ionicHistory) {
 
 
 $scope.dinamikScope= function(name,data){
@@ -67,6 +67,10 @@ $scope.postService = function(scopeName, sentData){
           localStorage.setItem('kullaniciBilgi',JSON.stringify($rootScope.userInfo[0])); //Localden çekilcek diğer sayfalardan
           //yönlendireceğiz.
           $timeout(function(){
+
+            $ionicHistory.nextViewOptions({
+              disableBack: true
+            });
             $state.go('app.playlists');
           },1000);
 
