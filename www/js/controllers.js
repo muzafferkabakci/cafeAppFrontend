@@ -225,13 +225,14 @@ $scope.doRegister = function(){
     $rootScope.showBarcode = function(productId) {
     //console.log('uyarı alanına geldi');
       $scope.productId = productId;
-
         $ionicLoading.show({
               templateUrl: 'templates/barkod.html'
         });
+      $scope.gelenler = localStorage.getItem('kullaniciBilgi'); //LocalStorage'a attığımız bilgileri String olarak aldık
+      $scope.tmp = angular.fromJson($scope.gelenler);
 
       $timeout(function(){
-        $scope.barcodeText = "product_id: "+$scope.productId+"/user_id: ";
+        $scope.barcodeText = "product_id: "+$scope.productId+"/user_id: "+$scope.tmp.user_id;
           $scope.a = new QRCode(document.getElementById("qrcode"), {
           text: $scope.barcodeText,
           width: 200,
@@ -240,6 +241,7 @@ $scope.doRegister = function(){
           colorLight : "#ffffff",
           correctLevel : QRCode.CorrectLevel.H
         });
+        console.log($scope.barcodeText);
         },100);
 
     }; //$rootScope.showBarcode = function(productId) {
