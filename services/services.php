@@ -215,7 +215,7 @@ function forgot_password($pdo, $gelen_data){
   Şifreniz : '.$pass.'</div>';
   $mail->MsgHTML($content);
   $mail->Send();
-  echo $gelen_data->phone_number;
+  //echo $gelen_data->phone_number;
   if($mail->Send()) {
      return true;
   } else {
