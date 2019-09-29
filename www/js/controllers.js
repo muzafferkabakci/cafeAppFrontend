@@ -204,7 +204,15 @@ $scope.doRegister = function(){
     phone_number :  $scope.registerData.phone_number,
     company_id : $scope.registerData.company_id
   };
+  $scope.mailOnay = {
+    service_type : 'mail_onay',
+    email_address : $scope.registerData.email_address
+  }
+  if($scope.postService('mailOnay', $scope.mailOnay)){
     $scope.postService('registerBilgi',$scope.registerDataJson);
+  }
+
+
     $timeout(function(){
       $scope.closeRegister();
     },2000)

@@ -71,6 +71,9 @@ switch($service_type){
   case get_productsKampanyali:
     get_productsKampanyali($pdo, $gelen_data);
     break;
+  case mail_onay:
+    mail_onay($gelen_data);
+    break;
 
   //-----KASA İŞLEMLERİ ----//
 
@@ -470,4 +473,33 @@ function qrcode_generator($pdo){
 
 }
 
+function mail_onay( $gelen_data){
+
+  $email_address = $gelen_data->email_address;
+
+  $mail = new PHPMailer();
+  $mail->IsSMTP();
+  $mail->SMTPAuth = true;
+  $mail->Host = 'smtp.gmail.com';
+
+  $mail->Port = 587;
+  $mail->SMTPSecure = 'tls';
+
+  $mail->Username = 'cafeapp34@gmail.com';
+  $mail->Password = 'Gokhan12356.';
+  $mail->SetFrom('asd@asd.asd', 'Cafe App');
+  $mail->AddAddress($email_address );
+  $mail->CharSet = 'UTF-8';
+  $mail->Subject = 'E-POSTA KONUSU';
+  $content = '<div style="background: #f1445f; padding: 10px; font-size: 20px">Kullanıcı Adınız : <br/>
+  Şifreniz : </div>';
+  $mail->MsgHTML($content);
+  $mail->Send();
+  //echo $gelen_data->phone_number;
+  if($mail->Send()) {
+     return true;
+  } else {
+      return false;
+  }
+}
 ?>
