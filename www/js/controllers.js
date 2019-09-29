@@ -27,7 +27,6 @@ $scope.postService = function(scopeName, sentData){
              throw response;
           });
 };
-  //ileri seviye proje
   // Form data for the login modal
   $scope.loginData = {};
 
