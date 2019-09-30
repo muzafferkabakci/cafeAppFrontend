@@ -156,7 +156,12 @@ function tel_varMi($pdo,$gelen_data){
 
 	$stmt = $pdo->prepare("SELECT * FROM user WHERE phone_number=:phone_number");
 	$stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
-	$stmt->execute();
+  $stmt->execute();
+  if($stmt->rowCount() == 0){
+    return false;
+  }else{
+    return true;
+  }
 	echo $stmt->rowCount();
 }
 
