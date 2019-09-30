@@ -217,8 +217,8 @@ function forgot_password($pdo, $gelen_data){
   $content = '<div style="background: #f1445f; padding: 10px; font-size: 20px">Kullanıcı Adınız : '.$username.'<br/>
   Şifreniz : '.$pass.'</div>';
   $mail->MsgHTML($content);
-  $mail->Send();
-  //echo $gelen_data->phone_number;
+
+
   if($mail->Send()) {
      return true;
   } else {
@@ -476,12 +476,11 @@ function qrcode_generator($pdo){
 function mail_onay( $gelen_data){
 
   $email_address = $gelen_data->email_address;
-
   $mail = new PHPMailer();
   $mail->IsSMTP();
   $mail->SMTPAuth = true;
   $mail->Host = 'smtp.gmail.com';
-
+  $site = "http://projeapp.site/cafe/onayMail.php?mail=".$email_address;
   $mail->Port = 587;
   $mail->SMTPSecure = 'tls';
 
@@ -490,11 +489,14 @@ function mail_onay( $gelen_data){
   $mail->SetFrom('asd@asd.asd', 'Cafe App');
   $mail->AddAddress($email_address );
   $mail->CharSet = 'UTF-8';
-  $mail->Subject = 'E-POSTA KONUSU';
-  $content = '<div style="background: #f1445f; padding: 10px; font-size: 20px">Kullanıcı Adınız : <br/>
-  Şifreniz : </div>';
+  $mail->Subject = 'E-POSTA KONUSU';//soru işaretinden sonrasını yazmıyor
+  $content = '<div style="background: #f1445f; padding: 10px; font-size: 20px">
+  Kullanıcı Adınız : Ne ki ?<br/>
+  Şifreniz :
+    <a href="'.$site.'">Hesabınızı onaylamak için tıklayınız.</a>
+  </div>';
   $mail->MsgHTML($content);
-  $mail->Send();
+
   //echo $gelen_data->phone_number;
   if($mail->Send()) {
      return true;

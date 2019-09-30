@@ -9,14 +9,11 @@
  include("class.phpmailer.php");
  include("class.smtp.php");
 
-//   $jsonDeneme ->username ="gkand";
-//   $jsonDeneme ->password_user ="123";
-//  $jsonDeneme ->service_type ="login_user";
-//$gelen_json = json_encode($jsonDeneme);
-
-$gelen_json = file_get_contents("php://input");
-$gelen_data = json_decode($gelen_json);
-$service_type = $gelen_data->service_type;
+ echo "Hesabınız Onaylanmıştır";
+  $email_address = $_GET['mail'];
+  $stmt = $pdo->prepare("UPDATE user SET onaylanmisHesap=1 WHERE email_address=:email_address");
+  $stmt->bindParam(':email_address', $email_address, PDO::PARAM_STR);
+  $stmt->execute();
 
 
 ?>

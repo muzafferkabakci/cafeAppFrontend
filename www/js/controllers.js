@@ -208,7 +208,8 @@ $scope.doRegister = function(){
     service_type : 'mail_onay',
     email_address : $scope.registerData.email_address
   }
-  if($scope.postService('mailOnay', $scope.mailOnay)){
+  if($scope.postService('mailOnayli', $scope.mailOnay)){
+    console.log("Kayıt yapıldı.")
     $scope.postService('registerBilgi',$scope.registerDataJson);
   }
 
