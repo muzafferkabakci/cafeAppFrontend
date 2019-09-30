@@ -17,7 +17,7 @@ $scope.postService = function(scopeName, sentData){
   return $http.post($scope.serviceLink, sentData)
           .then(function (response) {
             var data = response.data;
-            console.log("Fetched data: " + data);
+            //console.log("Fetched data: " + data);
             $scope.dinamikScope(scopeName, data);
             return response.data;
           })
@@ -152,6 +152,9 @@ $scope.register = function() {
 
         localStorage.setItem('kullaniciBilgi',JSON.stringify($scope.userInfo[0])); //Localden çekilcek diğer sayfalardan
     }); */
+$scope.yokUser =false;
+$scope.yokMail =false;
+$scope.yokTel =false;
 $scope.checkUser = function(){
 
     $scope.user = {};
@@ -160,8 +163,13 @@ $scope.checkUser = function(){
 
     var promise = $scope.postService('usernameKontrol', $scope.user);
     promise.then(function(data){
-      console.log("data : ",data);
-      console.log($scope.usernameKontrol[0]);
+      console.log("User varMi ? data : ",data);
+      if(data==1){
+        console.log("Username  var");
+        $scope.yokUser = false;
+      }else{
+        $scope.yokUser = true;
+      }
     })
 }
 $scope.checkMail = function(){
@@ -172,8 +180,13 @@ $scope.checkMail = function(){
 
   var promise =$scope.postService('mailKontrol', $scope.user);
   promise.then(function(data){
-    console.log("data : ",data);
-    console.log($scope.usernameKontrol[0]);
+    console.log("Mail varMi ? data : ",data);
+    if(data==1){
+      console.log("Mail  var");
+      $scope.yokMail = false;
+    }else{
+      $scope.yokMail = true;
+    }
   })
 
 }
@@ -186,10 +199,13 @@ $scope.checkPhone = function(){
   var promise = $scope.postService('telKontrol', $scope.user);
 
   promise.then(function(data){
-    //console.log("data : ",data);
-    //console.log($scope.usernameKontrol[0]);
-    if($scope.usernameKontrol[0]==1){
+    console.log("Tel no varMi? data : ",data);
+
+    if(data==1){
       console.log("Telefon no var");
+      $scope.yokTel = false;
+    }else{
+      $scope.yokTel = true;
     }
   })
 }
@@ -210,7 +226,10 @@ $scope.doRegister = function(){
   }
   if($scope.postService('mailOnayli', $scope.mailOnay)){
     console.log("Kayıt yapıldı.")
-    $scope.postService('registerBilgi',$scope.registerDataJson);
+    if($scope.yokTel && $scope.yokMail && $scope.yokUser){
+      $scope.postService('registerBilgi',$scope.registerDataJson);
+    }
+
   }
 
 
