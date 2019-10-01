@@ -225,8 +225,9 @@ $scope.doRegister = function(){
     email_address : $scope.registerData.email_address
   }
   if($scope.postService('mailOnayli', $scope.mailOnay)){
-    console.log("Kayıt yapıldı.")
+
     if($scope.yokTel && $scope.yokMail && $scope.yokUser){
+      console.log("Kayıt yapıldı.")
       $scope.postService('registerBilgi',$scope.registerDataJson);
       $timeout(function(){
         $scope.closeRegister();
