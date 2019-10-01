@@ -228,14 +228,18 @@ $scope.doRegister = function(){
     console.log("Kayıt yapıldı.")
     if($scope.yokTel && $scope.yokMail && $scope.yokUser){
       $scope.postService('registerBilgi',$scope.registerDataJson);
+      $timeout(function(){
+        $scope.closeRegister();
+      },2000)
+    }
+    else{
+      console.log("Aynı şeylerden var :D")
     }
 
   }
 
 
-    $timeout(function(){
-      $scope.closeRegister();
-    },2000)
+
   }
 
 
