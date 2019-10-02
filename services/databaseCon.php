@@ -13,11 +13,11 @@
   $data = 'app_db';
   $service_type = $_GET['service_type'];
   //echo $service_type;
-
+// echo "deneme";
   try {
       $pdo = new PDO('mysql:host='.$host.';dbname='.$data.';charset=utf8', $user, $pass);
-     // print '</br> --- </br>'."Sunucuya bağlanıldı..".'</br> --- </br>';
-     //print "Bağlandı ".'</br>';
+     //print '</br> --- </br>'."Sunucuya bağlanıldı..".'</br> --- </br>';
+
   } catch (PDOException $e) {
       print "Error!: " . $e->getMessage();
   }
