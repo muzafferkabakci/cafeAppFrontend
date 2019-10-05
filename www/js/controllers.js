@@ -76,7 +76,7 @@ $scope.postService = function(scopeName, sentData){
 
         }
         else{
-          console.log("NUll GELDİ")
+          console.log("NUll GELDİ");
         }
 
     });
@@ -94,7 +94,7 @@ $ionicModal.fromTemplateUrl('templates/forgot.html', { //Sifremi unuttum sayfas�
 $scope.sifremiUnuttumAc = function(){ // burda o sayfayı açıyoruz
   console.log('deneme');
   $scope.forgotModal.show(); // Burda ekranda gösteriyoruz fakat kapatma olayını yazmadın aşağıdaki ile aynı
-}// bir tane kapatma butonu ekleyeceksin oluşturduğun sayfaya sonra sifremiUnuttumKapa diye fonksiyon yazacaksın
+};// bir tane kapatma butonu ekleyeceksin oluşturduğun sayfaya sonra sifremiUnuttumKapa diye fonksiyon yazacaksın
 // $scope.forgotModal.hide() çalıştıracaksın eğer o butona tıklanırsa diye
 
 // Triggered in the login modal to close it
@@ -117,10 +117,10 @@ $scope.doForgot = function(){
   promise.then(function(data){
     console.log("data : ",data);
 
-  })
+  });
 
   $scope.sifremiUnuttumKapa();
-}//Uygulamada çalışmıyor
+};//Uygulamada çalışmıyor
 //////////////////////////////////////////  Register Başlangıç       ///////////////////////////////////////////////////////////////////////
 
 // Register modali oluşturuyoruz
@@ -162,8 +162,8 @@ $scope.checkUser = function(){
     promise.then(function(data){
       console.log("data : ",data);
       console.log($scope.usernameKontrol[0]);
-    })
-}
+    });
+};
 $scope.checkMail = function(){
 
   $scope.user = {};
@@ -174,9 +174,9 @@ $scope.checkMail = function(){
   promise.then(function(data){
     console.log("data : ",data);
     console.log($scope.usernameKontrol[0]);
-  })
+  });
 
-}
+};
 $scope.checkPhone = function(){
 
   $scope.user = {};
@@ -191,8 +191,8 @@ $scope.checkPhone = function(){
     if($scope.usernameKontrol[0]==1){
       console.log("Telefon no var");
     }
-  })
-}
+  });
+};
 $scope.doRegister = function(){
   $scope.registerDataJson = {
     service_type : 'register_user',
@@ -207,8 +207,8 @@ $scope.doRegister = function(){
     $scope.postService('registerBilgi',$scope.registerDataJson);
     $timeout(function(){
       $scope.closeRegister();
-    },2000)
-  }
+    },2000);
+  };
 
 
 
@@ -247,7 +247,7 @@ $scope.doRegister = function(){
 
  $rootScope.hideBarcode = function(){
    $ionicLoading.hide();
- }
+ };
 
 $ionicModal.fromTemplateUrl('templates/bildiri.html',{
   scope:$scope
@@ -269,7 +269,7 @@ $scope.bildiriModalOpen = function(yazi,sure,fonk){
   $timeout(function(){
     $scope.bildiriModalClose();
   },sure);
-}
+};
 $scope.bildiriModalClose =function(){
   $scope.bildiriModal.hide();
 
@@ -290,7 +290,7 @@ $scope.bildiriModalClose =function(){
     console.log("data : ",data);
     $rootScope.tutketilmeUzunluk = $rootScope.tuketilenSayilar.length;
     //console.log($scope.tuketilenSayilar[0].product_id +" : "+$scope.tuketilenSayilar[0].count%4);
-  })
+  });
 
   $scope.playlistD = {
     service_type : 'get_productsKampanyali',
@@ -339,7 +339,7 @@ $scope.bildiriModalClose =function(){
     $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler');
     //console.log($rootScope.playlists.product_id);
 
-  })
+  });
 
   $scope.kahveler = [
   { kahve:'3', id: 1 }
@@ -376,6 +376,7 @@ $scope.bildiriModalClose =function(){
   promise.then(function(data) {
     console.log(data);
     console.log($rootScope.urunler[0]);
+    $scope.products = $rootScope.urunler[0];
 });
 
 })
