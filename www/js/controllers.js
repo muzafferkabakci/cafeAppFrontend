@@ -367,6 +367,7 @@ $scope.bildiriModalClose =function(){
     // console.log($scope.yeniArray);
     var playlistUzunluk = $rootScope.playlists.length;
     localStorage.setItem('kampanyaliUrunler',JSON.stringify($rootScope.playlists));
+    console.log($rootScope.playlists);
     harmanla($rootScope.playlists, $rootScope.tuketilenSayilar, playlistUzunluk, $rootScope.tutketilmeUzunluk);
     //console.log("JSON'ın ilk elamanı ",$rootScope.playlists[0]);
     $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler');
