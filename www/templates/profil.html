@@ -1,29 +1,15 @@
-<ion-view view-title="ŞUBELERİMİZ">
-    <ion-content>
-
-  <div class=" item-body" ng-repeat="sube in subeler">
-
-       <div class="row">
-    <div class="col subecol">
-      <div class="card subecard">
-    <div class="item item-text-wrap item-energized subeitem">
-    {{sube.location}}
-    </div>
-  </div>
-    </div>
-
-
-    <div class="col yolcol">
-      <button class="button button-assertive yolbutton">
-   Yol Tarifi
-  </button>
-    </div>
+<ion-view>
+  <ion-content>
+    <div class="container">
+      <div class="profile-image-container">
+        <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="profile picture" class="profile-image">
       </div>
+      <div class="profile-content">
+        <h2 class="user-name">{{ user.name_user }}</h2>
+        <p>Bahçeşehir Üniversitesi</p>
+        <button class="button button-energized log-out-button">Çıkış Yap</button>
+      </div>
+    </div>
 
-    <img class="full-image suberesim" src="{{sube.image}}">
-
-  </div>
-
-
-    </ion-content>
-  </ion-view>
+  </ion-content>
+</ion-view>
