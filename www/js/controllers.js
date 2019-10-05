@@ -394,5 +394,19 @@ $scope.bildiriModalClose =function(){
 .controller ('profilCtrl', function($scope){
 
 })
+.controller('SubeCtrl',function($scope,$rootScope){
+  $scope.subeScope = {
+    service_type : 'get_branches',
+    company_id : '1'
+  };
+
+  var promise = $scope.postService('subeler', $scope.subeScope);
+
+  promise.then(function(data) {
+    console.log(data);
+
+
+})
+})
 ;
 

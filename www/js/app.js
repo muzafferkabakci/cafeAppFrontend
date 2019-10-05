@@ -71,7 +71,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       views: {
         'menuContent': {
           templateUrl: 'templates/subeler.html',
-          controller: 'PlaylistsCtrl'
+          controller: 'SubeCtrl'
         }
       }
     })
