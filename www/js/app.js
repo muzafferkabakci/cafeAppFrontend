@@ -58,11 +58,11 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.subeler', {
+      url: '/subeler',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html',
+          templateUrl: 'templates/subeler.html',
           controller: 'PlaylistsCtrl'
         }
       }
