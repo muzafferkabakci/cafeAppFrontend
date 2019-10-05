@@ -7,7 +7,7 @@
 angular.module('starter', ['ionic', 'starter.controllers'])
 
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, ) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs).
@@ -26,18 +26,26 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
     var notificationOpenedCallback = function(jsonData) {
     console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-  };
+    };
 
   window.plugins.OneSignal
-    .startInit("f39cb1d6-1efe-4cec-8182-702656da6cd5")
     .handleNotificationOpened(notificationOpenedCallback)
     .endInit();
   });
 
-
-
-
 })
+/** $ionicPlatform.ready(function() {
+    // Enable to debug issues.
+  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+
+  var notificationOpenedCallback = function(jsonData) {
+    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+  };
+
+  window.plugins.OneSignal
+    .startInit("YOUR_APPID")
+    .handleNotificationOpened(notificationOpenedCallback)
+    .endInit(); */
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
