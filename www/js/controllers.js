@@ -17,7 +17,7 @@ $scope.postService = function(scopeName, sentData){
   return $http.post($scope.serviceLink, sentData)
           .then(function (response) {
             var data = response.data;
-            //console.log("Fetched data: " + data);
+            console.log("Fetched data: " + data);
             $scope.dinamikScope(scopeName, data);
             return response.data;
           })
@@ -331,9 +331,10 @@ $scope.bildiriModalClose =function(){
   };
 
   function harmanla(urunler, tuketilmeler,playlistUzunluk ,tutketilmeUzunluk){
+
     // $rootScope.yeniArray = urunler.find(s=> s.product_id==2);
     // $rootScope.yeniArray.sayi = 5;
-    // console.log($rootScope.yeniArray);
+    //console.log($rootScope.yeniArray);
     console.log("Ürünlerin miktari", playlistUzunluk);
     console.log("Uzunluk = ",tutketilmeUzunluk);
 
@@ -352,8 +353,6 @@ $scope.bildiriModalClose =function(){
               console.log("Eşit değil devam");
           }
       }
-
-
     }
   }
 
@@ -366,8 +365,11 @@ $scope.bildiriModalClose =function(){
     // //$rootScope.playlists.find(s=> s.product_id==2) = $scope.yeniArray;
     // console.log($scope.yeniArray);
     var playlistUzunluk = $rootScope.playlists.length;
+    console.log("Playlist ne geldi ?",$rootScope.playlists);
+    //console.log("De")
     localStorage.setItem('kampanyaliUrunler',JSON.stringify($rootScope.playlists));
-    console.log($rootScope.playlists);
+    console.log(playlistUzunluk);
+
     harmanla($rootScope.playlists, $rootScope.tuketilenSayilar, playlistUzunluk, $rootScope.tutketilmeUzunluk);
     //console.log("JSON'ın ilk elamanı ",$rootScope.playlists[0]);
     $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler');

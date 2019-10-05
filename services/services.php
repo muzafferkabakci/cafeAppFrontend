@@ -336,9 +336,9 @@ function get_branches($pdo,$gelen_data){
 }
 function get_productsKampanyali($pdo,$gelen_data){ //Kampanyali olanları getirecek.
   $branch_id = $gelen_data->branch_id;
-  $stmt = $pdo->prepare("SELECT products.product_id, products.name_product, products.price, products.image, products.stock FROM products
-   WHERE products.branch_id =:branch_id
-  and products.kampanyali=1");
+  $stmt = $pdo->prepare("SELECT product.product_id, product.name_product, product.price, product.image FROM product
+   WHERE product.branch_id =:branch_id
+  and product.kampanyali=1");
   $stmt->bindParam(':branch_id', $branch_id, PDO::PARAM_STR);
 	$stmt->execute();
 	$gelenProducts = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
@@ -353,8 +353,8 @@ function get_productsKampanyali($pdo,$gelen_data){ //Kampanyali olanları getire
 
 function get_products($pdo,$gelen_data){
   $branch_id = $gelen_data->branch_id;
-  $stmt = $pdo->prepare("SELECT products.product_id, products.name_product, products.price, products.image
-  FROM products WHERE products.branch_id =:branch_id");
+  $stmt = $pdo->prepare("SELECT product.product_id, product.name_product, product.price, product.image
+  FROM product WHERE product.branch_id =:branch_id");
   $stmt->bindParam(':branch_id', $branch_id, PDO::PARAM_STR);
 	$stmt->execute();
 	$gelenProducts = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
