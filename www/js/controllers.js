@@ -348,11 +348,22 @@ $scope.bildiriModalClose =function(){
 
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('PlaylistCtrl', function($scope, $stateParams, $rootScope) {
 })
 
-.controller('SearchCtrl',function($scope, $http){
+.controller('SearchCtrl',function($scope, $http,$rootScope){
+  $scope.playlistProduct = {
+    service_type : 'get_products',
+    branch_id : '1'
+  };
 
+  var promise = $scope.postService('urunler', $scope.playlistProduct);
+
+  promise.then(function(data) {
+    console.log(data);
+    console.log($rootScope.urunler[0]);
+    $scope.products = $rootScope.urunler[0];
+});
 })
 .controller('homepageCtrl', function($scope, $http, $rootScope){
   $scope.quotes = [
