@@ -272,7 +272,10 @@ angular.module('starter.controllers', [])
   })
 
 
-  .controller('PlaylistsCtrl', function ($scope, $rootScope, $http) {
+  .controller('PlaylistsCtrl', function ($scope, $rootScope, $state, $http) {
+    if(localStorage.getItem('kulaniciBilgi') === null){
+      $state.go('app.homepage');
+    }
     $scope.gelenler = localStorage.getItem('kullaniciBilgi'); //LocalStorage'a attığımız bilgileri String olarak aldık
     $scope.tmp = angular.fromJson($scope.gelenler);//String olan bilgileri JSON objesine dönüştürdük
     //console.log($scope.tmp);
@@ -386,11 +389,17 @@ angular.module('starter.controllers', [])
     });
 
   })
-  .controller('profilCtrl', function ($scope, $state) {
+  .controller('profilCtrl', function ($scope, $state, $timeout) {
     $scope.user = JSON.parse(localStorage.getItem('kullaniciBilgi'));
     if ($scope.user === null){
       $state.go('app.playlists');
     }
+    $scope.doLogout = function(){
+      localStorage.clear();
+      $timeout(function(){
+        $state.go('app.playlists');
+      }, 1000);
+    };
   })
   .controller('SubeCtrl', function ($scope, $rootScope) {
     $scope.subeScope = {
