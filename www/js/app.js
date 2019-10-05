@@ -24,7 +24,19 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       // remove the status bar on iOS or change it to use white instead of dark colors.
       StatusBar.styleDefault();
     }
+    var notificationOpenedCallback = function(jsonData) {
+    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+  };
+
+  window.plugins.OneSignal
+    .startInit("f39cb1d6-1efe-4cec-8182-702656da6cd5")
+    .handleNotificationOpened(notificationOpenedCallback)
+    .endInit();
   });
+
+
+
+
 })
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
