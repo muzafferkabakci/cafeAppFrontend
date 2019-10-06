@@ -53,16 +53,16 @@
           </p>
         </div>
       </div>
-      <div class="row" ng-repeat="playlist in kahveler">
-        <div class="col {{ playlist.kahve >=1 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
-        <div class="col {{ playlist.kahve >=2 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
-        <div class="col {{ playlist.kahve >=3 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
-        <div class="col {{ playlist.kahve >=4 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
+      <div class="row" ng-repeat="playlist in playlists" ng-if="$index == 0">
+        <div class="col {{ playlist.sayi >=1 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
+        <div class="col {{ playlist.sayi >=2 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
+        <div class="col {{ playlist.sayi >=3 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
+        <div class="col {{ playlist.sayi >=4 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
       </div>
 
       <!-- Kahve sayısı db'den çekilecek.-->
 
-      <div class="item-body" ng-repeat="playlist in playlists">
+      <div class="item-body" ng-repeat="playlist in playlists " ng-if="$index > 0">
         <div class=" item-text-wrap">
           <div class="row tiklayer">
             <button class="button button-energized tiklayersekil" ng-click="showBarcode({{playlist.product_id}})">
