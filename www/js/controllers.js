@@ -201,7 +201,13 @@ angular.module('starter.controllers', [])
         phone_number: $scope.registerData.phone_number,
         company_id: $scope.registerData.company_id
       };
+      $scope.kayitMail = {
+        service_type : 'kayitMail',
+        email_address : $scope.registerData.email_address
+      }
+      $scope.postService('onayMail',$scope.kayitMail);
       $scope.postService('registerBilgi', $scope.registerDataJson);
+
       $timeout(function () {
         $scope.closeRegister();
       }, 2000);
