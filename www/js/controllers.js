@@ -273,7 +273,8 @@ angular.module('starter.controllers', [])
 
 
   .controller('PlaylistsCtrl', function ($scope, $rootScope, $state, $http) {
-    if(localStorage.getItem('kulaniciBilgi') === null){
+
+    if(localStorage.getItem('kulaniciBilgi') != null){ //Mantık yanlış gibi :D Ama böyle çalışıyor :D
       $state.go('app.homepage');
     }
     $scope.gelenler = localStorage.getItem('kullaniciBilgi'); //LocalStorage'a attığımız bilgileri String olarak aldık
@@ -389,15 +390,19 @@ angular.module('starter.controllers', [])
     });
 
   })
-  .controller('profilCtrl', function ($scope, $state, $timeout) {
+  .controller('profilCtrl', function ($scope, $state, $timeout,$ionicHistory) {
     $scope.user = JSON.parse(localStorage.getItem('kullaniciBilgi'));
     if ($scope.user === null){
       $state.go('app.playlists');
     }
     $scope.doLogout = function(){
       localStorage.clear();
-      $timeout(function(){
-        $state.go('app.playlists');
+      $timeout(function () {
+
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
+        $state.go('app.homepage');
       }, 1000);
     };
   })
