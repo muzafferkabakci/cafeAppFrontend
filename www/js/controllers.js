@@ -291,10 +291,7 @@ angular.module('starter.controllers', [])
       //console.log($scope.tuketilenSayilar[0].product_id +" : "+$scope.tuketilenSayilar[0].count%4);
     });
 
-    $scope.playlistD = {
-      service_type: 'get_productsKampanyali',
-      branch_id: '1'
-    };
+
 
     function harmanla(urunler, tuketilmeler, playlistUzunluk, tutketilmeUzunluk) {
       // $rootScope.yeniArray = urunler.find(s=> s.product_id==2);
@@ -323,6 +320,11 @@ angular.module('starter.controllers', [])
       }
     }
 
+    $scope.playlistD = {
+      service_type: 'get_productsKampanyali',
+      branch_id: '1'
+    };
+
     var promise = $scope.postService('playlists', $scope.playlistD);
     promise.then(function (data) {
       //console.log("2.data : ",data);
@@ -333,9 +335,12 @@ angular.module('starter.controllers', [])
       // console.log($scope.yeniArray);
       var playlistUzunluk = $rootScope.playlists.length;
       localStorage.setItem('kampanyaliUrunler', JSON.stringify($rootScope.playlists));
+      $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler');
+      console.log("Kampanyali ürünler",$scope.gelenSayilar);
       harmanla($rootScope.playlists, $rootScope.tuketilenSayilar, playlistUzunluk, $rootScope.tutketilmeUzunluk);
       //console.log("JSON'ın ilk elamanı ",$rootScope.playlists[0]);
-      $scope.gelenSayilar = localStorage.getItem('kampanyaliUrunler');
+
+
       //console.log($rootScope.playlists.product_id);
 
     });
