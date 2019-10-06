@@ -390,8 +390,22 @@ angular.module('starter.controllers', [])
     });
 
   })
-  .controller('profilCtrl', function ($scope, $state, $timeout,$ionicHistory) {
+  .controller('profilCtrl', function ($scope, $state, $timeout,$ionicHistory,$rootScope) {
     $scope.user = JSON.parse(localStorage.getItem('kullaniciBilgi'));
+    //urundenKactane
+    console.log("Kullanıcı Bilgileri : ",$scope.user.username);
+
+    $scope.urunSayisi = {
+      service_type: 'urundenKactane',
+      user_id: $scope.user.user_id
+    };
+    var promise = $scope.postService('urunler', $scope.urunSayisi);
+
+    promise.then(function (data) {
+      console.log(data);
+      console.log($rootScope.urunler[0]);
+
+    });
     if ($scope.user === null){
       $state.go('app.playlists');
     }

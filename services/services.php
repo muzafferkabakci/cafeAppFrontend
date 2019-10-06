@@ -71,6 +71,9 @@ switch($service_type){
   case get_productsKampanyali:
     get_productsKampanyali($pdo, $gelen_data);
     break;
+  case urundenKactane:
+  urundenKactane($pdo,$gelen_data);
+  break;
 
   //-----KASA İŞLEMLERİ ----//
 
@@ -163,7 +166,7 @@ function login_user($pdo, $gelen_data){
     $username = $gelen_data->username;
     $password_user =$gelen_data->password_user;
 
-    $stmt = $pdo->prepare("SELECT name_user, username,school,email_address,phone_number,user_id
+    $stmt = $pdo->prepare("SELECT user_id,name_user, username,school,email_address,phone_number,user_id
     from user where username=:username and password_user=:password_user");
     //Localstorage -> name_user, username,school,email_address,phone_number,company_id
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -223,6 +226,23 @@ function forgot_password($pdo, $gelen_data){
   }
 
 }
+function urundenKactane($pdo,$gelen_data){
+  $user_id = $gelen_data->user_id;
+
+  $stmt = $pdo->prepare('SELECT consumption.product_id, consumption.count,product.name_product FROM consumption, product WHERE
+  product.product_id=consumption.product_id    and consumption.user_id =:user_id');
+  $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+  $stmt->execute();
+
+  $gelenuser = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
+  $json_data=json_encode($gelenuser,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
+  if($gelenuser){
+    echo $json_data;
+  }else{
+    echo "0";
+  }
+}
+
 
 //Veritabanından sorgu bekleniyor..
 function load_home($pdo,$gelen_data){

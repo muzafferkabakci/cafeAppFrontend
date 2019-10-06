@@ -6,9 +6,13 @@
       </div>
       <div class="profile-content">
         <h2 class="user-name">{{ user.name_user }}</h2>
-        <p>Bahçeşehir Üniversitesi</p>
+        <p>{{user.school}}</p>
+        <div ng-repeat="urun in urunler">
+          {{urun.name_product}} toplam {{urun.count}} adet tüketildi.
+        </div>
         <button class="button button-energized log-out-button" ng-click="doLogout()">Çıkış Yap</button>
       </div>
+
     </div>
   </ion-content>
 </ion-view>
