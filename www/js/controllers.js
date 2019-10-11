@@ -3,9 +3,10 @@ angular.module('starter.controllers', [])
   .controller('AppCtrl', function ($parse, $scope, $ionicModal, $timeout, $http, $rootScope, $ionicLoading, $state, $ionicHistory) {
 
 
-    $scope.dinamikScope = function (name, data) {
-      var modelScope = $parse(name);
+    $scope.dinamikScope = function (name, data) { //2 parametre alıyor
+      var modelScope = $parse(name); // name ismi parse ediliyor.
       modelScope.assign($rootScope, data);
+
     };
 
     $scope.serviceLink = "http://projeapp.site/cafe/services.php";
@@ -25,53 +26,36 @@ angular.module('starter.controllers', [])
           throw response;
         });
     };
-    // Form data for the login modal
     $scope.loginData = {};
-
-    // Create the login modal that we will use later
     $ionicModal.fromTemplateUrl('templates/login.html', {
       scope: $scope
     }).then(function (modal) {
       $scope.loginModal = modal;
     });
-
-    // Triggered in the login modal to close it
     $scope.closeLogin = function () {
       $scope.loginModal.hide();
     };
-
-    // Open the login modal
     $scope.login = function () {
       $scope.loginModal.show();
     };
-
-    // Perform the login action when the user submits the login form
     $scope.doLogin = function () {
-
       $scope.loginDataJson = {
         service_type: 'login_user',
         username: $scope.loginData.username,
-        password_user: $scope.loginData.password
-      };
-
+        password_user: $scope.loginData.password};
       var promise = $scope.postService("userInfo", $scope.loginDataJson);
-
       promise.then(function (data) {
-
         console.log("Ne geliyor ?", data);
         if ($rootScope.userInfo[0].name_user !== undefined) {
           console.log("ROOT SCOPE" + $rootScope.userInfo[0].name_user);
-          localStorage.setItem('kullaniciBilgi', JSON.stringify($rootScope.userInfo[0])); //Localden çekilcek diğer sayfalardan
-          //yönlendireceğiz.
+          localStorage.setItem('kullaniciBilgi', JSON.stringify($rootScope.userInfo[0]));
+          //Localden çekilcek diğer sayfalardan yönlendireceğiz.
           $timeout(function () {
-
             $ionicHistory.nextViewOptions({
               disableBack: true
             });
             $state.go('app.playlists');
           }, 1000);
-
-
         } else {
           console.log("NUll GELDİ");
         }
@@ -140,48 +124,34 @@ angular.module('starter.controllers', [])
       $scope.registerModal.show();
       $scope.dogrula = 0;
     };
-    /**var promise = $scope.postService("userInfo", $scope.loginDataJson);
-
-     promise.then(function(data) {
-        console.log(data);
-        console.log($scope.userInfo[0].name_user);
-        //console.log($scope.userInfo[0]);
-
-        localStorage.setItem('kullaniciBilgi',JSON.stringify($scope.userInfo[0])); //Localden çekilcek diğer sayfalardan
-    }); */
     $scope.checkUser = function () {
-
       $scope.user = {};
       $scope.user.service_type = "user_varMi";
       $scope.user.username = $scope.registerData.username;
-
       var promise = $scope.postService('usernameKontrol', $scope.user);
       promise.then(function (data) {
-        console.log("data : ", data);
         console.log($scope.usernameKontrol[0]);
+        if($scope.usernameKontrol[0] =! 0 ){
+          $scope.dogrula++;
+          console.log("Doğrulama : ",$scope.dogrula);
+        }
       });
     };
     $scope.checkMail = function () {
-
       $scope.user = {};
       $scope.user.service_type = "mail_varMi";
       $scope.user.email_address = $scope.registerData.email_address;
-
       var promise = $scope.postService('mailKontrol', $scope.user);
       promise.then(function (data) {
         console.log("data : ", data);
         console.log($scope.usernameKontrol[0]);
       });
-
     };
     $scope.checkPhone = function () {
-
       $scope.user = {};
       $scope.user.service_type = "tel_varMi";
       $scope.user.phone_number = $scope.registerData.phone_number;
-
       var promise = $scope.postService('telKontrol', $scope.user);
-
       promise.then(function (data) {
         //console.log("data : ",data);
         //console.log($scope.usernameKontrol[0]);

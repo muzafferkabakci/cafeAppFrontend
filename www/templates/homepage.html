@@ -1,35 +1,9 @@
 <ion-view view-title="">
   <ion-content class="home_bg1">
     <div class="home_bg1">
-      <div class="row">
-        <div class="col col-100 ortala">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <rect class="eq-bar eq-bar--1" x="4" y="4" width="3.7" height="8"/>
-            <rect class="eq-bar eq-bar--2" x="10.2" y="4" width="3.7" height="16"/>
-            <rect class="eq-bar eq-bar--3" x="16.3" y="4" width="3.7" height="11"/>
-          </svg>
-        </div>
-      </div>
       <div class="row ">
-        <div class="col col-100 ortala">
-          <button class="button button-dark muzik">
-            Spotify sağladığı hazır servisden çekilecek
-          </button>
-        </div>
-      </div>
-      <div class="row ">
-        <div class="col col-100 ortala " >
-          <img class="unlem" style="width: 200px"src="img/logo.png">
-        </div>
-      </div>
-      <div class="row ">
-        <div class="col col-100 ortala ">
-          <h3 class="beyaz">{{userbilgi[0].name_user}}</h3>
-        </div>
-      </div>
-      <div class="row " style="padding-bottom: 86px;">
-        <div class="col col-100 ortala beyaz">
-          {{userbilgi[0].school}}
+        <div class="col col-100 ortala " style="margin-bottom: 50px; ">
+          <img class="unlem" style="width: 300px"src="img/logo.png">
         </div>
       </div>
     </div>
@@ -48,19 +22,9 @@
       <div class="row " id="bilgilendirme">
         <div class="col col-100 ortala ">
           <p> {{quotes[randomQuote].value}}
-            <!--
-              controllers.js de bir dizi oluşturulacak. Benzer cümleler rasgele gelecek.
-            -->
           </p>
         </div>
       </div>
-      <div class="row" ng-repeat="playlist in kahveler">
-        <div class="col {{ playlist.kahve >=1 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
-        <div class="col {{ playlist.kahve >=2 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
-        <div class="col {{ playlist.kahve >=3 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
-        <div class="col {{ playlist.kahve >=4 ? 'bardak':'bardaksaydam'}}"><img src="img/coffeeCup.png"></div>
-      </div>
-
       <div class="item-body" ng-repeat="urun in urunler">
         <div class="item-text-wrap">
           <img class="full-image urunresim" src="{{urun.image}}">
