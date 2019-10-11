@@ -623,8 +623,9 @@ function forgot_password($pdo, $gelen_data){
   </body>
   </html>';
   $mail->MsgHTML($content);
-  $mail->Send();
-  //echo $gelen_data->phone_number;
+
+  //content kısmında yazılan veri mail olarak gönderiliyor
+
   if($mail->Send()) {
      return true;
   } else {
@@ -676,7 +677,6 @@ function buton_click($pdo,$gelen_data){ // gelen_data'nın içinde button diye b
   $user_id = $gelen_data->user_id;
   $product_id = $gelen_data->product_id;
   $free = $gelen_data->free;
-
   if($free == false){ // bu değişken true geliyorsa bedava kullanım vardır. Tüketim artacak.
     //Yeni ürün tüketiminde burası çalışır.
     //Oluşturulan kodda user_id ve product_id olacak
@@ -688,7 +688,6 @@ function buton_click($pdo,$gelen_data){ // gelen_data'nın içinde button diye b
         $stmt->bindParam(':user_id',$user_id,PDO::PARAM_STR);
         $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
         $stmt->execute();
-
     }else{
         echo "tüketim var";
         $stmt = $pdo->prepare('UPDATE  consumption SET  consumption.count=consumption.count+1, consumption.totalCount = consumption.totalCount+1
@@ -696,7 +695,6 @@ function buton_click($pdo,$gelen_data){ // gelen_data'nın içinde button diye b
         $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
         $stmt->execute();
-
       }
     }
   // }
@@ -708,16 +706,15 @@ function buton_click($pdo,$gelen_data){ // gelen_data'nın içinde button diye b
     WHERE campaign.product_id=:product_id AND  validation !=0 LIMIT 1");
     $stmt->bindParam(':product_id', $product_id, PDO::PARAM_STR);
     $stmt->execute();
-
     $gelendata = $stmt->fetchAll(PDO::FETCH_ASSOC); //tüm gelenleri atıyor
     $json_data=json_encode($gelendata,JSON_UNESCAPED_UNICODE); //json'a döüştürüyor
     //total count ve count düzenlenecek
-    $stmt2 = $pdo->prepare('UPDATE  consumption SET  consumption.count=0 , consumption.totalCount = consumption.totalCount+1
+    $stmt2 = $pdo->prepare('UPDATE  consumption SET  consumption.count=0 , 
+    consumption.totalCount = consumption.totalCount+1
     WHERE  consumption.user_id =:user_id and consumption.product_id=:product_id');
     $stmt2->bindParam(':product_id', $product_id, PDO::PARAM_STR);
     $stmt2->bindParam(':user_id', $user_id, PDO::PARAM_STR);
     $stmt2->execute();
-
     if($gelendata){
       print $json_data;
     }else{
