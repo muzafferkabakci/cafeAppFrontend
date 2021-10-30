@@ -13,7 +13,7 @@ $scope.dinamikScope= function(name,data){
 $scope.serviceLink="http://projeapp.site/cafe/services.php";
 
 $scope.postService = function(scopeName,veri){
-     
+
       $http.post($scope.serviceLink, veri)
             .success(function (data, status) {
               console.log("Gelen Data"+data);
@@ -53,7 +53,24 @@ $scope.postService = function(scopeName,veri){
     $scope.modal = modal;
   });
 
+  $ionicModal.fromTemplateUrl('templates/forgot.html', { //Sifremi unuttum sayfasını oluştruman gerek
+    scope: $scope
+  }).then(function(model) {
+    $scope.model = model; // modal yerine model yazdım istediğini yazabilirsin :D
+  });
+  $scope.sifremiUnuttumAc = function(){ // burda o sayfayı açıyoruz
+    console.log('deneme');
+    $scope.model.show(); // Burda ekranda gösteriyoruz fakat kapatma olayını yazmadın aşağıdaki ile aynı
+  }// bir tane kapatma butonu ekleyeceksin oluşturduğun sayfaya sonra sifremiUnuttumKapa diye fonksiyon yazacaksın
+  // $scope.model.hide() çalıştıracaksın eğer o butona tıklanırsa diye
+
   // Triggered in the login modal to close it
+ $scope.sifremiUnuttumKapa = function() {
+    $scope.model.hide();
+  };
+//bir modal sayfası daha yapılabilir. Ve orda şu mail adresine gönderildi yada yanlış mail adresi girildi
+//bir de kapatma tuşu konması gerekiyor modal'ae
+
   $scope.closeLogin = function() {
     $scope.modal.hide();
   };
@@ -66,28 +83,19 @@ $scope.postService = function(scopeName,veri){
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
 
-$scope.loginData.service_type="login_user";
+  $scope.loginData.service_type="login_user";
 
-$scope.postService('userbilgi',$scope.loginData);
+  $scope.postService('userbilgi',$scope.loginData);
 
-/*
-
-    $http.post("http://gokhanbirkin.net/services2.php?service_type=login_user&username="+$scope.loginData.username+"&password_user="+$scope.loginData.password)
-    .success(function(data){
-      $rootScope.gelenUser = data[0];
-      console.log(data);
-
-    })
-*/
-    console.log("LoginData : "+$scope.loginData.username);
-    console.log("PasswordData : "+$scope.loginData.password);
+  console.log("LoginData : "+$scope.loginData.username);
+  console.log("PasswordData : "+$scope.loginData.password);
 
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
-    $timeout(function() {
+  $timeout(function() {
       $scope.closeLogin();
-    }, 1000);
+  }, 1000);
   };
 })
 

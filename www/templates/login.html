@@ -22,7 +22,7 @@
 
     <form ng-submit="doLogin()">
       <div class="list">
- 
+
 
     <label class="item item-input inputbutton home_bg1">
     <input type="text" placeholder="username yaz" ng-model="loginData.username">
@@ -37,7 +37,17 @@
         <label class="">
           <button ng-disabled="!loginData.username || !loginData.password_user" class="button submitbutton"  type="submit">Giriş Yap</button>
         </label>
+
+
+        <div class="ortala">
+          <button class="button button-clear button-stable" ng-click="sifremiUnuttumAc()">
+            <u>Şifremi Unuttum</u>
+          </button>
+        </div>
+
       </div>
+
     </form>
+
   </ion-content>
 </ion-modal-view>
